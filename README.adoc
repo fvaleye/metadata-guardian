@@ -1,0 +1,7 @@
+= MetadataGuardian
+
+image:https://github.com/fvaleye/MetadataGuardian/workflows/build/badge.svg[Build Status,link=https://github.com/fvaleye/MetadataGuardian/actions]
+
+image::logo.png[Metadata Guardian logo]
+
+MetadataGuardian is used to protect data by searching the source metadata.

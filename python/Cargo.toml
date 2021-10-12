@@ -1,0 +1,24 @@
+[package]
+name = "metadata_guardian-python"
+version = "0.0.2"
+authors = ["Florian Valeye <florian.valeye@gmail.com>"]
+homepage = ""
+license = "Apache-2.0"
+description = "Data Guardian Python binding"
+edition = "2018"
+keywords = ["data", "guardian"]
+
+[lib]
+name = "metadata_guardian"
+crate-type = ["cdylib"]
+
+[dependencies]
+env_logger = "0"
+
+[dependencies.pyo3]
+version = "0.14"
+features = ["extension-module", "abi3", "abi3-py36"]
+
+[dependencies.metadata_guardian]
+path = "../rust"
+version = "0"
