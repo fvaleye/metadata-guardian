@@ -1,0 +1,82 @@
+[build-system]
+requires = ["maturin==0.11.4"]
+build-backend = "maturin"
+
+[project]
+name = "metadata_guardian"
+author = "Florian Valeye"
+author_email="fvaleye@github.com"
+description = "MetadataGuardian is used to protect data by searching the source metadata."
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.6"
+keywords = ["pii", "inclusion", "biais", "metadata_dataguardian", "metadata", "guardian"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3 :: Only"
+]
+dependencies = [
+    "rich",
+    "loguru",
+    'dataclasses;python_version<="3.6"',
+]
+
+[project.optional-dependencies]
+all = ["avro", "snowflake-connector-python", "pyarrow", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery"]
+snowflake = [ "snowflake-connector-python" ]
+avro = [ "avro" ]
+parquet = [ "pyarrow" ]
+orc = [ "pyarrow" ]
+aws = [ "boto3", "boto3-stubs[athena,glue]" ]
+gcp = [ "google-cloud-bigquery"]
+deltalake = [ "deltalake" ]
+devel = [
+    "mypy",
+    "black",
+    "isort",
+    "pytest",
+    "pytest-mock",
+    "pytest-cov",
+    "pytest-xdist",
+    "pytest-clarity",
+    "sphinx",
+    "pydata-sphinx-theme",
+    "toml"
+]
+
+[project.urls]
+documentation = "https://fvaleye.github.io/metadata-guardian/python/"
+repository = "https://github.com/fvaleye/metadata-guardian"
+
+[tool.mypy]
+files = "metadata_guardian/*.py"
+exclude = "venv,^tests"
+mypy_path = "./stubs"
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = false
+implicit_reexport = true
+strict_equality = true
+
+[tool.isort]
+profile = "black"
+src_paths = ["metadata_guardian", "tests"]
+
+[tool.black]
+include = '\.pyi?$'
+exclude = "venv"
+
+[tool.pytest.ini_options]
+addopts = "--cov=metadata_guardian -v"
+testpaths = [
+    "tests",
+]

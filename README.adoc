@@ -1,0 +1,45 @@
+image::logo.png[Metadata Guardian logo]
+image:https://github.com/fvaleye/metadata-guardian/workflows/python-build/badge.svg[Build Status,link=https://github.com/fvaleye/metadata-guardian/actions]
+image:https://img.shields.io/badge/docs-python-blue.svg?style=flat-square[Docs,link=https://fvaleye.github.io/metadata-guardian/python]
+image:https://img.shields.io/pypi/v/metadata_guardian.svg?style=flat-square)[Pypi, link=https://pypi.org/project/metadata-guardian/]
+
+== Overview
+Metadata Guardian is a Python package that provides an easy way to protect your data source by searching in its metadata.
+By searching with regex and data rules, it will detect what you are looking to protect.
+Using Rust, it makes blazing fast multi-regex matching.
+
+== Data Sources
+
+=== Local
+- Parquet
+- ORC
+- AVRO
+- AVRO Schema
+- Arrow
+
+=== External
+- AWS: Athena and Glue
+- Deltalake
+- GCP: BigQuery
+- Snowflake
+
+== Data Rules
+The available data rules are: *https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/inclusion_rules.yaml[INCLUSION]*. But it aims to be extended with custom data rules that could serve multiple purposes (_for example: detect data that may contain IA biais, detect credentials...).
+
+== Where to get it
+
+```sh
+# Install everything
+pip install metadata_guardian[all]
+```
+
+```sh
+# Install with one data source
+pip install metadata_guardian[snowflake,avro,parquet,orc,aws,gcp,deltalake]
+```
+
+== Licence
+https://raw.githubusercontent.com/fvaleye/metadata-guardian/main/LICENSE.txt[Apache License 2.0]
+
+== Documentation
+The documentation is hosted here: https://fvaleye.github.io/metadata-guardian/python/

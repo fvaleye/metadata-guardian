@@ -1,0 +1,217 @@
+{
+  "fields": [
+    {
+      "metadata": {
+        "comment": "The unique payout identifier"
+      },
+      "name": "payout_identifier",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "Specified by the clients {continent}-{model}-{identifier}",
+        "event_identifier": true
+      },
+      "name": "payout_reference",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "Creation UTC timestamp of the event",
+        "event_timestamp": true
+      },
+      "name": "event_time",
+      "type": {
+        "logicalType": "timestamp-millis",
+        "type": "long"
+      }
+    },
+    {
+      "metadata": {
+        "comment": "Creation UTC timestamp of the payout"
+      },
+      "name": "payout_request_time",
+      "type": {
+        "logicalType": "timestamp-millis",
+        "type": "long"
+      }
+    },
+    {
+      "metadata": {
+        "comment": "Modification UTC timestamp of the payout"
+      },
+      "name": "last_modification_time",
+      "type": {
+        "logicalType": "timestamp-millis",
+        "type": "long"
+      }
+    },
+    {
+      "metadata": {
+        "comment": "The payout amount as specified by the issuer"
+      },
+      "name": "payout_amount",
+      "type": {
+        "logicalType": "decimal",
+        "precision": 20,
+        "scale": 2,
+        "type": "bytes"
+      }
+    },
+    {
+      "metadata": {
+        "comment": "The payout currency as specified by the issuer"
+      },
+      "name": "payout_currency",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The payout amount as received by the recipient, null if no foreign exchange conversion done (yet)"
+      },
+      "name": "fx_target_amount",
+      "type": [
+        "null",
+        {
+          "logicalType": "decimal",
+          "precision": 20,
+          "scale": 2,
+          "type": "bytes"
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "comment": "The payout currency as received by the recipient, null if no foreign exchange conversion done (yet)"
+      },
+      "name": "fx_target_currency",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "metadata": {
+        "comment": "Foreign exchange rate, if applicable"
+      },
+      "name": "fx_rate",
+      "type": [
+        "null",
+        {
+          "logicalType": "decimal",
+          "precision": 12,
+          "scale": 6,
+          "type": "bytes"
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "comment": "UTC timestamp of the FX conversion, if applicable"
+      },
+      "name": "fx_time",
+      "type": [
+        "null",
+        {
+          "logicalType": "timestamp-millis",
+          "type": "long"
+        }
+      ]
+    },
+    {
+      "metadata": {
+        "comment": "The payee of the payout"
+      },
+      "name": "payee_identifier",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The reference of the payee of the payout"
+      },
+      "name": "payee_reference",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The PSP used of the payout"
+      },
+      "name": "psp",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "metadata": {
+        "comment": "The reference of the PSP used of the payout"
+      },
+      "name": "payout_psp_reference",
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    {
+      "metadata": {
+        "comment": "The identifier of the transfer method used for this payout"
+      },
+      "name": "transfer_method_identifier",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The transfer method type used for this payout"
+      },
+      "name": "transfer_method_type",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The currency of the transfer method, which can be different from the payout currency. In that case, conversion fees may apply."
+      },
+      "name": "transfer_method_currency",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The agnostic state of the payout"
+      },
+      "name": "payout_state",
+      "type": "string"
+    },
+    {
+      "default": "{}",
+      "metadata": {
+        "comment": "The raw JSON string psp event response data",
+        "validators": [
+          "is_valid_json"
+        ]
+      },
+      "name": "psp_event_data",
+      "type": "string"
+    },
+    {
+      "metadata": {
+        "comment": "The operation applied to the event. I: Insert, U: Update, D: Delete",
+        "event_operation": true
+      },
+      "name": "operation",
+      "type": {
+        "name": "operations",
+        "symbols": [
+          "I",
+          "U",
+          "D"
+        ],
+        "type": "enum"
+      }
+    }
+  ],
+  "metadata": {
+    "schema_reference": 1
+  },
+  "name": "payout_value",
+  "namespace": "com.backmarket.magicbus.finance",
+  "type": "record"
+}

@@ -1,0 +1,28 @@
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
+
+from metadata_guardian.source.external.gcp_source import BigQuerySource
+
+
+@patch("google.cloud.bigquery.Client.from_service_account_json")
+def test_big_query_source_get_column_names(mock_connection):
+    service_account_json_path = ""
+    dataset_name = "test_dataset"
+    table_name = "test_table"
+    results = [
+        SimpleNamespace(column_name="timestamp", description="description1"),
+        SimpleNamespace(column_name="address_id", description="description2"),
+    ]
+    mock_connection.return_value = mock_connection
+    response = Mock()
+    response.result.return_value = results
+    mock_connection.query.return_value = response
+    expected = ["timestamp", "description1", "address_id", "description2"]
+
+    column_names = BigQuerySource(
+        service_account_json_path=service_account_json_path
+    ).get_column_names(
+        database_name=dataset_name, table_name=table_name, include_comment=True
+    )
+
+    assert column_names == expected

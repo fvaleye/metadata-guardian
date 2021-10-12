@@ -1,0 +1,24 @@
+[package]
+name = "metadata_guardian-python"
+version = "0.0.3"
+authors = ["Florian Valeye <fvaleye@github.com>"]
+homepage = "https://fvaleye.github.io/metadata-guardian/python"
+license = "Apache-2.0"
+description = "Data Guardian Python binding"
+edition = "2021"
+keywords = ["pii", "inclusion", "biais", "metadata_dataguardian", "metadata", "guardian"]
+
+[lib]
+name = "metadata_guardian"
+crate-type = ["cdylib"]
+
+[dependencies]
+env_logger = "0"
+
+[dependencies.pyo3]
+version = "0.14"
+features = ["extension-module", "abi3", "abi3-py36"]
+
+[dependencies.metadata_guardian]
+path = "../rust"
+version = "0"
