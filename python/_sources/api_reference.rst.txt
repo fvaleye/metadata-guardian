@@ -8,6 +8,19 @@ Data Rules
     :members:
 
 
+Scanner
+-------
+
+.. automodule:: metadata_guardian.scanner
+    :members:
+
+Report
+-------
+
+.. automodule:: metadata_guardian.report
+    :members:
+
+
 Source
 ------
 
@@ -18,9 +31,6 @@ Local Sources
 -------------
 
 .. automodule:: metadata_guardian.source.local.avro_source
-    :members:
-
-.. automodule:: metadata_guardian.source.local.local_file_source
     :members:
 
 .. automodule:: metadata_guardian.source.local.local_metadata_source
@@ -39,6 +49,9 @@ External Sources
     :members:
 
 .. automodule:: metadata_guardian.source.external.external_metadata_source
+    :members:
+
+.. automodule:: metadata_guardian.source.external.gcp_source
     :members:
 
 .. automodule:: metadata_guardian.source.external.snowflake_source
