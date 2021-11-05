@@ -153,6 +153,7 @@
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
@@ -167,10 +168,14 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.report.MetadataGuardianReport.append">append() (metadata_guardian.report.MetadataGuardianReport method)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource">AthenaSource (class in metadata_guardian.source.external.aws_source)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.data_rules.AvailableCategory">AvailableCategory (class in metadata_guardian.data_rules)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource">AvroSource (class in metadata_guardian.source.local.avro_source)</a>
 </li>
   </ul></td>
@@ -218,6 +223,14 @@
   </ul></td>
 </tr></table>
 
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.data_rules.DataRules.from_available_category">from_available_category() (metadata_guardian.data_rules.DataRules class method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -236,9 +249,7 @@
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.get_column_names">(metadata_guardian.source.local.avro_source.AvroSource method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.local.parquet_source.ParquetSource.get_column_names">(metadata_guardian.source.local.parquet_source.ParquetSource method)</a>
-</li>
-        <li><a href="api_reference.html#metadata_guardian.source.metadata_source.MetadataSource.get_column_names">(metadata_guardian.source.metadata_source.MetadataSource method)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.get_column_names">(metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -423,33 +434,39 @@
       <ul>
         <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.read">(metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.local.parquet_source.ParquetSource.read">(metadata_guardian.source.local.parquet_source.ParquetSource method)</a>
-</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.report.ReportResults">ReportResults (class in metadata_guardian.report)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan">scan() (metadata_guardian.scanner.ColumnScanner method)</a>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan_external">scan_external() (metadata_guardian.scanner.ColumnScanner method)</a>
 
       <ul>
-        <li><a href="api_reference.html#metadata_guardian.scanner.ContentFileScanner.scan">(metadata_guardian.scanner.ContentFileScanner method)</a>
-</li>
-        <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan">(metadata_guardian.scanner.Scanner method)</a>
+        <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_external">(metadata_guardian.scanner.Scanner method)</a>
 </li>
       </ul></li>
-      <li><a href="api_reference.html#metadata_guardian.scanner.Scanner">Scanner (class in metadata_guardian.scanner)</a>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan_local">scan_local() (metadata_guardian.scanner.ColumnScanner method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_local">(metadata_guardian.scanner.Scanner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ContentFileScanner.scan_local_file">scan_local_file() (metadata_guardian.scanner.ContentFileScanner method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.scanner.Scanner">Scanner (class in metadata_guardian.scanner)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.schema">schema() (metadata_guardian.source.local.avro_source.AvroSource method)</a>
 
       <ul>
         <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema">(metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
-</li>
-        <li><a href="api_reference.html#metadata_guardian.source.local.parquet_source.ParquetSource.schema">(metadata_guardian.source.local.parquet_source.ParquetSource method)</a>
 </li>
       </ul></li>
       <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeAuthenticator">SnowflakeAuthenticator (class in metadata_guardian.source.external.snowflake_source)</a>
@@ -482,6 +499,10 @@
         <li><a href="api_reference.html#metadata_guardian.source.metadata_source.MetadataSource.type">(metadata_guardian.source.metadata_source.MetadataSource property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.type">type() (metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
+</li>
   </ul></td>
 </tr></table>
 

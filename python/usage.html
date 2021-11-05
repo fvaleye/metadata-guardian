@@ -175,9 +175,54 @@
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <section id="metadata-guardian">
 <h2>Metadata Guardian<a class="headerlink" href="#metadata-guardian" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">TODO</span>
+<p>Local Source, one result
+.. code-block:: python</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">AvroSchemaSource</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">AvroSchemaSource</span><span class="p">(</span><span class="s2">&quot;avro_schema.json&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span>
+<span class="go">MetadataGuardianReport(report_results=[ReportResults(source=&#39;/Users/florian.valeye/Documents/workspace/MetadataGuardian/python/metadata_guardian/test2.json&#39;, results=[MetadataGuardianResults(category=&#39;PII&#39;, content=&#39;username&#39;, data_rules=[DataRule(rule_name=&#39;user name&#39;, regex_pattern=&#39;(.*user(id|name|).*)&#39;, documentation=&#39;The user name is a personal identifiable information.\n&#39;)])])])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>Scan column names of an external Source, one result
+.. code-block:: python</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;table_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Scan column names of a local source, multiple result
+.. code-block:: python</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span><span class="p">,</span> <span class="n">MetadataGuardianReport</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">AvroSchemaSource</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">MetadataGuardianReport</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">AvroSchemaSource</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Scan content of a file
+&gt;&gt;&gt; from metadata_guardian import DataRules, ContentFileScanner, AvailableCategory
+&gt;&gt;&gt; from metadata_guardian.source import SnowflakeSource
+&gt;&gt;&gt;
+&gt;&gt;&gt; data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
+&gt;&gt;&gt; column_scanner = ContentFileScanner(data_rules=data_rules)
+&gt;&gt;&gt; report = column_scanner.scan_local_file(path=”path”)
+&gt;&gt;&gt; report.to_console()</p>
 </section>
 </section>
 

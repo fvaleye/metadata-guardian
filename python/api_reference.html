@@ -200,6 +200,12 @@
 <section id="module-metadata_guardian.data_rules">
 <span id="data-rules"></span><h2>Data Rules<a class="headerlink" href="#module-metadata_guardian.data_rules" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="metadata_guardian.data_rules.AvailableCategory">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">AvailableCategory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.AvailableCategory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Available Data Rules Categories.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRule">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">DataRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>DataRule instance with a regex pattern and a documentation.</p>
@@ -219,16 +225,32 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRules">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">DataRules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">DataRules</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules" title="Permalink to this definition">¶</a></dt>
 <dd><p>Data Rules instances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>uri</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRules.from_available_category">
+<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">from_available_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules.from_available_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Data Rules from an available category.
+:param category: the available category of the data rules
+:return: the Data Rules instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.AvailableCategory" title="metadata_guardian.data_rules.AvailableCategory"><em>metadata_guardian.data_rules.AvailableCategory</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules">metadata_guardian.data_rules.DataRules</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRules.validate_file">
 <span class="sig-name descname"><span class="pre">validate_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules.validate_file" title="Permalink to this definition">¶</a></dt>
@@ -302,27 +324,52 @@
 <span id="scanner"></span><h2>Scanner<a class="headerlink" href="#module-metadata_guardian.scanner" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ColumnScanner">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ColumnScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ColumnScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Column Scanner instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference internal" href="#metadata_guardian.source.metadata_source.MetadataSource" title="metadata_guardian.source.metadata_source.MetadataSource"><em>metadata_guardian.source.metadata_source.MetadataSource</em></a>) – </p></li>
-<li><p><strong>data_rules</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules"><em>metadata_guardian.data_rules.DataRules</em></a>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>data_rules</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules"><em>metadata_guardian.data_rules.DataRules</em></a>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.scanner.ColumnScanner.scan">
-<span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner.scan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scan column names of the source.
-:return: list of the metadata guardian results</p>
+<dt class="sig sig-object py" id="metadata_guardian.scanner.ColumnScanner.scan_external">
+<span class="sig-name descname"><span class="pre">scan_external</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner.scan_external" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan the column names from external source.
+:param source: the ExternalMetadataSource to scan
+:param database_name: the name of the database
+:param table_name: the name of the table
+:param include_comment: the scan include the comment section
+:return: Metadata Guardian report</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<a class="reference internal" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource" title="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource"><em>metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource</em></a>) – </p></li>
+<li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.scanner.ColumnScanner.scan_local">
+<span class="sig-name descname"><span class="pre">scan_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner.scan_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan the column names from source.
+:param source: the MetadataSource to scan
+:return: Metadata Guardian report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source</strong> (<a class="reference internal" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource"><em>metadata_guardian.source.local.local_metadata_source.LocalMetadataSource</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -331,27 +378,28 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ContentFileScanner">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ContentFileScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFileScanner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Content Scanner instance.</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ContentFileScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFileScanner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Content Files Scanner instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
-<li><p><strong>data_rules</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules"><em>metadata_guardian.data_rules.DataRules</em></a>) – </p></li>
-</ul>
+<dd class="field-odd"><p><strong>data_rules</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules"><em>metadata_guardian.data_rules.DataRules</em></a>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.scanner.ContentFileScanner.scan">
-<span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFileScanner.scan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scan the content of the source.
-:return: list of the metadata guardian results</p>
+<dt class="sig sig-object py" id="metadata_guardian.scanner.ContentFileScanner.scan_local_file">
+<span class="sig-name descname"><span class="pre">scan_local_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFileScanner.scan_local_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan a file with data rules.
+:param path: the path of the file to scan
+:return: Metadata Guardian report</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -361,15 +409,43 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">Scanner</span></span><a class="headerlink" href="#metadata_guardian.scanner.Scanner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scanner contract.</p>
+<dd><p>Scanner interface.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner.scan">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">scan</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.Scanner.scan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scan column names from source.
-:return: list of the metadata guardian results</p>
+<dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner.scan_external">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">scan_external</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.Scanner.scan_external" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan the column names from external source.
+:param source: the ExternalMetadataSource to scan
+:param database_name: the name of the database
+:param table_name: the name of the table
+:param include_comment: the scan include the comment section
+:return: Metadata Guardian report</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<a class="reference internal" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource" title="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource"><em>metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource</em></a>) – </p></li>
+<li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner.scan_local">
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">scan_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.Scanner.scan_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scan the column names from local source.
+:param source: the LocalMetadataSource to scan
+:return: Metadata Guardian report</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>source</strong> (<a class="reference internal" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource"><em>metadata_guardian.source.local.local_metadata_source.LocalMetadataSource</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -381,21 +457,36 @@
 <span id="report"></span><h2>Report<a class="headerlink" href="#module-metadata_guardian.report" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.report.MetadataGuardianReport">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">MetadataGuardianReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.MetadataGuardianReport" title="Permalink to this definition">¶</a></dt>
-<dd><p>Metadata Guardian Results.</p>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">MetadataGuardianReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">report_results=&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.MetadataGuardianReport" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata Guardian Report.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>results</strong> (<em>List</em><em>[</em><a class="reference internal" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="metadata_guardian.data_rules.MetadataGuardianResults"><em>metadata_guardian.data_rules.MetadataGuardianResults</em></a><em>]</em>) – </p>
+<dd class="field-odd"><p><strong>report_results</strong> (<em>List</em><em>[</em><a class="reference internal" href="#metadata_guardian.report.ReportResults" title="metadata_guardian.report.ReportResults"><em>metadata_guardian.report.ReportResults</em></a><em>]</em>) – </p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.report.MetadataGuardianReport.append">
+<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_report</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.MetadataGuardianReport.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concat the results before making the report.
+:param other_report: other report to append
+:return:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other_report</strong> (<a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport"><em>metadata_guardian.report.MetadataGuardianReport</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.report.MetadataGuardianReport.to_console">
 <span class="sig-name descname"><span class="pre">to_console</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.MetadataGuardianReport.to_console" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display the metdata guardian results to the console.
-:param results: the results to display
+<dd><p>Display the metadata guardian results to the console.
 :return:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -406,6 +497,23 @@
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="metadata_guardian.report.ReportResults">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">ReportResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">source</span></em>, <em class="sig-param"><span class="pre">results=&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.ReportResults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata Guardian Results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> (<em>str</em>) – </p></li>
+<li><p><strong>results</strong> (<em>List</em><em>[</em><a class="reference internal" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="metadata_guardian.data_rules.MetadataGuardianResults"><em>metadata_guardian.data_rules.MetadataGuardianResults</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-metadata_guardian.source.metadata_source">
 <span id="source"></span><h2>Source<a class="headerlink" href="#module-metadata_guardian.source.metadata_source" title="Permalink to this headline">¶</a></h2>
@@ -413,18 +521,6 @@
 <dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.MetadataSource">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.metadata_source.</span></span><span class="sig-name descname"><span class="pre">MetadataSource</span></span><a class="headerlink" href="#metadata_guardian.source.metadata_source.MetadataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Metadata Source contract.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.MetadataSource.get_column_names">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.metadata_source.MetadataSource.get_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the column names from the schema.
-:return: the list of the column names</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py property">
 <dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.MetadataSource.type">
 <em class="property"><span class="pre">abstract</span> <span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.metadata_source.MetadataSource.type" title="Permalink to this definition">¶</a></dt>
@@ -439,11 +535,14 @@
 <span id="local-sources"></span><h2>Local Sources<a class="headerlink" href="#module-metadata_guardian.source.local.avro_source" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.avro_source.AvroSource">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.avro_source.</span></span><span class="sig-name descname"><span class="pre">AvroSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.avro_source.</span></span><span class="sig-name descname"><span class="pre">AvroSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">local_path</span></em>, <em class="sig-param"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance for a local Avro file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>local_path</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
@@ -488,6 +587,11 @@
 <dt class="sig sig-object py" id="metadata_guardian.source.local.avro_source.AvroSource.read">
 <span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource.read" title="Permalink to this definition">¶</a></dt>
 <dd><p>Read the AVRO file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>avro.datafile.DataFileReader</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -513,47 +617,22 @@
 
 <span class="target" id="module-metadata_guardian.source.local.local_metadata_source"></span><dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.local_metadata_source.</span></span><span class="sig-name descname"><span class="pre">LocalMetadataSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.local_metadata_source.</span></span><span class="sig-name descname"><span class="pre">LocalMetadataSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">local_path</span></em>, <em class="sig-param"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>LocalMetadata Source contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>local_path</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.read">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read the source local file.
-:return: the file content</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the source schema
-:return: the schema</p>
-</dd></dl>
-
-</dd></dl>
-
-<span class="target" id="module-metadata_guardian.source.local.parquet_source"></span><dl class="py class">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.parquet_source.</span></span><span class="sig-name descname"><span class="pre">ParquetSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource" title="Permalink to this definition">¶</a></dt>
-<dd><p>Instance for a local Parquet file.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>local_path</strong> (<em>str</em>) – </p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource.get_column_names">
-<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.get_column_names">
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the column names from the schema.
 :return: the list of the column names</p>
 <dl class="field-list simple">
@@ -564,23 +643,58 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource.read">
-<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource.read" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read the Parquet file.</p>
+<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the source local file.
+:return: the file content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Dict[str, Any]</p>
+<dd class="field-odd"><p>pyarrow._dataset.Dataset</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource.schema">
-<span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource.schema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the schema File.
-:return: the parquet schema</p>
+<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema">
+<span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the source schema
+:return: the file schema</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pyarrow.lib.Schema</p>
+</dd>
+</dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.type">
+<span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the source.
+:return: the name o of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-metadata_guardian.source.local.parquet_source"></span><dl class="py class">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.parquet_source.</span></span><span class="sig-name descname"><span class="pre">ParquetSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">local_path</span></em>, <em class="sig-param"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance for a local Parquet file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource.type">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="pre">:</span> <span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource.type" title="Permalink to this definition">¶</a></dt>
@@ -613,16 +727,18 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.AthenaSource.get_column_names">
-<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get column names from the table.
 :param database_name: the database name
 :param table_name: the table name
+:param include_comment: include the comment
 :return: the list of the column names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
 <li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -638,7 +754,7 @@
 :return: a new Athena connection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Any</p>
+<dd class="field-odd"><p>mypy_boto3_athena.client.AthenaClient</p>
 </dd>
 </dl>
 </dd></dl>
@@ -670,14 +786,18 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource.get_column_names">
-<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the column names from Glue table.
+:param database_name: the name of the database
+:param table_name: the name of the table
+:param include_comment: include the comments
 :return: the list of the column names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
 <li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -691,6 +811,11 @@
 <span class="sig-name descname"><span class="pre">get_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.get_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the Glue connection
 :return: one Glue client</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>mypy_boto3_glue.client.GlueClient</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
@@ -715,16 +840,18 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_column_names">
-<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get column names from the table.
 :param database_name: the database name
 :param table_name: the table name
+:param include_comment: include the comment
 :return: the list of the column names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>database_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>table_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -758,23 +885,20 @@
 <dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.external_metadata_source.</span></span><span class="sig-name descname"><span class="pre">ExternalMetadataSource</span></span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>ExternalMetadataSource Source.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_column_names">
-<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">abstract</span> </em><span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the column names from the schema.
 :param database_name: the database name
 :param table_name: the table name
+:param include_comment: include the comment
 :return: the list of the column names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
 <li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -815,16 +939,18 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource.get_column_names">
-<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get column names from the table.
 :param database_name: in that case the dataset
 :param table_name: the table name
+:param include_comment: include the comment
 :return: the list of the column names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
 <li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -884,16 +1010,18 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_column_names">
-<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_column_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get column names from the table.
 :param database_name: the database name
 :param table_name: the table name
+:param include_comment: include the comment
 :return: the list of the column names</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
 <li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -909,7 +1037,7 @@
 :return: the source connection</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Any</p>
+<dd class="field-odd"><p>snowflake.connector.connection.SnowflakeConnection</p>
 </dd>
 </dl>
 </dd></dl>
