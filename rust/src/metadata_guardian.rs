@@ -1,11 +1,9 @@
 use rayon::prelude::*;
 use regex::RegexSet;
 use serde::{Deserialize, Serialize};
-use std::convert::TryFrom;
 use std::fs::File;
 use std::io::BufRead;
 use std::io::BufReader;
-use std::path::PathBuf;
 
 /// Metadata Guardian specific error.
 #[derive(thiserror::Error, Debug)]
@@ -31,14 +29,6 @@ pub enum MetadataGuardianError {
         #[from]
         source: regex::Error,
     },
-}
-
-/// Available categories in the metadata_guardian.
-pub enum AvailableCategory {
-    /// Inclusion rules.
-    INCLUSION,
-    /// PII rules.
-    PII,
 }
 
 /// A Data Rule instance specify a specific rule with a regex pattern.
@@ -72,32 +62,12 @@ pub struct DataRules {
     data_rules: Vec<DataRule>,
 }
 
-/// Create Data Rules based on the available category.
-impl TryFrom<AvailableCategory> for DataRules {
-    type Error = MetadataGuardianError;
-
-    fn try_from(category: AvailableCategory) -> Result<Self, MetadataGuardianError> {
-        let uri = DataRules::get_data_rules_uri(&category);
-        DataRules::new(&uri)
-    }
-}
-
 impl DataRules {
     /// Create a new Data Rules.
-    pub fn new(uri: &str) -> Result<Self, MetadataGuardianError> {
-        let file = std::fs::File::open(uri)?;
+    pub fn new(path: &str) -> Result<Self, MetadataGuardianError> {
+        let file = std::fs::File::open(path)?;
         let data_rules: DataRules = serde_yaml::from_reader(file)?;
         Ok(data_rules)
-    }
-
-    /// Get the uri of the available data rules.
-    pub fn get_data_rules_uri(category: &AvailableCategory) -> String {
-        let mut uri = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        match category {
-            AvailableCategory::INCLUSION => uri.push("src/rules/inclusion_rules.yaml"),
-            AvailableCategory::PII => uri.push("src/rules/pii_rules.yaml"),
-        };
-        uri.into_os_string().into_string().unwrap()
     }
 
     /// Validate a word based on the data rules.

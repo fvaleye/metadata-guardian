@@ -1,5 +1,6 @@
 image::logo.png[Metadata Guardian logo]
-image:https://github.com/fvaleye/metadata-guardian/workflows/python-build/badge.svg[Build Status,link=https://github.com/fvaleye/metadata-guardian/actions]
+image:https://github.com/fvaleye/metadata-guardian/actions/workflows/python_build.yml/badge.svg[![python-build, link=https://github.com/fvaleye/metadata-guardian/actions/workflows/python_build.yml]
+image:https://github.com/fvaleye/metadata-guardian/actions/workflows/rust_build.yml/badge.svg[![rust-build, link=https://github.com/fvaleye/metadata-guardian/actions/workflows/rust_build.yml]
 image:https://img.shields.io/badge/docs-python-blue.svg?style=flat-square[Docs,link=https://fvaleye.github.io/metadata-guardian/python]
 image:https://img.shields.io/pypi/v/metadata_guardian.svg?style=flat-square)[Pypi, link=https://pypi.org/project/metadata-guardian/]
 
@@ -24,7 +25,7 @@ Using Rust, it makes blazing fast multi-regex matching.
 - Snowflake
 
 == Data Rules
-The available data rules are: *https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/inclusion_rules.yaml[INCLUSION]*. But it aims to be extended with custom data rules that could serve multiple purposes (_for example: detect data that may contain IA biais, detect credentials...).
+The available data rules are: *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml[INCLUSION]*. But it aims to be extended with custom data rules that could serve multiple purposes (for example: detect data that may contain IA biais, detect credentials...).
 
 == Where to get it
 

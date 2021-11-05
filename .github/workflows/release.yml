@@ -50,7 +50,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.6
+          python-version: 3.7
 
       - name: Setup
         run: make setup
@@ -76,7 +76,7 @@ jobs:
 
       - name: Enable manylinux Python targets
         run: |
-          echo "/opt/python/cp36-cp36m/bin" >> $GITHUB_PATH
+          echo "/opt/python/cp37-cp37m/bin" >> $GITHUB_PATH
       - name: Setup
         run: make setup
 
@@ -96,11 +96,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Rust
-        run: |
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
-          $HOME/.cargo/bin/rustup default stable
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          target: ${{ matrix.target }}
   
       - name: Install metadataguardian
         run: make install MATURIN_EXTRA_ARGS="--manylinux off"

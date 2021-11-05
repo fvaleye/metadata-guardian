@@ -1,5 +1,5 @@
 [build-system]
-requires = ["maturin==0.11.4"]
+requires = ["maturin==0.11.5"]
 build-backend = "maturin"
 
 [project]
@@ -9,7 +9,7 @@ author_email="fvaleye@github.com"
 description = "MetadataGuardian is used to protect data by searching the source metadata."
 readme = "README.md"
 license = {file = "LICENSE.txt"}
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 keywords = ["pii", "inclusion", "biais", "metadata_dataguardian", "metadata", "guardian"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -19,15 +19,13 @@ classifiers = [
 dependencies = [
     "rich",
     "loguru",
-    'dataclasses;python_version<="3.6"',
+    "pyarrow",
 ]
 
 [project.optional-dependencies]
-all = ["avro", "snowflake-connector-python", "pyarrow", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery"]
+all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery"]
 snowflake = [ "snowflake-connector-python" ]
 avro = [ "avro" ]
-parquet = [ "pyarrow" ]
-orc = [ "pyarrow" ]
 aws = [ "boto3", "boto3-stubs[athena,glue]" ]
 gcp = [ "google-cloud-bigquery"]
 deltalake = [ "deltalake" ]
