@@ -1,3 +1,4 @@
+import importlib.resources
 from dataclasses import dataclass
 from enum import Enum
 from typing import List
@@ -8,8 +9,8 @@ from .metadata_guardian import RawDataRules
 class AvailableCategory(Enum):
     """Available Data Rules Categories."""
 
-    PII = "PII"
-    INCLUSION = "INCLUSION"
+    PII = "pii_rules.yaml"
+    INCLUSION = "inclusion_rules.yaml"
 
 
 @dataclass
@@ -34,17 +35,23 @@ class MetadataGuardianResults:
 class DataRules:
     """Data Rules instances."""
 
-    def __init__(self, uri: str) -> None:
-        self._data_rules = RawDataRules(uri)
+    def __init__(self, path: str) -> None:
+        self._data_rules = RawDataRules(path)
 
     @classmethod
     def from_available_category(cls, category: AvailableCategory) -> "DataRules":
         """
         Get Data Rules from an available category.
         :param category: the available category of the data rules
-        :return:
+        :return: the Data Rules instance
         """
-        return cls(uri=RawDataRules.get_data_rules_uri(category.value))
+        if not isinstance(category, AvailableCategory):
+            raise ValueError("The category must be an instance of AvailableCategory")
+        with importlib.resources.path(
+            "metadata_guardian.rules", category.value
+        ) as resource:
+            path = str(resource)
+            return cls(path=path)
 
     def validate_word(self, word: str) -> MetadataGuardianResults:
         """
