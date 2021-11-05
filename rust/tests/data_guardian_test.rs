@@ -1,10 +1,13 @@
-use metadata_guardian::metadata_guardian::{AvailableCategory, DataRule, DataRules};
-use std::convert::TryFrom;
+use metadata_guardian::metadata_guardian::{DataRule, DataRules};
 use std::path::PathBuf;
 
 #[test]
 fn test_validate_word_with_pii_should_not_contain_results() {
-    let data_guardian = DataRules::try_from(AvailableCategory::PII).unwrap();
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("tests");
+    path.push("resources");
+    path.push("pii_rules.yaml");
+    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "no pii";
     let category = "PII";
     let result = data_guardian.validate_word(content).unwrap();
@@ -15,7 +18,11 @@ fn test_validate_word_with_pii_should_not_contain_results() {
 
 #[test]
 fn test_validate_word_with_pii_should_contains_results() {
-    let data_guardian = DataRules::try_from(AvailableCategory::PII).unwrap();
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("tests");
+    path.push("resources");
+    path.push("pii_rules.yaml");
+    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "test@gmail.com";
     let category = "PII";
     let result = data_guardian.validate_word(content).unwrap();
@@ -31,7 +38,11 @@ fn test_validate_word_with_pii_should_contains_results() {
 
 #[test]
 fn test_validate_word_with_inclusion_should_contains_results() {
-    let data_guardian = DataRules::try_from(AvailableCategory::INCLUSION).unwrap();
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("tests");
+    path.push("resources");
+    path.push("inclusion_rules.yaml");
+    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "master";
     let category = "INCLUSION";
     let result = data_guardian.validate_word(content).unwrap();
@@ -47,7 +58,11 @@ fn test_validate_word_with_inclusion_should_contains_results() {
 
 #[test]
 fn test_validate_words_with_inclusion_should_contains_results() {
-    let data_guardian = DataRules::try_from(AvailableCategory::INCLUSION).unwrap();
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("tests");
+    path.push("resources");
+    path.push("inclusion_rules.yaml");
+    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = vec!["no error", "no error 2", "master"];
     let category = "INCLUSION";
     let results = data_guardian.validate_words(content).unwrap();
@@ -65,7 +80,11 @@ fn test_validate_words_with_inclusion_should_contains_results() {
 
 #[test]
 fn test_validate_file_with_inclusion_should_contains_results() {
-    let data_guardian = DataRules::try_from(AvailableCategory::INCLUSION).unwrap();
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("tests");
+    path.push("resources");
+    path.push("inclusion_rules.yaml");
+    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
     let mut file = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     file.push("tests");
     file.push("resources");

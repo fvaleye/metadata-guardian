@@ -16,8 +16,8 @@ Using Rust, it makes blazing fast multi-regex matching.
 With multiple metadata sources available, Python relies on Rust to benefit from using multiple regular expressions simultaneously with [regex](https://github.com/rust-lang/regex) and parrallelize it with [rayon](https://github.com/rayon-rs/rayon), providing an easy way of creating the data rules for scanning the metadata.
 
 ## Data Rules
-- [PII](https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/pii_rules.yaml)
-- [INCLUSION](https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/inclusion_rules.yaml)
+- [PII](https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml)
+- [INCLUSION](https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml)
 
 ## Python Development
 
