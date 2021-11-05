@@ -1,0 +1,47 @@
+# Inclusion Rules
+---
+category: INCLUSION
+data_rules:
+  - rule_name: whitelist
+    pattern: \b(whitelist|blacklist|white-list|black-list|blackbox|whitebox)\b
+    documentation: |
+      Positive associations with "white" (like whitelisted) and negative associations with "black"(like blacklisted)
+      recall a long legacy of violence and oppression against Black andAfrican-American populations.
+      Prefer terms that do not ascribe positive or negative meaning to  colors. Prefer using denylist,
+      blocklist, open-box or closed-box.
+  - rule_name: grandfathered
+    pattern: \b(grandfathered)
+    documentation: |
+      Grandfather clauses were included in discriminatory laws in the United States. The laws made it
+      more difficult for African Americans to register to vote. Prefer describing exemptions and
+      exceptions without recalling this history. Prefer using legacy status.
+  - rule_name: dummy
+    pattern: \b(dummy)\b
+    documentation: |
+      This term has been used as a slur to refer to individuals with hearing disabilities. Prefer more
+      descriptive alternatives for describing an object that is standing in for something else. Prefer using
+      placeholder or sample.
+  - rule_name: redline
+    pattern: \b(redline|red-line|redlining)\b
+    documentation: |
+      The term "redlining" is rooted in discriminatory practices in the United States of denying
+      services like mortgages or insurance based on geographical locations. Prefer describing
+      annotations on designs using different terminology.
+  - rule_name: master
+    pattern: \b(slave|master|mastership)\b
+    documentation: |
+      "Master–slave" is an offensive and exclusionary metaphor that cannot be detached from American
+      history. Prefer describing a hierarchical relationship between nodes more precisely. Prefer using
+      leader/follower, primary/replica or primary/standby.
+  - rule_name: man hours
+    pattern: \b(man hours|man-hours)\b
+    documentation: |
+      The term "man" in man-hours is not inclusive, prefer using person-hour or engineer hours.
+  - rule_name: guys
+    pattern: \b(guys)\b
+    documentation: |
+      The term "guys" is not inclusive, prefer using folks, people, you all.
+  - rule_name: sanity check
+    pattern: \b(sanity check)\b
+    documentation: |
+      The term "sanity" is not inclusive, prefer using confidence, quick check, coherence check.

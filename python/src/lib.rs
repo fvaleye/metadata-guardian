@@ -1,11 +1,9 @@
 extern crate pyo3;
 
-use metadata_guardian::AvailableCategory;
 use metadata_guardian::DataRules;
 use pyo3::create_exception;
 use pyo3::exceptions::PyException;
 use pyo3::prelude::*;
-use pyo3::types::PyType;
 
 create_exception!(metadata_guardian, PyMetadataGuardianError, PyException);
 
@@ -78,22 +76,11 @@ impl<'a> From<&metadata_guardian::MetadataGuardianResults<'a>> for RawMetadataGu
 impl RawDataRules {
     /// Create a new Raw Data Rules instance
     #[new]
-    fn new(uri: &str) -> PyResult<Self> {
-        let data_rules = DataRules::new(uri).map_err(PyMetadataGuardianError::from_raw)?;
+    fn new(path: &str) -> PyResult<Self> {
+        let data_rules = DataRules::new(path).map_err(PyMetadataGuardianError::from_raw)?;
         Ok(RawDataRules {
             _data_rules: data_rules,
         })
-    }
-
-    /// Create a new Raw Data Rules instances
-    #[classmethod]
-    fn get_data_rules_uri(_cls: &PyType, category: &str) -> PyResult<String> {
-        let uri = match category {
-            "PII" => DataRules::get_data_rules_uri(&AvailableCategory::PII),
-            "INCLUSION" => DataRules::get_data_rules_uri(&AvailableCategory::INCLUSION),
-            _ => unimplemented!("This category is not unimplemented"),
-        };
-        Ok(uri)
     }
 
     /// Validate a list of words using the data rules already defined.

@@ -8,10 +8,6 @@ Using Rust, it makes blazing fast multi-regex matching.
 
 Using multiple regular expressions simultaneously with [regex](https://github.com/rust-lang/regex) and parrallelize it with [rayon](https://github.com/rayon-rs/rayon), this crate provides an easy way of creating the data rules for scanning the metadata.
 
-## Data Rules
-- [PII](https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/pii_rules.yaml)
-- [INCLUSION](https://github.com/fvaleye/metadata-guardian/blob/main/rust/src/rules/inclusion_rules.yaml)
-
 ## Rust Development
 
 Install Rust:
@@ -26,6 +22,5 @@ cargo build
 
 Launch the tests:
 ```sh
-# Build
 cargo test
 ```

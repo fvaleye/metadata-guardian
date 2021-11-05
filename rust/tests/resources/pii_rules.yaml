@@ -1,0 +1,85 @@
+# PII Rules
+---
+category: PII
+data_rules:
+  - rule_name: phone number
+    pattern: \b(phone_number|mobile_phone|phonenumber|cellphone_number|mobilephone|phone)\b
+    documentation: |
+      The phone number is a personal identifiable information.
+  - rule_name: phone number content
+    pattern: (?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?
+    documentation: |
+      The phone number is a personal identifiable information.
+  - rule_name: email content
+    pattern: ([a-z0-9!#$%&'*+/=?^_`{|.}~-]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)
+    documentation: |
+      The email is a personal identifiable information.
+  - rule_name: email
+    pattern: \b(email|e-mail|mail)\b
+    documentation: |
+      The email is a personal identifiable information.
+  - rule_name: ip v4 content
+    pattern: (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+    documentation: |
+      The IP address is a personal identifiable information.
+  - rule_name: ip v6 content
+    pattern: (([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))
+    documentation: |
+      The IP address is a personal identifiable information.
+  - rule_name: ip
+    pattern: \b(ip|ipv4|ipv6)\b
+    documentation: |
+      The IP address is a personal identifiable information.
+  - rule_name: credit card content
+    pattern: (?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})
+    documentation: |
+      The credit card is a personal identifiable information.
+  - rule_name: bank
+    pattern: \b(credit_card|creditcard)
+    documentation: |
+      The bank details is a personal identifiable information.
+  - rule_name: street address content
+    pattern: (\d{1,4} [\w\s]{1,20}(?:street|st|avenue|ave|road|rd|highway|hwy|square|sq|trail|trl|drive|dr|court|ct|park|parkway|pkwy|circle|cir|boulevard|blvd))
+    documentation: |
+      The street address is a personal identifiable information.
+  - rule_name: address
+    pattern: \b(address|city|state|county|country|zipcode|postal|zone|borough)\b
+    documentation: |
+      The address is a personal identifiable information.
+  - rule_name: zip code content
+    pattern: \b\d{5}(?:[-\s]\d{4})?\b
+    documentation: |
+      The zip code is a personal identifiable information.
+  - rule_name: ssn content
+    pattern: \b(!000|666)[0-8][0-9]{2}-(!00)[0-9]{2}-(!0000)[0-9]{4}\b
+      The ssn is a personal identifiable information.
+    documentation: |
+      The ssn is a personal identifiable information.
+  - rule_name: ssn
+    pattern: \b(ssn|social)\b
+    documentation: |
+      The ssn is a personal identifiable information.
+  - rule_name: person
+    pattern: \b(firstname|first_name|fname|lastname|last_name|lname|fullname|maidenname|_name|nickname|name_suffix|name)\b
+    documentation: |
+      The person is a personal identifiable information.
+  - rule_name: birth day
+    pattern: \b(date_of_birth|dateofbirth|dob|birthday|birth_day|date_of_death|dateofdeath)\b
+    documentation: |
+      The birth day is a personal identifiable information.
+  - rule_name: gender
+    pattern: \b(gender)\b
+    documentation: |
+      The gender is a personal identifiable information.
+  - rule_name: nationality
+    pattern: \b(nationality)\b
+    documentation: |
+      The nationality is a personal identifiable information.
+  - rule_name: user name
+    pattern: (.*user(id|name|).*)
+    documentation: |
+      The user name is a personal identifiable information.
+  - rule_name: password
+    pattern: (.*pass.*)
+    documentation: |
+      The password is a personal identifiable information.
