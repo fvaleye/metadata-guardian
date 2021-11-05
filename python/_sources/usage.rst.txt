@@ -6,8 +6,6 @@ Metadata Guardian
 
 Local Source, one result:
 
-.. code-block:: python
-
 >>> from metadata_guardian import DataRules, ColumnScanner, AvailableCategory
 >>> from metadata_guardian.source import ParquetSource
 >>>
@@ -21,8 +19,6 @@ MetadataGuardianReport(report_results=[ReportResults(source='/Users/florian.vale
 
 Scan column names of an external Source, one result:
 
-.. code-block:: python
-
 >>> from metadata_guardian import DataRules, ColumnScanner, AvailableCategory
 >>> from metadata_guardian.source.external.snowflake_source import SnowflakeSource
 >>>
@@ -33,8 +29,6 @@ Scan column names of an external Source, one result:
 >>> report.to_console()
 
 Scan column names of a local source, multiple results:
-
-.. code-block:: python
 
 >>> from metadata_guardian import DataRules, ColumnScanner, AvailableCategory, MetadataGuardianReport
 >>> from metadata_guardian.source import ParquetSource
@@ -48,8 +42,6 @@ Scan column names of a local source, multiple results:
 >>> report.to_console()
 
 Scan content of a file:
-
-.. code-block:: python
 
 >>> from metadata_guardian import DataRules, ContentFileScanner, AvailableCategory
 >>>

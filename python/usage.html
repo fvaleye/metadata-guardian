@@ -176,9 +176,6 @@
 <section id="metadata-guardian">
 <h2>Metadata Guardian<a class="headerlink" href="#metadata-guardian" title="Permalink to this headline">¶</a></h2>
 <p>Local Source, one result:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">ParquetSource</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -186,15 +183,10 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">ParquetSource</span><span class="p">(</span><span class="s2">&quot;file.parquet&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span>
-<span class="go">MetadataGuardianReport(report_results=[ReportResults(source=&#39;/Users/florian.valeye/Documents/workspace/MetadataGuardian/python/metadata_guardian/test2.json&#39;, results=[MetadataGuardianResults(category=&#39;PII&#39;, content=&#39;username&#39;, data_rules=[DataRule(rule_name=&#39;user name&#39;, regex_pattern=&#39;(.*user(id|name|).*)&#39;, documentation=&#39;The user name is a personal identifiable information.\n&#39;)])])])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Scan column names of an external Source, one result:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -206,9 +198,6 @@
 </pre></div>
 </div>
 <p>Scan column names of a local source, multiple results:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span><span class="p">,</span> <span class="n">MetadataGuardianReport</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">ParquetSource</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -222,9 +211,6 @@
 </pre></div>
 </div>
 <p>Scan content of a file:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ContentFileScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
