@@ -57,7 +57,7 @@ class MetadataGuardianReport:
                         data_rule.documentation,
                     )
         if _table.rows:
-            _console.log(f"MetadataGuardian detected data rules violation(s).")
+            logger.warning(f"MetadataGuardian detected data rules violation(s).")
             _console.print(_table)
         else:
             logger.info(

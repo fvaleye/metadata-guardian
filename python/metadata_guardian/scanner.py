@@ -1,5 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import Optional
+
+from loguru import logger
 
 from .data_rules import DataRules
 from .report import MetadataGuardianReport, ReportResults
@@ -23,8 +26,8 @@ class Scanner(ABC):
         self,
         source: ExternalMetadataSource,
         database_name: str,
-        table_name: str,
-        include_comment: bool,
+        table_name: Optional[str] = None,
+        include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """
         Scan the column names from external source.
@@ -64,31 +67,57 @@ class ColumnScanner(Scanner):
         self,
         source: ExternalMetadataSource,
         database_name: str,
-        table_name: str,
-        include_comment: bool,
+        table_name: Optional[str] = None,
+        include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """
-        Scan the column names from external source.
+        Scan the column names from the external source using a table name or a database name.
         :param source: the ExternalMetadataSource to scan
         :param database_name: the name of the database
         :param table_name: the name of the table
         :param include_comment: the scan include the comment section
         :return: Metadata Guardian report
         """
-        return MetadataGuardianReport(
-            report_results=[
-                ReportResults(
-                    source=f"{database_name}.{table_name}",
-                    results=self.data_rules.validate_words(
-                        words=source.get_column_names(
-                            database_name=database_name,
-                            table_name=table_name,
-                            include_comment=include_comment,
-                        )
-                    ),
+        if table_name:
+            report = MetadataGuardianReport(
+                report_results=[
+                    ReportResults(
+                        source=f"{database_name}.{table_name}",
+                        results=self.data_rules.validate_words(
+                            words=source.get_column_names(
+                                database_name=database_name,
+                                table_name=table_name,
+                                include_comment=include_comment,
+                            )
+                        ),
+                    )
+                ]
+            )
+        else:
+            report = MetadataGuardianReport()
+            table_names_list = source.get_table_names_list(database_name=database_name)
+            logger.debug(
+                f"Get the table names list from the database {database_name} for {source.type}"
+            )
+            for table_name in table_names_list:
+                logger.debug(f"Get the column names list from the table {table_name}")
+                report.append(
+                    MetadataGuardianReport(
+                        report_results=[
+                            ReportResults(
+                                source=f"{database_name}.{table_name}",
+                                results=self.data_rules.validate_words(
+                                    words=source.get_column_names(
+                                        database_name=database_name,
+                                        table_name=table_name,
+                                        include_comment=include_comment,
+                                    )
+                                ),
+                            )
+                        ]
+                    )
                 )
-            ]
-        )
+        return report
 
 
 @dataclass

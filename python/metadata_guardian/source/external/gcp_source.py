@@ -55,7 +55,30 @@ class BigQuerySource(ExternalMetadataSource):
             return columns
         except Exception as exception:
             logger.exception(
-                f"Error in getting columns name from BigQuery: {database_name}.{table_name}"
+                f"Error in getting columns name from BigQuery {database_name}.{table_name}"
+            )
+            raise exception
+
+    def get_table_names_list(self, database_name: str) -> List[str]:
+        """
+        Get the table names list from the GCP dataset.
+        :param database_name: in that case the dataset
+        :return: the list of the table names list
+        """
+
+        try:
+            client = self.get_connection()
+            query_job = client.query(
+                f"SELECT table_name FROM `{database_name}.INFORMATION_SCHEMA.TABLES`"
+            )
+            results = query_job.result()
+            table_names_list = list()
+            for row in results:
+                table_names_list.append(row.table_name.lower())
+            return table_names_list
+        except Exception as exception:
+            logger.exception(
+                f"Error in getting the table names list name from BigQuery {database_name}"
             )
             raise exception
 

@@ -53,6 +53,7 @@ nitpick_ignore = [
     ("py:class", "mypy_boto3_athena.client.AthenaClient"),
     ("py:class", "mypy_boto3_glue.client.GlueClient"),
     ("py:class", "snowflake.connector.connection.SnowflakeConnection"),
+    ("py:class", "deltalake.data_catalog.DataCatalog"),
 ]
 
 # Add any paths that contain templates here, relative to this directory.
