@@ -26,3 +26,26 @@ def test_big_query_source_get_column_names(mock_connection):
     )
 
     assert column_names == expected
+
+
+@patch("google.cloud.bigquery.Client.from_service_account_json")
+def test_big_query_source_get_table_names_list(mock_connection):
+    service_account_json_path = ""
+    dataset_name = "test_dataset"
+    results = [
+        SimpleNamespace(table_name="test_table"),
+        SimpleNamespace(table_name="test_table2"),
+    ]
+    mock_connection.return_value = mock_connection
+    response = Mock()
+    response.result.return_value = results
+    mock_connection.query.return_value = response
+    expected = ["test_table", "test_table2"]
+
+    table_names_list = BigQuerySource(
+        service_account_json_path=service_account_json_path
+    ).get_table_names_list(
+        database_name=dataset_name,
+    )
+
+    assert table_names_list == expected

@@ -21,6 +21,15 @@ class ExternalMetadataSource(MetadataSource):
         pass
 
     @abstractmethod
+    def get_table_names_list(self, database_name: str) -> List[str]:
+        """
+        Get the table names list from the database.
+        :param database_name: the database name
+        :return: the list of the table names of the database
+        """
+        pass
+
+    @abstractmethod
     def get_connection(self) -> Any:
         """
         Get the connection of the source.

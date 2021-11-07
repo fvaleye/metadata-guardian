@@ -67,7 +67,6 @@ class SnowflakeSource(ExternalMetadataSource):
         :param include_comment: include the comment
         :return: the list of the column names
         """
-
         try:
             connection = self.get_connection()
             cursor = connection.cursor()
@@ -86,6 +85,31 @@ class SnowflakeSource(ExternalMetadataSource):
         except Exception as exception:
             logger.exception(
                 f"Error in getting columns name from Snowflake {self.schema_name}.{database_name}.{table_name}"
+            )
+            raise exception
+        finally:
+            cursor.close()
+            connection.close()
+
+    def get_table_names_list(self, database_name: str) -> List[str]:
+        """
+        Get the table names list from the Snowflake database.
+        :param database_name: the database name
+        :return: the list of the table names of the database
+        """
+        try:
+            connection = self.get_connection()
+            cursor = connection.cursor()
+            cursor.execute(f'SHOW TABLES IN DATABASE "{database_name.upper()}"')
+            rows = cursor.fetchall()
+            table_list = list()
+            for row in rows:
+                table_name = row[1]
+                table_list.append(table_name.upper())
+            return table_list
+        except Exception as exception:
+            logger.exception(
+                f"Error in getting table names from the database {database_name} in Snowflake {database_name}"
             )
             raise exception
         finally:

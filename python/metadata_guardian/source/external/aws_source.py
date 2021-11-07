@@ -42,9 +42,8 @@ class AthenaSource(ExternalMetadataSource):
         :param include_comment: include the comment
         :return: the list of the column names
         """
-        client = self.get_connection()
-
         try:
+            client = self.get_connection()
             response = client.get_table_metadata(
                 CatalogName=self.catalog_name,
                 DatabaseName=database_name,
@@ -58,7 +57,37 @@ class AthenaSource(ExternalMetadataSource):
             return columns
         except botocore.exceptions.ClientError as error:
             logger.exception(
-                f"Error in getting columns name from Athena {database_name}.{table_name} for catalog {self.catalog_name}"
+                f"Error in getting columns name from AWS Athena {database_name}.{table_name} for catalog {self.catalog_name}"
+            )
+            raise error
+
+    def get_table_names_list(self, database_name: str) -> List[str]:
+        """
+        Get the table names list from the database in AWS Athena.
+        :param database_name: the database name
+        :return: the list of the table names of the database
+        """
+        try:
+            client = self.get_connection()
+            table_names_list = list()
+            response = client.list_table_metadata(
+                CatalogName=self.catalog_name,
+                DatabaseName=database_name,
+            )
+            for table in response["TableMetadataList"]:
+                table_names_list.append(table["Name"])
+            while "NextToken" in response:
+                response = client.list_table_metadata(
+                    CatalogName=self.catalog_name,
+                    DatabaseName=database_name,
+                    NextToken=response["NextToken"],
+                )
+                for table in response["TableMetadataList"]:
+                    table_names_list.append(table["Name"])
+            return table_names_list
+        except botocore.exceptions.ClientError as error:
+            logger.exception(
+                f"Error in getting table names list from AWS Athena from the database {database_name} for catalog {self.catalog_name}"
             )
             raise error
 
@@ -95,7 +124,7 @@ class GlueSource(ExternalMetadataSource):
         self, database_name: str, table_name: str, include_comment: bool = False
     ) -> List[str]:
         """
-        Get the column names from Glue table.
+        Get the column names from AWS Glue table.
         :param database_name: the name of the database
         :param table_name: the name of the table
         :param include_comment: include the comments
@@ -103,7 +132,6 @@ class GlueSource(ExternalMetadataSource):
         """
         try:
             client = self.get_connection()
-
             response = client.get_table(DatabaseName=database_name, Name=table_name)
             columns = list()
             for row in response["Table"]["StorageDescriptor"]["Columns"]:
@@ -113,7 +141,34 @@ class GlueSource(ExternalMetadataSource):
             return columns
         except botocore.exceptions.ClientError as error:
             logger.exception(
-                f"Error in getting columns name from Glue: {database_name}.{table_name}"
+                f"Error in getting columns name from AWS Glue from the table {database_name}.{table_name}"
+            )
+            raise error
+
+    def get_table_names_list(self, database_name: str) -> List[str]:
+        """
+        Get the table names list from the database in AWS Glue.
+        :param database_name: the database name
+        :return: the list of the table names of the database
+        """
+        try:
+            client = self.get_connection()
+            table_names_list = list()
+            response = client.get_tables(
+                DatabaseName=database_name,
+            )
+            for table in response["TableList"]:
+                table_names_list.append(table["Name"])
+            while "NextToken" in response:
+                response = client.list_table_metadata(
+                    DatabaseName=database_name, NextToken=response["NextToken"]
+                )
+                for table in response["TableList"]:
+                    table_names_list.append(table["Name"])
+            return table_names_list
+        except botocore.exceptions.ClientError as error:
+            logger.exception(
+                f"Error in getting table names list from AWS Glue from the database {database_name}"
             )
             raise error
 
