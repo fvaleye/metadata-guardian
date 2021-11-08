@@ -1,7 +1,7 @@
 import pytest
 
 from metadata_guardian.data_rules import AvailableCategory, DataRules
-from metadata_guardian.scanner import ColumnScanner, ContentFileScanner
+from metadata_guardian.scanner import ColumnScanner, ContentFilesScanner
 from metadata_guardian.source.local.avro_schema_source import AvroSchemaSource
 
 
@@ -49,7 +49,7 @@ def test_get_data_rules_from_category_inclusion_no_violation(local_file):
 def test_get_data_rules_from_category_inclusion_violation_content(local_file):
     data_rules = DataRules.from_available_category(category=AvailableCategory.INCLUSION)
 
-    md_results = ContentFileScanner(data_rules=data_rules).scan_local_file(local_file)
+    md_results = ContentFilesScanner(data_rules=data_rules).scan_local_file(local_file)
 
     assert len(md_results.report_results[0].results) == 1
     assert "resources/inclusion_violation.txt" in md_results.report_results[0].source
