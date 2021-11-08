@@ -31,12 +31,12 @@ The available data rules are: *https://github.com/fvaleye/metadata-guardian/blob
 
 ```sh
 # Install everything
-pip install metadata_guardian[all]
+pip install 'metadata_guardian[all]'
 ```
 
 ```sh
 # Install with one data source
-pip install metadata_guardian[snowflake,avro,parquet,orc,aws,gcp,deltalake]
+pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake]'
 ```
 
 == Licence

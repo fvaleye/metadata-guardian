@@ -9,4 +9,4 @@ Using Pip
    pip install 'metadata_guardian[all]'
 
    # Install one metadata source in the list
-   pip install 'metadata_guardian[snowflake,avro,parquet,orc,aws,gcp,deltalake]'
+   pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,devel]'
