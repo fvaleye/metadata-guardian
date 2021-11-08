@@ -1,8 +1,10 @@
+import asyncio
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional
 
 from loguru import logger
+from pyarrow import cpu_count
 
 from .data_rules import DataRules
 from .report import MetadataGuardianReport, ReportResults
@@ -15,9 +17,9 @@ class Scanner(ABC):
     @abstractmethod
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
-        Scan the column names from local source.
+        Scan the column names from the local source.
         :param source: the LocalMetadataSource to scan
-        :return: Metadata Guardian report
+        :return: a Metadata Guardian report
         """
         pass
 
@@ -30,12 +32,32 @@ class Scanner(ABC):
         include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """
-        Scan the column names from external source.
+        Scan the column names from the external source.
         :param source: the ExternalMetadataSource to scan
         :param database_name: the name of the database
         :param table_name: the name of the table
         :param include_comment: the scan include the comment section
-        :return: Metadata Guardian report
+        :return: a Metadata Guardian report
+        """
+        pass
+
+    @abstractmethod
+    async def scan_external_async(
+        self,
+        source: ExternalMetadataSource,
+        database_name: str,
+        tasks_limit: int,
+        table_name: Optional[str] = None,
+        include_comment: bool = False,
+    ) -> MetadataGuardianReport:
+        """
+        Scan the column names from the external source asynchronously.
+        :param source: the ExternalMetadataSource to scan
+        :param database_name: the name of the database
+        :param tasks_limit: the limit of the tasks to run in parallel
+        :param table_name: the name of the table
+        :param include_comment: the scan include the comment section
+        :return: a Metadata Guardian report
         """
         pass
 
@@ -48,9 +70,9 @@ class ColumnScanner(Scanner):
 
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
-        Scan the column names from source.
+        Scan the column names from the local source.
         :param source: the MetadataSource to scan
-        :return: Metadata Guardian report
+        :return: a Metadata Guardian report
         """
         return MetadataGuardianReport(
             report_results=[
@@ -76,9 +98,12 @@ class ColumnScanner(Scanner):
         :param database_name: the name of the database
         :param table_name: the name of the table
         :param include_comment: the scan include the comment section
-        :return: Metadata Guardian report
+        :return: a Metadata Guardian report
         """
         if table_name:
+            logger.debug(
+                f"Get the column names list from the table {database_name}.{table_name}"
+            )
             report = MetadataGuardianReport(
                 report_results=[
                     ReportResults(
@@ -95,12 +120,14 @@ class ColumnScanner(Scanner):
             )
         else:
             report = MetadataGuardianReport()
-            table_names_list = source.get_table_names_list(database_name=database_name)
             logger.debug(
                 f"Get the table names list from the database {database_name} for {source.type}"
             )
+            table_names_list = source.get_table_names_list(database_name=database_name)
             for table_name in table_names_list:
-                logger.debug(f"Get the column names list from the table {table_name}")
+                logger.debug(
+                    f"Get the column names list from the table {database_name}.{table_name}"
+                )
                 report.append(
                     MetadataGuardianReport(
                         report_results=[
@@ -117,6 +144,61 @@ class ColumnScanner(Scanner):
                         ]
                     )
                 )
+        return report
+
+    async def scan_external_async(
+        self,
+        source: ExternalMetadataSource,
+        database_name: str,
+        tasks_limit: int = cpu_count(),
+        table_name: Optional[str] = None,
+        include_comment: bool = False,
+    ) -> MetadataGuardianReport:
+        """
+        Scan the column names from the external source using a table name or a database name.
+        Note that it can generate multiple concurrent calls to your metadata source.
+
+        :param source: the ExternalMetadataSource to scan
+        :param database_name: the name of the database
+        :param tasks_limit: the limit of the tasks to run in parallel
+        :param table_name: the name of the table
+        :param include_comment: the scan include the comment section
+        :return: a Metadata Guardian report
+        """
+        semaphore = asyncio.Semaphore(tasks_limit)
+
+        async def async_validate_words(table_name: str) -> ReportResults:
+            async with semaphore:
+                logger.debug(
+                    f"Get the column names list from the table {database_name}.{table_name}"
+                )
+                loop = asyncio.get_event_loop()
+                words = await loop.run_in_executor(
+                    None,
+                    source.get_column_names,
+                    database_name,
+                    table_name,
+                    include_comment,
+                )
+                return ReportResults(
+                    source=f"{database_name}.{table_name}",
+                    results=self.data_rules.validate_words(words=words),
+                )
+
+        if table_name:
+            tasks = [async_validate_words(table_name=table_name)]
+        else:
+            table_names_list = source.get_table_names_list(database_name=database_name)
+            logger.debug(
+                f"Get the table names list from the database {database_name} for {source.type}"
+            )
+
+            tasks = [
+                async_validate_words(table_name=table_name)
+                for table_name in table_names_list
+            ]
+        report_results = await asyncio.gather(*tasks)
+        report = MetadataGuardianReport(report_results=report_results)
         return report
 
 
