@@ -196,7 +196,7 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#metadata_guardian.scanner.ContentFileScanner">ContentFileScanner (class in metadata_guardian.scanner)</a>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ContentFilesScanner">ContentFilesScanner (class in metadata_guardian.scanner)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -252,8 +252,6 @@
         <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.get_column_names">(metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource.get_connection">get_connection() (metadata_guardian.source.external.aws_source.AthenaSource method)</a>
 
       <ul>
@@ -268,8 +266,24 @@
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_connection">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.get_field_attribute">get_field_attribute() (metadata_guardian.source.local.avro_source.AvroSource method)</a>
 </li>
+      <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource.get_table_names_list">get_table_names_list() (metadata_guardian.source.external.aws_source.AthenaSource method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.GlueSource.get_table_names_list">(metadata_guardian.source.external.aws_source.GlueSource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_table_names_list">(metadata_guardian.source.external.deltatable_source.DeltaTableSource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_table_names_list">(metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.get_table_names_list">(metadata_guardian.source.external.gcp_source.BigQuerySource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_table_names_list">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
+</li>
+      </ul></li>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.GlueSource">GlueSource (class in metadata_guardian.source.external.aws_source)</a>
 </li>
   </ul></td>
@@ -445,10 +459,18 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ContentFilesScanner.scan_directory">scan_directory() (metadata_guardian.scanner.ContentFilesScanner method)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan_external">scan_external() (metadata_guardian.scanner.ColumnScanner method)</a>
 
       <ul>
         <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_external">(metadata_guardian.scanner.Scanner method)</a>
+</li>
+      </ul></li>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan_external_async">scan_external_async() (metadata_guardian.scanner.ColumnScanner method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_external_async">(metadata_guardian.scanner.Scanner method)</a>
 </li>
       </ul></li>
       <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan_local">scan_local() (metadata_guardian.scanner.ColumnScanner method)</a>
@@ -457,10 +479,10 @@
         <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_local">(metadata_guardian.scanner.Scanner method)</a>
 </li>
       </ul></li>
-      <li><a href="api_reference.html#metadata_guardian.scanner.ContentFileScanner.scan_local_file">scan_local_file() (metadata_guardian.scanner.ContentFileScanner method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ContentFilesScanner.scan_local_file">scan_local_file() (metadata_guardian.scanner.ContentFilesScanner method)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.scanner.Scanner">Scanner (class in metadata_guardian.scanner)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.schema">schema() (metadata_guardian.source.local.avro_source.AvroSource method)</a>

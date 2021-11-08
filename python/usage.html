@@ -175,7 +175,7 @@
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <section id="metadata-guardian">
 <h2>Metadata Guardian<a class="headerlink" href="#metadata-guardian" title="Permalink to this headline">¶</a></h2>
-<p>Local Source, one result:</p>
+<p>Scan the column names of a local source:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">ParquetSource</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -186,7 +186,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Scan column names of an external Source, one result:</p>
+<p>Scan the column names of a external source on a table:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -197,7 +197,30 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Scan column names of a local source, multiple results:</p>
+<p>Scan the column names of a external source on database:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Scan the column names of an external source for a database asynchronously with asyncio:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Scan the column names of a local source:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span><span class="p">,</span> <span class="n">MetadataGuardianReport</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">ParquetSource</span>
 <span class="go">&gt;&gt;&gt;</span>
@@ -211,11 +234,11 @@
 </pre></div>
 </div>
 <p>Scan content of a file:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ContentFileScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ContentFilesScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ContentFileScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local_file</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">content_file_scanner</span> <span class="o">=</span> <span class="n">ContentFilesScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">content_file_scanner</span><span class="o">.</span><span class="n">scan_local_file</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
