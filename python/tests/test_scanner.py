@@ -1,9 +1,10 @@
 import asyncio
+import os
 from unittest.mock import patch
 
 from metadata_guardian.data_rules import AvailableCategory, DataRules
 from metadata_guardian.report import MetadataGuardianReport, ReportResults
-from metadata_guardian.scanner import ColumnScanner
+from metadata_guardian.scanner import ColumnScanner, ContentFilesScanner
 from metadata_guardian.source.external.snowflake_source import SnowflakeSource
 
 
@@ -125,3 +126,16 @@ def test_column_scanner_database_name_async(mock_connection):
     )
 
     assert report == expected
+
+
+def test_local_directory_scan():
+    directory_path = os.path.join(os.path.dirname(__file__), "resources")
+    file_names_extension = "txt"
+
+    data_rules = DataRules.from_available_category(category=AvailableCategory.INCLUSION)
+
+    report = ContentFilesScanner(data_rules=data_rules).scan_directory(
+        directory_path=directory_path, file_names_extension=file_names_extension
+    )
+
+    assert "resources/inclusion_violation.txt" in str(report)

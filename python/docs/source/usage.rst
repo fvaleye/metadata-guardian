@@ -64,10 +64,10 @@ Scan the column names of a local source:
 
 Scan content of a file:
 
->>> from metadata_guardian import DataRules, ContentFileScanner, AvailableCategory
+>>> from metadata_guardian import DataRules, ContentFilesScanner, AvailableCategory
 >>>
 >>> data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
->>> column_scanner = ContentFileScanner(data_rules=data_rules)
->>> report = column_scanner.scan_local_file(path="path")
+>>> content_file_scanner = ContentFilesScanner(data_rules=data_rules)
+>>> report = content_file_scanner.scan_local_file(path="path")
 >>> report.to_console()
 

@@ -1,4 +1,5 @@
 import asyncio
+import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Optional
@@ -203,7 +204,7 @@ class ColumnScanner(Scanner):
 
 
 @dataclass
-class ContentFileScanner:
+class ContentFilesScanner:
     """Content Files Scanner instance."""
 
     data_rules: DataRules
@@ -212,7 +213,7 @@ class ContentFileScanner:
         """
         Scan a file with data rules.
         :param path: the path of the file to scan
-        :return: Metadata Guardian report
+        :return: a Metadata Guardian report
         """
         return MetadataGuardianReport(
             report_results=[
@@ -221,3 +222,21 @@ class ContentFileScanner:
                 )
             ]
         )
+
+    def scan_directory(
+        self, directory_path: str, file_names_extension: str
+    ) -> MetadataGuardianReport:
+        """
+        Scan all the files inside directory path with the file name extension.
+        :param directory_path: the directory path to scan
+        :param file_names_extension: the file name extension to include (without the .)
+        :return: a Metadata Guardian report
+        """
+        report = MetadataGuardianReport()
+        for root, dirs, files in os.walk(directory_path):
+            for name in files:
+                if name.endswith(f".{file_names_extension}"):
+                    report.append(
+                        other_report=self.scan_local_file(path=f"{root}/{name}")
+                    )
+        return report
