@@ -6,7 +6,10 @@ import snowflake.connector
 from loguru import logger
 from snowflake.connector import SnowflakeConnection
 
-from .external_metadata_source import ExternalMetadataSource
+from .external_metadata_source import (
+    ExternalMetadataSource,
+    ExternalMetadataSourceException,
+)
 
 
 class SnowflakeAuthenticator(Enum):
@@ -98,6 +101,7 @@ class SnowflakeSource(ExternalMetadataSource):
         :return: the list of the table names of the database
         """
         try:
+            connection = None
             connection = self.get_connection()
             cursor = connection.cursor()
             cursor.execute(f'SHOW TABLES IN DATABASE "{database_name.upper()}"')
@@ -111,10 +115,10 @@ class SnowflakeSource(ExternalMetadataSource):
             logger.exception(
                 f"Error in getting table names from the database {database_name} in Snowflake {database_name}"
             )
-            raise exception
+            raise ExternalMetadataSourceException(exception)
         finally:
-            cursor.close()
-            connection.close()
+            if connection:
+                connection.close()
 
     @property
     def type(self) -> str:

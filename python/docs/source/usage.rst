@@ -46,7 +46,7 @@ Scan the column names of an external source for a database asynchronously with a
 >>> data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
 >>> source = SnowflakeSource(sf_account="account", sf_user="sf_user", sf_password="sf_password", warehouse="warehouse", schema_name="schema_name")
 >>> column_scanner = ColumnScanner(data_rules=data_rules)
->>> report = asyncio.run(column_scanner.scan_external(source, database_name="database_name", include_comment=True))
+>>> report = asyncio.run(column_scanner.scan_external_async(source, database_name="database_name", include_comment=True))
 >>> report.to_console()
 
 Scan the column names of a local source:

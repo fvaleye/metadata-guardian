@@ -4,7 +4,10 @@ from typing import Any, List, Optional
 from deltalake import DataCatalog, DeltaTable
 from loguru import logger
 
-from .external_metadata_source import ExternalMetadataSource
+from .external_metadata_source import (
+    ExternalMetadataSource,
+    ExternalMetadataSourceException,
+)
 
 
 @dataclass
@@ -48,11 +51,11 @@ class DeltaTableSource(ExternalMetadataSource):
                 if include_comment and field.metadata:
                     columns.append(str(field.metadata).lower())
             return columns
-        except Exception as error:
+        except Exception as exception:
             logger.exception(
                 f"Error in getting columns name from the DeltaTable {self.uri}"
             )
-            raise error
+            raise ExternalMetadataSourceException(exception)
 
     def get_table_names_list(self, database_name: str) -> List[str]:
         """
