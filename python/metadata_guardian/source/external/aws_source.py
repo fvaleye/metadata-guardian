@@ -7,7 +7,10 @@ from loguru import logger
 from mypy_boto3_athena.client import AthenaClient
 from mypy_boto3_glue.client import GlueClient
 
-from .external_metadata_source import ExternalMetadataSource
+from .external_metadata_source import (
+    ExternalMetadataSource,
+    ExternalMetadataSourceException,
+)
 
 
 @dataclass
@@ -59,7 +62,7 @@ class AthenaSource(ExternalMetadataSource):
             logger.exception(
                 f"Error in getting columns name from AWS Athena {database_name}.{table_name} for catalog {self.catalog_name}"
             )
-            raise error
+            raise ExternalMetadataSource(error)
 
     def get_table_names_list(self, database_name: str) -> List[str]:
         """
@@ -85,11 +88,11 @@ class AthenaSource(ExternalMetadataSource):
                 for table in response["TableMetadataList"]:
                     table_names_list.append(table["Name"])
             return table_names_list
-        except botocore.exceptions.ClientError as error:
+        except botocore.exceptions.ClientError as exception:
             logger.exception(
                 f"Error in getting table names list from AWS Athena from the database {database_name} for catalog {self.catalog_name}"
             )
-            raise error
+            raise ExternalMetadataSourceException(exception)
 
     @property
     def type(self) -> str:
@@ -139,11 +142,11 @@ class GlueSource(ExternalMetadataSource):
                 if include_comment:
                     columns.append(row["Comment"].lower())
             return columns
-        except botocore.exceptions.ClientError as error:
+        except botocore.exceptions.ClientError as exception:
             logger.exception(
                 f"Error in getting columns name from AWS Glue from the table {database_name}.{table_name}"
             )
-            raise error
+            raise ExternalMetadataSourceException(exception)
 
     def get_table_names_list(self, database_name: str) -> List[str]:
         """

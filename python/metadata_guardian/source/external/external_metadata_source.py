@@ -1,6 +1,7 @@
 from abc import abstractmethod
 from typing import Any, List
 
+from ...exceptions import MetadataGuardianException
 from ..metadata_source import MetadataSource
 
 
@@ -36,3 +37,9 @@ class ExternalMetadataSource(MetadataSource):
         :return: the source connection
         """
         pass
+
+
+class ExternalMetadataSourceException(MetadataGuardianException):
+    """Raised where there is an exception to describe a external metadata source exception."""
+
+    pass

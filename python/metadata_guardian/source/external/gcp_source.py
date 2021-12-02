@@ -4,7 +4,10 @@ from typing import Any, Dict, List, Optional, Union
 from google.cloud import bigquery
 from loguru import logger
 
-from .external_metadata_source import ExternalMetadataSource
+from .external_metadata_source import (
+    ExternalMetadataSource,
+    ExternalMetadataSourceException,
+)
 
 
 @dataclass
@@ -57,7 +60,7 @@ class BigQuerySource(ExternalMetadataSource):
             logger.exception(
                 f"Error in getting columns name from BigQuery {database_name}.{table_name}"
             )
-            raise exception
+            raise ExternalMetadataSourceException(exception)
 
     def get_table_names_list(self, database_name: str) -> List[str]:
         """
