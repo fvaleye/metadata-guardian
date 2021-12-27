@@ -188,7 +188,7 @@
 </div>
 <p>Scan the column names of a external source on a table:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
@@ -199,7 +199,7 @@
 </div>
 <p>Scan the column names of a external source on database:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
@@ -211,12 +211,12 @@
 <p>Scan the column names of an external source for a database asynchronously with asyncio:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">asyncio</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source.external.snowflake_source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
 <span class="go">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external_async</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -285,7 +285,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
 </p>
     </div>
     
