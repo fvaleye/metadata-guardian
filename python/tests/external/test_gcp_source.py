@@ -1,7 +1,7 @@
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
-from metadata_guardian.source.external.gcp_source import BigQuerySource
+from metadata_guardian.source import BigQuerySource
 
 
 @patch("google.cloud.bigquery.Client.from_service_account_json")

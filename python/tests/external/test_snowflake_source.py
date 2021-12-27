@@ -1,9 +1,6 @@
 from unittest.mock import patch
 
-from metadata_guardian.source.external.snowflake_source import (
-    SnowflakeAuthenticator,
-    SnowflakeSource,
-)
+from metadata_guardian.source import SnowflakeAuthenticator, SnowflakeSource
 
 
 @patch("snowflake.connector")

@@ -18,7 +18,7 @@ Scan the column names of a local source:
 Scan the column names of a external source on a table:
 
 >>> from metadata_guardian import DataRules, ColumnScanner, AvailableCategory
->>> from metadata_guardian.source.external.snowflake_source import SnowflakeSource
+>>> from metadata_guardian.source import SnowflakeSource
 >>>
 >>> data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
 >>> source = SnowflakeSource(sf_account="account", sf_user="sf_user", sf_password="sf_password", warehouse="warehouse", schema_name="schema_name")
@@ -29,7 +29,7 @@ Scan the column names of a external source on a table:
 Scan the column names of a external source on database:
 
 >>> from metadata_guardian import DataRules, ColumnScanner, AvailableCategory
->>> from metadata_guardian.source.external.snowflake_source import SnowflakeSource
+>>> from metadata_guardian.source import SnowflakeSource
 >>>
 >>> data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
 >>> source = SnowflakeSource(sf_account="account", sf_user="sf_user", sf_password="sf_password", warehouse="warehouse", schema_name="schema_name")
@@ -41,7 +41,7 @@ Scan the column names of an external source for a database asynchronously with a
 
 >>> import asyncio
 >>> from metadata_guardian import DataRules, ColumnScanner, AvailableCategory
->>> from metadata_guardian.source.external.snowflake_source import SnowflakeSource
+>>> from metadata_guardian.source import SnowflakeSource
 >>>
 >>> data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
 >>> source = SnowflakeSource(sf_account="account", sf_user="sf_user", sf_password="sf_password", warehouse="warehouse", schema_name="schema_name")

@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 from deltalake import Field, Schema
 
-from metadata_guardian.source.external.deltatable_source import DeltaTableSource
+from metadata_guardian.source import DeltaTableSource
 
 
 @patch(

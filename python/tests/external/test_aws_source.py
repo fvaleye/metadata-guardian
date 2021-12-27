@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from metadata_guardian.source.external.aws_source import AthenaSource, GlueSource
+from metadata_guardian.source import AthenaSource, GlueSource
 
 
 @patch("boto3.client")
