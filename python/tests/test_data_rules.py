@@ -2,7 +2,7 @@ import pytest
 
 from metadata_guardian.data_rules import AvailableCategory, DataRules
 from metadata_guardian.scanner import ColumnScanner, ContentFilesScanner
-from metadata_guardian.source.local.avro_schema_source import AvroSchemaSource
+from metadata_guardian.source import AvroSchemaSource
 
 
 @pytest.mark.parametrize(

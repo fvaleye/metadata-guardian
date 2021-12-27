@@ -2,8 +2,6 @@ from dataclasses import dataclass
 from typing import Any, List, Optional
 
 from loguru import logger
-from mypy_boto3_athena.client import AthenaClient
-from mypy_boto3_glue.client import GlueClient
 
 from .external_metadata_source import (
     ExternalMetadataSource,
@@ -13,6 +11,8 @@ from .external_metadata_source import (
 try:
     import boto3
     import botocore
+    from mypy_boto3_athena.client import AthenaClient
+    from mypy_boto3_glue.client import GlueClient
 
     AWS_INSTALLED = True
 except ImportError:

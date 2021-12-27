@@ -5,7 +5,7 @@ from unittest.mock import patch
 from metadata_guardian.data_rules import AvailableCategory, DataRules
 from metadata_guardian.report import MetadataGuardianReport, ReportResults
 from metadata_guardian.scanner import ColumnScanner, ContentFilesScanner
-from metadata_guardian.source.external.snowflake_source import SnowflakeSource
+from metadata_guardian.source import SnowflakeSource
 
 
 @patch("snowflake.connector")

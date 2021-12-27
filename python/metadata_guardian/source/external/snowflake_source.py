@@ -4,7 +4,6 @@ from typing import Any, List, Optional
 
 import snowflake.connector
 from loguru import logger
-from snowflake.connector import SnowflakeConnection
 
 from .external_metadata_source import (
     ExternalMetadataSource,
@@ -12,7 +11,8 @@ from .external_metadata_source import (
 )
 
 try:
-    from google.cloud import bigquery
+    import snowflake.connector
+    from snowflake.connector import SnowflakeConnection
 
     SNOWFLAKE_INSTALLED = True
 except ImportError:
