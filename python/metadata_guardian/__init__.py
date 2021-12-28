@@ -1,7 +1,4 @@
-import sys
-
-from loguru import logger
-
+from .conf import *
 from .data_rules import *
 from .exceptions import *
 from .report import *

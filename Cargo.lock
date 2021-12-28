@@ -636,7 +636,7 @@ dependencies = [
 
 [[package]]
 name = "metadata_guardian-python"
-version = "0.0.9"
+version = "0.1.0"
 dependencies = [
  "env_logger",
  "metadata_guardian",
