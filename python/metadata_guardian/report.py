@@ -1,11 +1,72 @@
 from dataclasses import dataclass, field
-from typing import List, NamedTuple, Tuple
+from typing import List, NamedTuple, Optional, Tuple
 
-from loguru import logger
 from rich.console import Console
+from rich.progress import (
+    BarColumn,
+    Progress,
+    SpinnerColumn,
+    TaskID,
+    TextColumn,
+    TimeRemainingColumn,
+)
 from rich.table import Table
 
 from .data_rules import MetadataGuardianResults
+
+
+@dataclass(init=False)
+class ProgressionBar(Progress):
+    """
+    Progression Bar provides a progression bar to display the results of the scanner.
+    """
+
+    task_id: Optional[TaskID] = None
+
+    def __init__(self) -> None:
+        super().__init__(
+            SpinnerColumn(),
+            "[progress.description]{task.description}: [red]{task.fields[current_item]}",
+            BarColumn(),
+            "[progress.percentage]{task.percentage:>3.0f}% ({task.completed}/{task.total})-",
+            TimeRemainingColumn(),
+        )
+
+    def add_task(  # type: ignore
+        self, item_name: str, source_type: str, total: int, current_item: str = ""
+    ) -> int:
+        """
+        Add task in the Progression Bar.
+        :param item_name: the name of the item to search
+        :param current_item: the name of the current item
+        :param source_type: the source type
+        :param total: total of the number of tables
+        :return: the created Task
+        """
+        task_id = super().add_task(
+            f"[bold cyan]Searching in {item_name} for the {source_type} metadata source",
+            total=total,
+            current_item=current_item,
+        )
+        self.task_id = task_id
+        return task_id
+
+    def update(self, current_item: str) -> None:  # type: ignore
+        """
+        Update the task of the Progression Bar.
+        :param current_item: the name of the current item
+        :return:
+        """
+        if self.task_id is not None:
+            super().update(self.task_id, advance=1, current_item=current_item)
+
+    def terminate(self) -> None:
+        """
+        Terminate the current task
+        :return:
+        """
+        if self.task_id is not None:
+            super().update(self.task_id, current_item="Done")
 
 
 @dataclass
@@ -37,7 +98,9 @@ class MetadataGuardianReport:
         """
         _console = Console()
         _table = Table(
-            title="MetadataGuardian report", show_header=True, header_style="bold dim"
+            title=":magnifying_glass_tilted_right: Metadata Guardian report",
+            show_header=True,
+            header_style="bold dim",
         )
         _table.add_column("Category", style="yellow", width=30)
         _table.add_column("Source", style="cyan", width=30)
@@ -57,9 +120,11 @@ class MetadataGuardianReport:
                         data_rule.documentation,
                     )
         if _table.rows:
-            logger.warning(f"MetadataGuardian detected data rules violation(s).")
+            _console.print(
+                f":exclamation: Metadata Guardian detected {len(_table.rows)} data rules violations."
+            )
             _console.print(_table)
         else:
-            logger.info(
-                f"No data rules violation(s) were detected by MetadataGuardian."
+            _console.print(
+                f":thumbs_up: No data rules violation were detected by Metadata Guardian."
             )

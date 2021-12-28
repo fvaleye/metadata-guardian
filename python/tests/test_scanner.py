@@ -38,12 +38,13 @@ def test_column_scanner_table_name(mock_connection):
         schema_name=schema_name,
     )
     data_rules = DataRules.from_available_category(category=AvailableCategory.INCLUSION)
-
-    report = ColumnScanner(data_rules=data_rules).scan_external(
+    column_scanner = ColumnScanner(data_rules=data_rules)
+    report = column_scanner.scan_external(
         database_name=database_name, table_name=table_name, source=source
     )
 
     assert report == expected
+    assert column_scanner.progress.task_id is not None
 
 
 @patch("snowflake.connector")
@@ -79,11 +80,11 @@ def test_column_scanner_database_name(mock_connection):
     )
     data_rules = DataRules.from_available_category(category=AvailableCategory.INCLUSION)
 
-    report = ColumnScanner(data_rules=data_rules).scan_external(
-        database_name=database_name, source=source
-    )
+    column_scanner = ColumnScanner(data_rules=data_rules)
+    report = column_scanner.scan_external(database_name=database_name, source=source)
 
     assert report == expected
+    assert column_scanner.progress.task_id is not None
 
 
 @patch("snowflake.connector")
@@ -119,13 +120,13 @@ def test_column_scanner_database_name_async(mock_connection):
     )
     data_rules = DataRules.from_available_category(category=AvailableCategory.INCLUSION)
 
+    column_scanner = ColumnScanner(data_rules=data_rules)
     report = asyncio.run(
-        ColumnScanner(data_rules=data_rules).scan_external_async(
-            database_name=database_name, source=source
-        )
+        column_scanner.scan_external_async(database_name=database_name, source=source)
     )
 
     assert report == expected
+    assert column_scanner.progress.task_id is not None
 
 
 def test_local_directory_scan():

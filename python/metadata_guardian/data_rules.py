@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List
 
+from loguru import logger
+
 from .metadata_guardian import RawDataRules
 
 
@@ -45,6 +47,7 @@ class DataRules:
         :param category: the available category of the data rules
         :return: the Data Rules instance
         """
+        logger.debug(f"Creating Data Rules from the category {category.value}")
         if not isinstance(category, AvailableCategory):
             raise ValueError("The category must be an instance of AvailableCategory")
         with importlib.resources.path(
@@ -59,6 +62,7 @@ class DataRules:
         :param word: the word to validate
         :return: the metadata guardian results
         """
+        logger.debug(f"Validate the Data Rules with the word {word}")
         result = self._data_rules.validate_word(word=word)
         return MetadataGuardianResults(
             category=result._category,
@@ -79,6 +83,7 @@ class DataRules:
         :param words: the words to validate
         :return: the metadata guardian results
         """
+        logger.debug(f"Validate the Data Rules with the words {words}")
         results = self._data_rules.validate_words(words=words)
         return [
             MetadataGuardianResults(
@@ -102,6 +107,7 @@ class DataRules:
         :param path: the file path
         :return: the metadata guardian results
         """
+        logger.debug(f"Validate the Data Rules in the path {path}")
         results = self._data_rules.validate_file(path)
         return [
             MetadataGuardianResults(
