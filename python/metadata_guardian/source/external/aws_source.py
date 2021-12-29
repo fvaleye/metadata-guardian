@@ -16,7 +16,7 @@ try:
 
     AWS_INSTALLED = True
 except ImportError:
-    logger.warning("AWS optional dependency is not installed.")
+    logger.debug("AWS optional dependency is not installed.")
     AWS_INSTALLED = False
 
 
@@ -32,12 +32,12 @@ if AWS_INSTALLED:
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
 
-        def get_connection(self) -> AthenaClient:
+        def get_connection(self) -> None:
             """
             Get Athena connection.
-            :return: a new Athena connection.
+            :return:
             """
-            return boto3.client(
+            self.connection = boto3.client(
                 "athena",
                 region_name=self.region_name,
                 aws_access_key_id=self.aws_access_key_id,
@@ -55,8 +55,9 @@ if AWS_INSTALLED:
             :return: the list of the column names
             """
             try:
-                client = self.get_connection()
-                response = client.get_table_metadata(
+                if not self.connection:
+                    self.get_connection()
+                response = self.connection.get_table_metadata(
                     CatalogName=self.catalog_name,
                     DatabaseName=database_name,
                     TableName=table_name,
@@ -65,7 +66,8 @@ if AWS_INSTALLED:
                 for row in response["TableMetadata"]["Columns"]:
                     columns.append(row["Name"].lower())
                     if include_comment:
-                        columns.append(row["Comment"].lower())
+                        if "Comment" in row:
+                            columns.append(row["Comment"].lower())
                 return columns
             except botocore.exceptions.ClientError as error:
                 logger.exception(
@@ -80,16 +82,17 @@ if AWS_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                client = self.get_connection()
+                if not self.connection:
+                    self.get_connection()
                 table_names_list = list()
-                response = client.list_table_metadata(
+                response = self.connection.list_table_metadata(
                     CatalogName=self.catalog_name,
                     DatabaseName=database_name,
                 )
                 for table in response["TableMetadataList"]:
                     table_names_list.append(table["Name"])
                 while "NextToken" in response:
-                    response = client.list_table_metadata(
+                    response = self.connection.list_table_metadata(
                         CatalogName=self.catalog_name,
                         DatabaseName=database_name,
                         NextToken=response["NextToken"],
@@ -109,7 +112,7 @@ if AWS_INSTALLED:
             The type of the source.
             :return: the name o of the source.
             """
-            return "AWSAthena"
+            return "AWS Athena"
 
     @dataclass
     class GlueSource(ExternalMetadataSource):
@@ -119,12 +122,12 @@ if AWS_INSTALLED:
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
 
-        def get_connection(self) -> GlueClient:
+        def get_connection(self) -> None:
             """
             Get the Glue connection
-            :return: one Glue client
+            :return:
             """
-            return boto3.client(
+            self.connection = boto3.client(
                 "glue",
                 region_name=self.region_name,
                 aws_access_key_id=self.aws_access_key_id,
@@ -142,13 +145,17 @@ if AWS_INSTALLED:
             :return: the list of the column names
             """
             try:
-                client = self.get_connection()
-                response = client.get_table(DatabaseName=database_name, Name=table_name)
+                if not self.connection:
+                    self.get_connection()
+                response = self.connection.get_table(
+                    DatabaseName=database_name, Name=table_name
+                )
                 columns = list()
                 for row in response["Table"]["StorageDescriptor"]["Columns"]:
                     columns.append(row["Name"].lower())
                     if include_comment:
-                        columns.append(row["Comment"].lower())
+                        if "Comment" in row:
+                            columns.append(row["Comment"].lower())
                 return columns
             except botocore.exceptions.ClientError as exception:
                 logger.exception(
@@ -163,15 +170,16 @@ if AWS_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                client = self.get_connection()
+                if not self.connection:
+                    self.get_connection()
                 table_names_list = list()
-                response = client.get_tables(
+                response = self.connection.get_tables(
                     DatabaseName=database_name,
                 )
                 for table in response["TableList"]:
                     table_names_list.append(table["Name"])
                 while "NextToken" in response:
-                    response = client.list_table_metadata(
+                    response = self.connection.get_tables(
                         DatabaseName=database_name, NextToken=response["NextToken"]
                     )
                     for table in response["TableList"]:
@@ -189,4 +197,4 @@ if AWS_INSTALLED:
             The type of the source.
             :return: the name of the source.
             """
-            return "AWSGlue"
+            return "AWS Glue"

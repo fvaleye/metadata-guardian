@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Any, List
+from typing import Any, List, Optional
 
 from ...exceptions import MetadataGuardianException
 from ..metadata_source import MetadataSource
@@ -7,6 +7,8 @@ from ..metadata_source import MetadataSource
 
 class ExternalMetadataSource(MetadataSource):
     """ExternalMetadataSource Source."""
+
+    connection: Optional[Any] = None
 
     @abstractmethod
     def get_column_names(
@@ -31,10 +33,10 @@ class ExternalMetadataSource(MetadataSource):
         pass
 
     @abstractmethod
-    def get_connection(self) -> Any:
+    def get_connection(self) -> None:
         """
         Get the connection of the source.
-        :return: the source connection
+        :return:
         """
         pass
 

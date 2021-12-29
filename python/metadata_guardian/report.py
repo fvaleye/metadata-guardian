@@ -101,22 +101,21 @@ class MetadataGuardianReport:
             title=":magnifying_glass_tilted_right: Metadata Guardian report",
             show_header=True,
             header_style="bold dim",
+            show_lines=True,
         )
-        _table.add_column("Category", style="yellow", width=30)
-        _table.add_column("Source", style="cyan", width=30)
-        _table.add_column("Content", style="cyan", width=30)
-        _table.add_column("Name", style="magenta", width=30)
-        _table.add_column("Pattern")
-        _table.add_column("Documentation", width=50)
+        _table.add_column("Category", style="yellow", no_wrap=True)
+        _table.add_column("Source", style="cyan", no_wrap=True)
+        _table.add_column("Content", style="cyan", no_wrap=True)
+        _table.add_column("Name", style="magenta", no_wrap=True)
+        _table.add_column("Documentation")
         for report in self.report_results:
             for result in report.results:
                 for data_rule in result.data_rules:
                     _table.add_row(
                         result.category,
                         report.source,
-                        result.content,
+                        result.content.strip(),
                         data_rule.rule_name,
-                        data_rule.regex_pattern,
                         data_rule.documentation,
                     )
         if _table.rows:

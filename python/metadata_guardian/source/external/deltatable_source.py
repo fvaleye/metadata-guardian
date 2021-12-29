@@ -13,7 +13,7 @@ try:
 
     DELTA_LAKE_INSTALLED = True
 except ImportError:
-    logger.warning("Delta Lake optional dependency is not installed.")
+    logger.debug("Delta Lake optional dependency is not installed.")
     DELTA_LAKE_INSTALLED = False
 
 if DELTA_LAKE_INSTALLED:
@@ -23,12 +23,12 @@ if DELTA_LAKE_INSTALLED:
         uri: str
         data_catalog: DataCatalog = DataCatalog.AWS
 
-        def get_connection(self) -> Any:
+        def get_connection(self) -> None:
             """
             Get the DeltaTable instance.
-            :return: the DeltaTable instance
+            :return:
             """
-            return DeltaTable(self.uri)
+            self.connection = DeltaTable(self.uri)
 
         def get_column_names(
             self,
@@ -45,14 +45,14 @@ if DELTA_LAKE_INSTALLED:
             """
             try:
                 if database_name and table_name:
-                    delta_table = DeltaTable.from_data_catalog(
+                    self.connection = DeltaTable.from_data_catalog(
                         data_catalog=self.data_catalog,
                         database_name=database_name,
                         table_name=table_name,
                     )
-                else:
-                    delta_table = self.get_connection()
-                schema = delta_table.schema()
+                elif not self.connection:
+                    self.get_connection()
+                schema = self.connection.schema()
                 columns = list()
                 for field in schema.fields:
                     columns.append(field.name.lower())
@@ -79,4 +79,4 @@ if DELTA_LAKE_INSTALLED:
             The type of the source.
             :return: the name o of the source.
             """
-            return "DeltaTable"
+            return "Delta Table"
