@@ -13,7 +13,7 @@ try:
 
     GCP_INSTALLED = True
 except ImportError:
-    logger.warning("GCP optional dependency is not installed.")
+    logger.debug("GCP optional dependency is not installed.")
     GCP_INSTALLED = False
 
 if GCP_INSTALLED:
@@ -26,13 +26,13 @@ if GCP_INSTALLED:
         project: Optional[str] = None
         location: Optional[str] = None
 
-        def get_connection(self) -> Any:
+        def get_connection(self) -> None:
             """
             Get the Big Query connection.
-            :return: a BigQuery Client
+            :return:
             """
             try:
-                return bigquery.Client.from_service_account_json(
+                self.connection = bigquery.Client.from_service_account_json(
                     self.service_account_json_path,
                     project=self.project,
                     location=self.location,
@@ -45,7 +45,7 @@ if GCP_INSTALLED:
             self, database_name: str, table_name: str, include_comment: bool = False
         ) -> List[str]:
             """
-            Get column names from the table.
+            Get column names from the table of the dataset.
             :param database_name: in that case the dataset
             :param table_name: the table name
             :param include_comment: include the comment
@@ -53,15 +53,16 @@ if GCP_INSTALLED:
             """
 
             try:
-                client = self.get_connection()
-                query_job = client.query(
+                if not self.connection:
+                    self.get_connection()
+                query_job = self.connection.query(
                     f'SELECT column_name, description FROM `{database_name}.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS` WHERE table_name = "{table_name}"'
                 )
                 results = query_job.result()
                 columns = list()
                 for row in results:
                     columns.append(row.column_name.lower())
-                    if include_comment:
+                    if include_comment and row.description:
                         columns.append(row.description.lower())
                 return columns
             except Exception as exception:
@@ -78,8 +79,9 @@ if GCP_INSTALLED:
             """
 
             try:
-                client = self.get_connection()
-                query_job = client.query(
+                if not self.connection:
+                    self.get_connection()
+                query_job = self.connection.query(
                     f"SELECT table_name FROM `{database_name}.INFORMATION_SCHEMA.TABLES`"
                 )
                 results = query_job.result()
@@ -99,4 +101,4 @@ if GCP_INSTALLED:
             The type of the source.
             :return: the name bof the source.
             """
-            return "BigQuery"
+            return "GCP BigQuery"

@@ -13,10 +13,11 @@ from .external_metadata_source import (
 try:
     import snowflake.connector
     from snowflake.connector import SnowflakeConnection
+    from snowflake.connector.converter_null import SnowflakeNoConverterToPython
 
     SNOWFLAKE_INSTALLED = True
 except ImportError:
-    logger.warning("Snowflake optional dependency is not installed.")
+    logger.debug("Snowflake optional dependency is not installed.")
     SNOWFLAKE_INSTALLED = False
 
 if SNOWFLAKE_INSTALLED:
@@ -42,30 +43,37 @@ if SNOWFLAKE_INSTALLED:
         oauth_host: Optional[str] = None
         authenticator: SnowflakeAuthenticator = SnowflakeAuthenticator.USER_PWD
 
-        def get_connection(self) -> SnowflakeConnection:
+        def get_connection(self) -> None:
+            """
+            Get a Snowflake connection based on the SnowflakeAuthenticator.
+            :return:
+            """
             if self.authenticator == SnowflakeAuthenticator.USER_PWD:
-                return snowflake.connector.connect(
+                self.connection = snowflake.connector.connect(
                     account=self.sf_account,
                     user=self.sf_user,
                     password=self.sf_password,
                     warehouse=self.warehouse,
+                    converter_class=SnowflakeNoConverterToPython,
                 )
             elif self.authenticator == SnowflakeAuthenticator.OKTA:
-                return snowflake.connector.connect(
+                self.connection = snowflake.connector.connect(
                     account=self.sf_account,
                     user=self.sf_user,
                     password=self.sf_password,
                     warehouse=self.warehouse,
                     authenticator=f"https://{self.okta_account_name}.okta.com/",
+                    converter_class=SnowflakeNoConverterToPython,
                 )
             elif self.authenticator == SnowflakeAuthenticator.TOKEN:
-                return snowflake.connector.connect(
+                self.connection = snowflake.connector.connect(
                     account=self.sf_account,
                     user=self.sf_user,
                     password=self.sf_password,
                     warehouse=self.warehouse,
                     authenticator="oauth",
                     token=self.oauth_token,
+                    converter_class=SnowflakeNoConverterToPython,
                 )
 
         def get_column_names(
@@ -79,8 +87,9 @@ if SNOWFLAKE_INSTALLED:
             :return: the list of the column names
             """
             try:
-                connection = self.get_connection()
-                cursor = connection.cursor()
+                if not self.connection or self.connection.is_closed():
+                    self.get_connection()
+                cursor = self.connection.cursor()
                 cursor.execute(
                     f'SHOW COLUMNS IN "{database_name}"."{self.schema_name}"."{table_name}"'
                 )
@@ -100,7 +109,6 @@ if SNOWFLAKE_INSTALLED:
                 raise exception
             finally:
                 cursor.close()
-                connection.close()
 
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
@@ -109,10 +117,10 @@ if SNOWFLAKE_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                connection = None
-                connection = self.get_connection()
-                cursor = connection.cursor()
-                cursor.execute(f'SHOW TABLES IN DATABASE "{database_name.upper()}"')
+                if not self.connection or self.connection.is_closed():
+                    self.get_connection()
+                cursor = self.connection.cursor()
+                cursor.execute(f'SHOW TABLES IN DATABASE "{database_name}"')
                 rows = cursor.fetchall()
                 table_list = list()
                 for row in rows:
@@ -121,12 +129,11 @@ if SNOWFLAKE_INSTALLED:
                 return table_list
             except Exception as exception:
                 logger.exception(
-                    f"Error in getting table names from the database {database_name} in Snowflake {database_name}"
+                    f"Error in getting table names from the database {database_name} in Snowflake"
                 )
                 raise ExternalMetadataSourceException(exception)
             finally:
-                if connection:
-                    connection.close()
+                cursor.close()
 
         @property
         def type(self) -> str:
