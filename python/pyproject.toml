@@ -23,12 +23,13 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery"]
+all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery", "confluent-kafka"]
 snowflake = [ "snowflake-connector-python" ]
 avro = [ "avro" ]
 aws = [ "boto3", "boto3-stubs[athena,glue]" ]
 gcp = [ "google-cloud-bigquery"]
 deltalake = [ "deltalake" ]
+kafka_schema_registry = [ "confluent-kafka" ]
 devel = [
     "mypy",
     "black",

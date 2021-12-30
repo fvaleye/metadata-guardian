@@ -48,7 +48,7 @@ if AWS_INSTALLED:
             self, database_name: str, table_name: str, include_comment: bool = False
         ) -> List[str]:
             """
-            Get column names from the table.
+            Get the column names from the table.
             :param database_name: the database name
             :param table_name: the table name
             :param include_comment: include the comment

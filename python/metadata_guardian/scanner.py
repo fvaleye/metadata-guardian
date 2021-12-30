@@ -13,7 +13,9 @@ from .source import ExternalMetadataSource, LocalMetadataSource, MetadataSource
 
 
 class Scanner(ABC):
-    """Scanner interface."""
+    """
+    Scanner Interface.
+    """
 
     @abstractmethod
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
@@ -68,6 +70,7 @@ class ColumnScanner(Scanner):
     """Column Scanner instance."""
 
     data_rules: DataRules
+    progression_bar_disable: bool = False
 
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
@@ -78,7 +81,7 @@ class ColumnScanner(Scanner):
         logger.debug(
             f"[blue]Launch the metadata scanning of the local provider {source.type}"
         )
-        with ProgressionBar() as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
             report = MetadataGuardianReport(
                 report_results=[
                     ReportResults(
@@ -108,9 +111,9 @@ class ColumnScanner(Scanner):
         :return: a Metadata Guardian report
         """
         logger.debug(
-            f"[blue]Launch the metadata scanning of the external provider {source.type} for the database {database_name}"
+            f"[blue]Launch the metadata scanning of the external provider {source.type} for {database_name}"
         )
-        with ProgressionBar() as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
             if table_name:
                 progression_bar.add_task_with_item(
                     item_name=database_name,
@@ -206,7 +209,7 @@ class ColumnScanner(Scanner):
                     results=self.data_rules.validate_words(words=words),
                 )
 
-        with ProgressionBar() as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
             if table_name:
                 tasks = [
                     async_validate_words(
@@ -239,6 +242,7 @@ class ContentFilesScanner:
     """Content Files Scanner instance."""
 
     data_rules: DataRules
+    progression_bar_disable: bool = False
 
     def scan_local_file(self, path: str) -> MetadataGuardianReport:
         """
@@ -250,7 +254,7 @@ class ContentFilesScanner:
             f"[blue]Launch the metadata scanning the content of the file {path}"
         )
         progression_bar: ProgressionBar
-        with ProgressionBar() as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
             progression_bar.add_task_with_item(
                 item_name=path, source_type="files", total=1
             )
