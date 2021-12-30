@@ -67,11 +67,11 @@ if DELTA_LAKE_INSTALLED:
 
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
-            Get the table names list from the database.
+            Not relevant, just return the current Delta Table URI
             :param database_name: the database name
             :return: the list of the table names of the database
             """
-            raise NotImplemented()
+            return [self.uri]
 
         @property
         def type(self) -> str:

@@ -12,7 +12,10 @@ class ExternalMetadataSource(MetadataSource):
 
     @abstractmethod
     def get_column_names(
-        self, database_name: str, table_name: str, include_comment: bool = False
+        self,
+        database_name: str,
+        table_name: str,
+        include_comment: bool = False,
     ) -> List[str]:
         """
         Get the column names from the schema.

@@ -32,9 +32,22 @@ class ProgressionBar(Progress):
             TimeRemainingColumn(),
         )
 
-    def add_task(  # type: ignore
-        self, item_name: str, source_type: str, total: int, current_item: str = ""
-    ) -> int:
+    def __enter__(self) -> "ProgressionBar":
+        super().__enter__()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:  # type: ignore
+        if self.task_id is not None:
+            super().update(self.task_id, current_item="Done")
+        super().__exit__(exc_type, exc_val, exc_tb)
+
+    def add_task_with_item(
+        self,
+        item_name: Optional[str],
+        source_type: str,
+        total: int,
+        current_item: str = "",
+    ) -> None:
         """
         Add task in the Progression Bar.
         :param item_name: the name of the item to search
@@ -49,24 +62,15 @@ class ProgressionBar(Progress):
             current_item=current_item,
         )
         self.task_id = task_id
-        return task_id
 
-    def update(self, current_item: str) -> None:  # type: ignore
+    def update_item(self, current_item: str) -> None:
         """
-        Update the task of the Progression Bar.
+        Update the current item of the task.
         :param current_item: the name of the current item
         :return:
         """
         if self.task_id is not None:
             super().update(self.task_id, advance=1, current_item=current_item)
-
-    def terminate(self) -> None:
-        """
-        Terminate the current task
-        :return:
-        """
-        if self.task_id is not None:
-            super().update(self.task_id, current_item="Done")
 
 
 @dataclass
