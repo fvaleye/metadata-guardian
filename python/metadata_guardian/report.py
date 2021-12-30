@@ -2,6 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, NamedTuple, Optional, Tuple
 
 from rich.console import Console
+from rich.markup import escape
 from rich.progress import (
     BarColumn,
     Progress,
@@ -23,13 +24,14 @@ class ProgressionBar(Progress):
 
     task_id: Optional[TaskID] = None
 
-    def __init__(self) -> None:
+    def __init__(self, disable: bool) -> None:
         super().__init__(
             SpinnerColumn(),
             "[progress.description]{task.description}: [red]{task.fields[current_item]}",
             BarColumn(),
             "[progress.percentage]{task.percentage:>3.0f}% ({task.completed}/{task.total})-",
             TimeRemainingColumn(),
+            disable=disable,
         )
 
     def __enter__(self) -> "ProgressionBar":
@@ -43,10 +45,10 @@ class ProgressionBar(Progress):
 
     def add_task_with_item(
         self,
-        item_name: Optional[str],
+        item_name: str,
         source_type: str,
         total: int,
-        current_item: str = "",
+        current_item: str = "Starting",
     ) -> None:
         """
         Add task in the Progression Bar.
@@ -56,10 +58,12 @@ class ProgressionBar(Progress):
         :param total: total of the number of tables
         :return: the created Task
         """
+        task_details = f"[{item_name}]" if item_name else ""
+        task_description = f"[bold cyan]Searching in the {escape(source_type)} metadata source{escape(task_details)}"
         task_id = super().add_task(
-            f"[bold cyan]Searching in {item_name} for the {source_type} metadata source",
+            description=task_description,
             total=total,
-            current_item=current_item,
+            current_item=escape(current_item),
         )
         self.task_id = task_id
 
