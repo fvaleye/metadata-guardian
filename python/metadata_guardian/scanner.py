@@ -68,7 +68,6 @@ class ColumnScanner(Scanner):
     """Column Scanner instance."""
 
     data_rules: DataRules
-    progress: ProgressionBar = ProgressionBar()
 
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
@@ -79,8 +78,7 @@ class ColumnScanner(Scanner):
         logger.debug(
             f"[blue]Launch the metadata scanning of the local provider {source.type}"
         )
-        with self.progress:
-
+        with ProgressionBar() as progression_bar:
             report = MetadataGuardianReport(
                 report_results=[
                     ReportResults(
@@ -91,8 +89,7 @@ class ColumnScanner(Scanner):
                     )
                 ]
             )
-            self.progress.update(current_item=source.local_path)
-            self.progress.terminate()
+            progression_bar.update_item(current_item=source.local_path)
         return report
 
     def scan_external(
@@ -113,9 +110,9 @@ class ColumnScanner(Scanner):
         logger.debug(
             f"[blue]Launch the metadata scanning of the external provider {source.type} for the database {database_name}"
         )
-        with self.progress:
+        with ProgressionBar() as progression_bar:
             if table_name:
-                self.progress.add_task(
+                progression_bar.add_task_with_item(
                     item_name=database_name,
                     source_type=source.type,
                     total=1,
@@ -135,13 +132,13 @@ class ColumnScanner(Scanner):
                         )
                     ]
                 )
-                self.progress.update(current_item=table_name)
+                progression_bar.update_item(current_item=table_name)
             else:
                 report = MetadataGuardianReport()
                 table_names_list = source.get_table_names_list(
                     database_name=database_name
                 )
-                self.progress.add_task(
+                progression_bar.add_task_with_item(
                     item_name=database_name,
                     source_type=source.type,
                     total=len(table_names_list),
@@ -164,8 +161,7 @@ class ColumnScanner(Scanner):
                             ]
                         )
                     )
-                    self.progress.update(current_item=table_name)
-            self.progress.terminate()
+                    progression_bar.update_item(current_item=table_name)
         return report
 
     async def scan_external_async(
@@ -193,7 +189,7 @@ class ColumnScanner(Scanner):
         )
 
         async def async_validate_words(
-            progress: ProgressionBar, table_name: str
+            progression_bar: ProgressionBar, table_name: str
         ) -> ReportResults:
             async with semaphore:
                 loop = asyncio.get_event_loop()
@@ -204,17 +200,18 @@ class ColumnScanner(Scanner):
                     table_name,
                     include_comment,
                 )
-                progress.update(current_item=table_name)
+                progression_bar.update_item(current_item=table_name)
                 return ReportResults(
                     source=f"{database_name}.{table_name}",
                     results=self.data_rules.validate_words(words=words),
                 )
 
-        with self.progress:
-            total = 1
+        with ProgressionBar() as progression_bar:
             if table_name:
                 tasks = [
-                    async_validate_words(progress=self.progress, table_name=table_name)
+                    async_validate_words(
+                        progression_bar=progression_bar, table_name=table_name
+                    )
                 ]
             else:
                 table_names_list = source.get_table_names_list(
@@ -222,18 +219,18 @@ class ColumnScanner(Scanner):
                 )
 
                 tasks = [
-                    async_validate_words(progress=self.progress, table_name=table_name)
+                    async_validate_words(
+                        progression_bar=progression_bar, table_name=table_name
+                    )
                     for table_name in table_names_list
                 ]
-                total = len(table_names_list)
-            self.progress.add_task(
+            progression_bar.add_task_with_item(
                 item_name=database_name,
                 source_type=source.type,
-                total=total,
+                total=len(tasks),
             )
             report_results = await asyncio.gather(*tasks)
             report = MetadataGuardianReport(report_results=report_results)
-            self.progress.terminate()
         return report
 
 
@@ -242,7 +239,6 @@ class ContentFilesScanner:
     """Content Files Scanner instance."""
 
     data_rules: DataRules
-    progress: ProgressionBar = ProgressionBar()
 
     def scan_local_file(self, path: str) -> MetadataGuardianReport:
         """
@@ -250,8 +246,14 @@ class ContentFilesScanner:
         :param path: the path of the file to scan
         :return: a Metadata Guardian report
         """
-        with self.progress:
-            self.progress.add_task(item_name=path, source_type="files", total=1)
+        logger.debug(
+            f"[blue]Launch the metadata scanning the content of the file {path}"
+        )
+        progression_bar: ProgressionBar
+        with ProgressionBar() as progression_bar:
+            progression_bar.add_task_with_item(
+                item_name=path, source_type="files", total=1
+            )
             report = MetadataGuardianReport(
                 report_results=[
                     ReportResults(
@@ -259,10 +261,9 @@ class ContentFilesScanner:
                     )
                 ]
             )
-            self.progress.update(current_item=path)
-            self.progress.terminate()
+            progression_bar.update_item(current_item=path)
 
-            return report
+        return report
 
     def scan_directory(
         self, directory_path: str, file_names_extension: str
@@ -270,25 +271,16 @@ class ContentFilesScanner:
         """
         Scan all the files inside directory path with the file name extension.
         :param directory_path: the directory path to scan
-        :param file_names_extension: the file name extension to include (without the .)
+        :param file_names_extension: the file name extension to include (without the ".")
         :return: a Metadata Guardian report
         """
         logger.debug(
             f"[blue]Launch the metadata scanning the content of the files {directory_path} with extension{file_names_extension}"
         )
         report = MetadataGuardianReport()
-        with self.progress:
-            for root, dirs, files in os.walk(directory_path):
-                self.progress.add_task(
-                    item_name=root,
-                    source_type="files",
-                    total=len(files),
-                    current_item="None",
-                )
-                for name in files:
-                    path = f"{root}/{name}"
-                    if name.endswith(f".{file_names_extension}"):
-                        report.append(other_report=self.scan_local_file(path=path))
-                    self.progress.update(current_item=name)
-                self.progress.terminate()
-            return report
+        for root, dirs, files in os.walk(directory_path):
+            for name in files:
+                path = f"{root}/{name}"
+                if name.endswith(f".{file_names_extension}"):
+                    report.append(other_report=self.scan_local_file(path=path))
+        return report

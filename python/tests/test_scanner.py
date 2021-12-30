@@ -44,7 +44,6 @@ def test_column_scanner_table_name(mock_connection):
     )
 
     assert report == expected
-    assert column_scanner.progress.task_id is not None
 
 
 @patch("snowflake.connector")
@@ -84,7 +83,6 @@ def test_column_scanner_database_name(mock_connection):
     report = column_scanner.scan_external(database_name=database_name, source=source)
 
     assert report == expected
-    assert column_scanner.progress.task_id is not None
 
 
 @patch("snowflake.connector")
@@ -126,7 +124,6 @@ def test_column_scanner_database_name_async(mock_connection):
     )
 
     assert report == expected
-    assert column_scanner.progress.task_id is not None
 
 
 def test_local_directory_scan():
