@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, List, Optional
 
-import snowflake.connector
 from loguru import logger
 
 from .external_metadata_source import (
@@ -43,9 +42,10 @@ if SNOWFLAKE_INSTALLED:
         oauth_host: Optional[str] = None
         authenticator: SnowflakeAuthenticator = SnowflakeAuthenticator.USER_PWD
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get a Snowflake connection based on the SnowflakeAuthenticator.
+            Create a Snowflake connection based on the SnowflakeAuthenticator.
+
             :return:
             """
             if self.authenticator == SnowflakeAuthenticator.USER_PWD:
@@ -81,6 +81,7 @@ if SNOWFLAKE_INSTALLED:
         ) -> List[str]:
             """
             Get column names from the table.
+
             :param database_name: the database name
             :param table_name: the table name
             :param include_comment: include the comment
@@ -88,7 +89,7 @@ if SNOWFLAKE_INSTALLED:
             """
             try:
                 if not self.connection or self.connection.is_closed():
-                    self.get_connection()
+                    self.create_connection()
                 cursor = self.connection.cursor()
                 cursor.execute(
                     f'SHOW COLUMNS IN "{database_name}"."{self.schema_name}"."{table_name}"'
@@ -97,14 +98,14 @@ if SNOWFLAKE_INSTALLED:
                 columns = list()
                 for row in rows:
                     column_name = row[2]
-                    columns.append(column_name.lower())
+                    columns.append(column_name)
                     if include_comment:
                         column_comment = row[8]
-                        columns.append(column_comment.lower())
+                        columns.append(column_comment)
                 return columns
             except Exception as exception:
                 logger.exception(
-                    f"Error in getting columns name from Snowflake {self.schema_name}.{database_name}.{table_name}"
+                    f"Error in getting columns name from Snowflake {database_name}.{self.schema_name}.{table_name}"
                 )
                 raise exception
             finally:
@@ -113,12 +114,13 @@ if SNOWFLAKE_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get the table names list from the Snowflake database.
+
             :param database_name: the database name
             :return: the list of the table names of the database
             """
             try:
                 if not self.connection or self.connection.is_closed():
-                    self.get_connection()
+                    self.create_connection()
                 cursor = self.connection.cursor()
                 cursor.execute(f'SHOW TABLES IN DATABASE "{database_name}"')
                 rows = cursor.fetchall()
@@ -139,6 +141,7 @@ if SNOWFLAKE_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name of the source.
             """
             return "Snowflake"

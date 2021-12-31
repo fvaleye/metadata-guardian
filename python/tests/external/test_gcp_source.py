@@ -1,6 +1,8 @@
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
+from google.cloud import bigquery
+
 from metadata_guardian.source import BigQuerySource
 
 
@@ -9,14 +11,18 @@ def test_big_query_source_get_column_names(mock_connection):
     service_account_json_path = ""
     dataset_name = "test_dataset"
     table_name = "test_table"
-    results = [
-        SimpleNamespace(column_name="timestamp", description="description1"),
-        SimpleNamespace(column_name="address_id", description="description2"),
-    ]
+    results = SimpleNamespace(
+        schema=[
+            bigquery.SchemaField(
+                "timestamp", "STRING", mode="REQUIRED", description="description1"
+            ),
+            bigquery.SchemaField(
+                "address_id", "STRING", mode="REQUIRED", description="description2"
+            ),
+        ]
+    )
     mock_connection.return_value = mock_connection
-    response = Mock()
-    response.result.return_value = results
-    mock_connection.query.return_value = response
+    mock_connection.get_table.return_value = results
     expected = ["timestamp", "description1", "address_id", "description2"]
 
     column_names = BigQuerySource(

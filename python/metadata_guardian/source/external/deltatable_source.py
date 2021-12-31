@@ -22,13 +22,17 @@ if DELTA_LAKE_INSTALLED:
     class DeltaTableSource(ExternalMetadataSource):
         uri: str
         data_catalog: DataCatalog = DataCatalog.AWS
+        external_data_catalog_disable: bool = True
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get the DeltaTable instance.
+            Create the DeltaTable instance.
             :return:
             """
             self.connection = DeltaTable(self.uri)
+
+        def close_connection(self) -> None:
+            pass
 
         def get_column_names(
             self,
@@ -44,20 +48,24 @@ if DELTA_LAKE_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if database_name and table_name:
+                if (
+                    not self.external_data_catalog_disable
+                    and database_name
+                    and table_name
+                ):
                     self.connection = DeltaTable.from_data_catalog(
                         data_catalog=self.data_catalog,
                         database_name=database_name,
                         table_name=table_name,
                     )
                 elif not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 schema = self.connection.schema()
                 columns = list()
                 for field in schema.fields:
-                    columns.append(field.name.lower())
+                    columns.append(field.name)
                     if include_comment and field.metadata:
-                        columns.append(str(field.metadata).lower())
+                        columns.append(str(field.metadata))
                 return columns
             except Exception as exception:
                 logger.exception(

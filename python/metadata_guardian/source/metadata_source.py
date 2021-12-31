@@ -9,6 +9,7 @@ class MetadataSource(ABC):
     def type(self) -> str:
         """
         The type of the source.
+
         :return: the name o of the source.
         """
         pass

@@ -32,15 +32,16 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         url: str
         ssl_certificate_location: Optional[str] = None
         ssl_key_location: Optional[str] = None
-        connection: Optional[Any] = None
+        connection: Optional[SchemaRegistryClient] = None
         authenticator: Optional[
             KafkaSchemaRegistryAuthentication
         ] = KafkaSchemaRegistryAuthentication.USER_PWD
         comment_field_name: str = "doc"
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get the connection of the Kafka Schema Registry.
+            Create the connection of the Kafka Schema Registry.
+
             :return:
             """
             if self.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD:
@@ -52,11 +53,20 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             else:
                 raise NotImplementedError()
 
+        def close_connection(self) -> None:
+            """
+            Close the Kafka Schema Registry connection.
+
+            :return:
+            """
+            self.connection.__exit__()
+
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
         ) -> List[str]:
             """
             Get the column names from the subject.
+
             :param database_name: not relevant
             :param table_name: the subject name
             :param include_comment: include the comment
@@ -64,13 +74,13 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 registered_schema = self.connection.get_latest_version(table_name)
                 columns = list()
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
-                    columns.append(field["name"].lower())
+                    columns.append(field["name"])
                     if include_comment and self.comment_field_name in field:
-                        columns.append(field[self.comment_field_name].lower())
+                        columns.append(field[self.comment_field_name])
                 return columns
             except Exception as exception:
                 logger.exception(
@@ -81,12 +91,13 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get all the subjects from the Schema Registry.
+
             :param database_name: not relevant in that case
             :return: the list of the table names of the database
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 all_subjects = self.connection.get_subjects()
                 return all_subjects
             except Exception as exception:
@@ -99,6 +110,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name of the source.
             """
             return "Kafka Schema Registry"

@@ -94,6 +94,7 @@ class MetadataGuardianReport:
     def append(self, other_report: "MetadataGuardianReport") -> None:
         """
         Concat the results before making the report.
+
         :param other_report: other report to append
         :return:
         """
@@ -102,13 +103,14 @@ class MetadataGuardianReport:
     def to_console(self) -> None:
         """
         Display the metadata guardian results to the console.
+
         :return:
         """
         _console = Console()
         _table = Table(
             title=":magnifying_glass_tilted_right: Metadata Guardian report",
             show_header=True,
-            header_style="bold dim",
+            header_style="bold",
             show_lines=True,
         )
         _table.add_column("Category", style="yellow", no_wrap=True)

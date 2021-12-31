@@ -44,6 +44,7 @@ class DataRules:
     def from_available_category(cls, category: AvailableCategory) -> "DataRules":
         """
         Get Data Rules from an available category.
+
         :param category: the available category of the data rules
         :return: the Data Rules instance
         """
@@ -59,6 +60,7 @@ class DataRules:
     def validate_word(self, word: str) -> MetadataGuardianResults:
         """
         Validate a word with the data rules defined.
+
         :param word: the word to validate
         :return: the metadata guardian results
         """
@@ -79,7 +81,8 @@ class DataRules:
 
     def validate_words(self, words: List[str]) -> List[MetadataGuardianResults]:
         """
-        Validate a list of words with the data rules defined.:param word: the word to validate
+        Validate a list of words with the data rules defined.:param word: the word to validate.
+
         :param words: the words to validate
         :return: the metadata guardian results
         """
@@ -104,6 +107,7 @@ class DataRules:
     def validate_file(self, path: str) -> List[MetadataGuardianResults]:
         """
         Validate a file content with the data rules defined.
+
         :param path: the file path
         :return: the metadata guardian results
         """
