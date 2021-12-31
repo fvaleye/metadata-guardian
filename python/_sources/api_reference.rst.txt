@@ -7,6 +7,11 @@ Data Rules
 .. automodule:: metadata_guardian.data_rules
     :members:
 
+Configuration
+-------------
+
+.. automodule:: metadata_guardian.conf
+    :members:
 
 Scanner
 -------

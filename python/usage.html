@@ -150,6 +150,16 @@
    Metadata Guardian
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scan-an-external-metadata-source">
+   Scan an external Metadata Source
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scan-an-internal-metadata-source">
+   Scan an internal Metadata Source
+  </a>
+ </li>
 </ul>
 
 </nav>
@@ -175,17 +185,16 @@
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <section id="metadata-guardian">
 <h2>Metadata Guardian<a class="headerlink" href="#metadata-guardian" title="Permalink to this headline">¶</a></h2>
-<p>Scan the column names of a local source:</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">ParquetSource</span>
-<span class="go">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">ParquetSource</span><span class="p">(</span><span class="s2">&quot;file.parquet&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
-</pre></div>
-</div>
+<p><strong>Workflow:</strong></p>
+<ol class="arabic simple">
+<li><p>Create the Data Rules</p></li>
+<li><p>Create the Metadata Source</p></li>
+<li><p>Scan the Metadata Source</p></li>
+<li><p>Analyze the reports</p></li>
+</ol>
+</section>
+<section id="scan-an-external-metadata-source">
+<h2>Scan an external Metadata Source<a class="headerlink" href="#scan-an-external-metadata-source" title="Permalink to this headline">¶</a></h2>
 <p>Scan the column names of a external source on a table:</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">SnowflakeSource</span>
@@ -193,7 +202,8 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;table_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">source</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;table_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -204,7 +214,8 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">source</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -216,7 +227,22 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="n">SnowflakeSource</span><span class="p">(</span><span class="n">sf_account</span><span class="o">=</span><span class="s2">&quot;account&quot;</span><span class="p">,</span> <span class="n">sf_user</span><span class="o">=</span><span class="s2">&quot;sf_user&quot;</span><span class="p">,</span> <span class="n">sf_password</span><span class="o">=</span><span class="s2">&quot;sf_password&quot;</span><span class="p">,</span> <span class="n">warehouse</span><span class="o">=</span><span class="s2">&quot;warehouse&quot;</span><span class="p">,</span> <span class="n">schema_name</span><span class="o">=</span><span class="s2">&quot;schema_name&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external_async</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">source</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">report</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_external_async</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">database_name</span><span class="o">=</span><span class="s2">&quot;database_name&quot;</span><span class="p">,</span> <span class="n">include_comment</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="scan-an-internal-metadata-source">
+<h2>Scan an internal Metadata Source<a class="headerlink" href="#scan-an-internal-metadata-source" title="Permalink to this headline">¶</a></h2>
+<p>Scan the column names of a local source:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian</span> <span class="kn">import</span> <span class="n">DataRules</span><span class="p">,</span> <span class="n">ColumnScanner</span><span class="p">,</span> <span class="n">AvailableCategory</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">metadata_guardian.source</span> <span class="kn">import</span> <span class="n">ParquetSource</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">ParquetSource</span><span class="p">(</span><span class="s2">&quot;file.parquet&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">source</span><span class="p">:</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="n">report</span> <span class="o">=</span> <span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span><span class="o">.</span><span class="n">to_console</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -227,6 +253,7 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">data_rules</span> <span class="o">=</span> <span class="n">DataRules</span><span class="o">.</span><span class="n">from_available_category</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">AvailableCategory</span><span class="o">.</span><span class="n">PII</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">column_scanner</span> <span class="o">=</span> <span class="n">ColumnScanner</span><span class="p">(</span><span class="n">data_rules</span><span class="o">=</span><span class="n">data_rules</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">report</span> <span class="o">=</span> <span class="n">MetadataGuardianReport</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;first_path&quot;</span><span class="p">,</span> <span class="s2">&quot;second_path&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">source</span> <span class="o">=</span> <span class="n">ParquetSource</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span>    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column_scanner</span><span class="o">.</span><span class="n">scan_local</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
