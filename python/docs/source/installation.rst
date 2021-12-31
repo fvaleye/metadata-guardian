@@ -8,5 +8,5 @@ Using Pip
    # Install all the metadata sources
    pip install 'metadata_guardian[all]'
 
-   # Install one metadata source in the list
-   pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,devel]'
+   # Install with one metadata source in the list
+   pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry]'

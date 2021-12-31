@@ -54,4 +54,4 @@ class AvroSchemaSource(LocalMetadataSource):
         The type of the source.
         :return: the name o of the source.
         """
-        return "LocalAvroSchema"
+        return "AvroSchema"

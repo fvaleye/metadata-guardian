@@ -36,6 +36,3 @@ class LocalMetadataSource(MetadataSource):
         :return: the list of the column names
         """
         return [column for column in self.schema().names]
-
-    def type(self) -> str:
-        return "LocalFile"

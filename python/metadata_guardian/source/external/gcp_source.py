@@ -26,7 +26,7 @@ if GCP_INSTALLED:
         project: Optional[str] = None
         location: Optional[str] = None
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
             Get the Big Query connection.
             :return:
@@ -41,6 +41,13 @@ if GCP_INSTALLED:
                 logger.exception("Error when connecting to BigQuery")
                 raise exception
 
+        def close_connection(self) -> None:
+            """
+            Close the BigQuery connection
+            :return:
+            """
+            self.connection.close()
+
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
         ) -> List[str]:
@@ -54,16 +61,17 @@ if GCP_INSTALLED:
 
             try:
                 if not self.connection:
-                    self.get_connection()
-                query_job = self.connection.query(
-                    f'SELECT column_name, description FROM `{database_name}.INFORMATION_SCHEMA.COLUMN_FIELD_PATHS` WHERE table_name = "{table_name}"'
-                )
-                results = query_job.result()
+                    self.create_connection()
+
+                table_reference = self.connection.dataset(
+                    database_name, project=self.project
+                ).table(table_name)
+                table = self.connection.get_table(table_reference)
                 columns = list()
-                for row in results:
-                    columns.append(row.column_name.lower())
-                    if include_comment and row.description:
-                        columns.append(row.description.lower())
+                for column in table.schema:
+                    columns.append(column.name.lower())
+                    if include_comment and column.description:
+                        columns.append(column.description.lower())
                 return columns
             except Exception as exception:
                 logger.exception(
@@ -80,7 +88,7 @@ if GCP_INSTALLED:
 
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 query_job = self.connection.query(
                     f"SELECT table_name FROM `{database_name}.INFORMATION_SCHEMA.TABLES`"
                 )

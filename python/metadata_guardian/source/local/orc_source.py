@@ -38,4 +38,4 @@ class ORCSource(LocalMetadataSource):
         The type of the source.
         :return: the name of the source.
         """
-        return "LocalORC"
+        return "ORC"

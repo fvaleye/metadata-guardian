@@ -23,9 +23,10 @@ Using Rust, it makes blazing fast multi-regex matching.
 - Deltalake
 - GCP: BigQuery
 - Snowflake
+- Kafka Schema Registry
 
 == Data Rules
-The available data rules are: *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml[INCLUSION]*. But it aims to be extended with custom data rules that could serve multiple purposes (for example: detect data that may contain IA biais, detect credentials...).
+The available data rules are here: *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml[INCLUSION]*. But it aims to be extended with custom data rules that could serve multiple purposes (for example: detect data that may contain IA biais, detect credentials...).
 
 == Where to get it
 
@@ -35,8 +36,8 @@ pip install 'metadata_guardian[all]'
 ```
 
 ```sh
-# Install with one data source
-pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake]'
+# Install with one metadata source in the list
+pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry]'
 ```
 
 == Licence

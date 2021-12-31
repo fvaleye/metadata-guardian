@@ -45,6 +45,7 @@ def test_deltatable_source_get_column_names_from_database_and_table(mock_connect
     uri = "s3://test_table"
     database_name = "database_name"
     table_name = "table_name"
+    external_data_catalog_disable = False
     schema = Schema(
         fields=[
             Field(
@@ -71,7 +72,9 @@ def test_deltatable_source_get_column_names_from_database_and_table(mock_connect
         "{'comment': 'comment2'}",
     ]
 
-    column_names = DeltaTableSource(uri=uri).get_column_names(
+    column_names = DeltaTableSource(
+        uri=uri, external_data_catalog_disable=external_data_catalog_disable
+    ).get_column_names(
         database_name=database_name, table_name=table_name, include_comment=True
     )
 

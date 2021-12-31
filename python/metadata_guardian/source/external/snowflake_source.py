@@ -43,9 +43,9 @@ if SNOWFLAKE_INSTALLED:
         oauth_host: Optional[str] = None
         authenticator: SnowflakeAuthenticator = SnowflakeAuthenticator.USER_PWD
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get a Snowflake connection based on the SnowflakeAuthenticator.
+            Create a Snowflake connection based on the SnowflakeAuthenticator.
             :return:
             """
             if self.authenticator == SnowflakeAuthenticator.USER_PWD:
@@ -76,6 +76,13 @@ if SNOWFLAKE_INSTALLED:
                     converter_class=SnowflakeNoConverterToPython,
                 )
 
+        def close_connection(self) -> None:
+            """
+            Close the Snowflake connection.
+            :return:
+            """
+            self.connection.close()
+
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
         ) -> List[str]:
@@ -88,7 +95,7 @@ if SNOWFLAKE_INSTALLED:
             """
             try:
                 if not self.connection or self.connection.is_closed():
-                    self.get_connection()
+                    self.create_connection()
                 cursor = self.connection.cursor()
                 cursor.execute(
                     f'SHOW COLUMNS IN "{database_name}"."{self.schema_name}"."{table_name}"'
@@ -104,7 +111,7 @@ if SNOWFLAKE_INSTALLED:
                 return columns
             except Exception as exception:
                 logger.exception(
-                    f"Error in getting columns name from Snowflake {self.schema_name}.{database_name}.{table_name}"
+                    f"Error in getting columns name from Snowflake {database_name}.{self.schema_name}.{table_name}"
                 )
                 raise exception
             finally:
@@ -118,7 +125,7 @@ if SNOWFLAKE_INSTALLED:
             """
             try:
                 if not self.connection or self.connection.is_closed():
-                    self.get_connection()
+                    self.create_connection()
                 cursor = self.connection.cursor()
                 cursor.execute(f'SHOW TABLES IN DATABASE "{database_name}"')
                 rows = cursor.fetchall()

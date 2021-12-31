@@ -1,6 +1,8 @@
 from abc import abstractmethod
 from typing import Any, List, Optional
 
+from loguru import logger
+
 from ...exceptions import MetadataGuardianException
 from ..metadata_source import MetadataSource
 
@@ -9,6 +11,26 @@ class ExternalMetadataSource(MetadataSource):
     """ExternalMetadataSource Source."""
 
     connection: Optional[Any] = None
+
+    def __enter__(self) -> "ExternalMetadataSource":
+        try:
+            self.create_connection()
+        except Exception as exception:
+            logger.exception(
+                "Error raised while opening the Metadata Source connection"
+            )
+            raise exception
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:  # type: ignore
+        try:
+            self.close_connection()
+        except Exception as exception:
+            logger.exception(
+                "Error raised while closing the Metadata Source connection"
+            )
+            raise exception
+        return self
 
     @abstractmethod
     def get_column_names(
@@ -36,9 +58,17 @@ class ExternalMetadataSource(MetadataSource):
         pass
 
     @abstractmethod
-    def get_connection(self) -> None:
+    def create_connection(self) -> None:
         """
-        Get the connection of the source.
+        Create the connection of the source.
+        :return:
+        """
+        pass
+
+    @abstractmethod
+    def close_connection(self) -> None:
+        """
+        Close the connection of the source.
         :return:
         """
         pass

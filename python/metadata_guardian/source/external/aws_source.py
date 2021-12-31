@@ -32,9 +32,9 @@ if AWS_INSTALLED:
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get Athena connection.
+            Create Athena connection.
             :return:
             """
             self.connection = boto3.client(
@@ -43,6 +43,9 @@ if AWS_INSTALLED:
                 aws_access_key_id=self.aws_access_key_id,
                 aws_secret_access_key=self.aws_secret_access_key,
             )
+
+        def close_connection(self) -> None:
+            pass
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
@@ -56,7 +59,7 @@ if AWS_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 response = self.connection.get_table_metadata(
                     CatalogName=self.catalog_name,
                     DatabaseName=database_name,
@@ -83,7 +86,7 @@ if AWS_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 table_names_list = list()
                 response = self.connection.list_table_metadata(
                     CatalogName=self.catalog_name,
@@ -122,9 +125,9 @@ if AWS_INSTALLED:
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get the Glue connection
+            Create the Glue connection
             :return:
             """
             self.connection = boto3.client(
@@ -133,6 +136,9 @@ if AWS_INSTALLED:
                 aws_access_key_id=self.aws_access_key_id,
                 aws_secret_access_key=self.aws_secret_access_key,
             )
+
+        def close_connection(self) -> None:
+            pass
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
@@ -146,7 +152,7 @@ if AWS_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 response = self.connection.get_table(
                     DatabaseName=database_name, Name=table_name
                 )
@@ -171,7 +177,7 @@ if AWS_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 table_names_list = list()
                 response = self.connection.get_tables(
                     DatabaseName=database_name,
