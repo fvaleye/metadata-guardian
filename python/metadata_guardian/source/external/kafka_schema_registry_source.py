@@ -32,15 +32,15 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         url: str
         ssl_certificate_location: Optional[str] = None
         ssl_key_location: Optional[str] = None
-        connection: Optional[Any] = None
+        connection: Optional[SchemaRegistryClient] = None
         authenticator: Optional[
             KafkaSchemaRegistryAuthentication
         ] = KafkaSchemaRegistryAuthentication.USER_PWD
         comment_field_name: str = "doc"
 
-        def get_connection(self) -> None:
+        def create_connection(self) -> None:
             """
-            Get the connection of the Kafka Schema Registry.
+            Create the connection of the Kafka Schema Registry.
             :return:
             """
             if self.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD:
@@ -51,6 +51,13 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 )
             else:
                 raise NotImplementedError()
+
+        def close_connection(self) -> None:
+            """
+            Close the Kafka Schema Registry connection.
+            :return:
+            """
+            self.connection.__exit__()
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
@@ -64,7 +71,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 registered_schema = self.connection.get_latest_version(table_name)
                 columns = list()
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
@@ -86,7 +93,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             """
             try:
                 if not self.connection:
-                    self.get_connection()
+                    self.create_connection()
                 all_subjects = self.connection.get_subjects()
                 return all_subjects
             except Exception as exception:

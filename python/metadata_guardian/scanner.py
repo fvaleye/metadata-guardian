@@ -82,6 +82,11 @@ class ColumnScanner(Scanner):
             f"[blue]Launch the metadata scanning of the local provider {source.type}"
         )
         with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
+            progression_bar.add_task_with_item(
+                item_name=source.local_path,
+                source_type=source.type,
+                total=1,
+            )
             report = MetadataGuardianReport(
                 report_results=[
                     ReportResults(

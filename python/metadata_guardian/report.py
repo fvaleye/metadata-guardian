@@ -108,7 +108,7 @@ class MetadataGuardianReport:
         _table = Table(
             title=":magnifying_glass_tilted_right: Metadata Guardian report",
             show_header=True,
-            header_style="bold dim",
+            header_style="bold",
             show_lines=True,
         )
         _table.add_column("Category", style="yellow", no_wrap=True)
