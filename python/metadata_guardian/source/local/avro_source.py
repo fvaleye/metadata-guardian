@@ -67,4 +67,4 @@ if AVRO_INSTALLED:
             The type of the source.
             :return: the name o of the source.
             """
-            return "LocalAvroSource"
+            return "Avro"

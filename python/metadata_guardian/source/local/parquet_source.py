@@ -13,4 +13,4 @@ class ParquetSource(LocalMetadataSource):
         The type of the source.
         :return: the name of the source.
         """
-        return "LocalParquet"
+        return "Parquet"

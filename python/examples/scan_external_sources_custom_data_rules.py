@@ -26,6 +26,7 @@ def get_snowflake() -> ExternalMetadataSource:
         schema_name=os.environ["SNOWFLAKE_SCHEMA_NAME"],
     )
 
+
 def get_gcp_bigquery() -> ExternalMetadataSource:
     return BigQuerySource(
         service_account_json_path=os.environ["BIGQUERY_SERVICE_ACCOUNT"],
