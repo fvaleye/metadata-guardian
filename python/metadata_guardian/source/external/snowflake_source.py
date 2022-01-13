@@ -76,6 +76,13 @@ if SNOWFLAKE_INSTALLED:
                     converter_class=SnowflakeNoConverterToPython,
                 )
 
+        def close_connection(self) -> None:
+            """
+            Close the Snowflake connection.
+            :return:
+            """
+            self.connection.close()
+
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
         ) -> List[str]:
