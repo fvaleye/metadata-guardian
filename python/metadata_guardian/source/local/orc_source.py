@@ -14,6 +14,7 @@ class ORCSource(LocalMetadataSource):
     def read(self) -> ORCFile:
         """
         Read the ORC file.
+
         :return:
         """
         return ORCFile(self.local_path)
@@ -21,6 +22,7 @@ class ORCSource(LocalMetadataSource):
     def schema(self) -> pyarrow.Schema:
         """
         Get the ORC File.
+
         :return: the orc schema
         """
         return self.read().schema
@@ -28,6 +30,7 @@ class ORCSource(LocalMetadataSource):
     def get_column_names(self) -> List[str]:
         """
         Get the column names from the schema.
+
         :return: the list of the column names
         """
         return self.schema().names
@@ -36,6 +39,7 @@ class ORCSource(LocalMetadataSource):
     def type(self) -> str:
         """
         The type of the source.
+
         :return: the name of the source.
         """
         return "ORC"

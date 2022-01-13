@@ -11,6 +11,7 @@ class ParquetSource(LocalMetadataSource):
     def type(self) -> str:
         """
         The type of the source.
+
         :return: the name of the source.
         """
         return "Parquet"

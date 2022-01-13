@@ -19,13 +19,15 @@ class LocalMetadataSource(MetadataSource):
     def read(self) -> Dataset:
         """
         Read the source local file.
+
         :return: the file content
         """
         return pyarrow.dataset.dataset(self.local_path, filesystem=self.fs)
 
     def schema(self) -> Schema:
         """
-        Get the source schema
+        Get the source schema.
+
         :return: the file schema
         """
         return self.read().schema
@@ -33,6 +35,7 @@ class LocalMetadataSource(MetadataSource):
     def get_column_names(self) -> List[str]:
         """
         Get the column names from the schema.
+
         :return: the list of the column names
         """
         return [column for column in self.schema().names]

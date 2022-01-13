@@ -158,10 +158,10 @@ if AWS_INSTALLED:
                 )
                 columns = list()
                 for row in response["Table"]["StorageDescriptor"]["Columns"]:
-                    columns.append(row["Name"].lower())
+                    columns.append(row["Name"])
                     if include_comment:
                         if "Comment" in row:
-                            columns.append(row["Comment"].lower())
+                            columns.append(row["Comment"])
                 return columns
             except botocore.exceptions.ClientError as exception:
                 logger.exception(

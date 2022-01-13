@@ -46,7 +46,6 @@ def test_snowflake_source_get_table_names_list(mock_connection):
     sf_password = "sf_password"
     warehouse = "warehouse"
     mocked_cursor_one = mock_connection.connect().cursor.return_value
-    mocked_cursor_one.description = [["name"], ["phone"]]
     mocked_cursor_one.fetchall.return_value = [
         (database_name, "TEST_TABLE"),
         (database_name, "TEST_TABLE2"),
@@ -62,7 +61,7 @@ def test_snowflake_source_get_table_names_list(mock_connection):
         schema_name=schema_name,
     )
 
-    column_names = source.get_table_names_list(database_name=database_name)
+    talbe_names = source.get_table_names_list(database_name=database_name)
 
-    assert column_names == expected
+    assert talbe_names == expected
     assert source.authenticator == SnowflakeAuthenticator.USER_PWD

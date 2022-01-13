@@ -54,6 +54,10 @@ nitpick_ignore = [
     ("py:class", "mypy_boto3_glue.client.GlueClient"),
     ("py:class", "snowflake.connector.connection.SnowflakeConnection"),
     ("py:class", "deltalake.data_catalog.DataCatalog"),
+    (
+        "py:class",
+        "confluent_kafka.schema_registry.schema_registry_client.SchemaRegistryClient",
+    ),
 ]
 
 # Add any paths that contain templates here, relative to this directory.

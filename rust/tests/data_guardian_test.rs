@@ -7,7 +7,8 @@ fn test_validate_word_with_pii_should_not_contain_results() {
     path.push("tests");
     path.push("resources");
     path.push("pii_rules.yaml");
-    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
+    let data_guardian =
+        DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "no pii";
     let category = "PII";
     let result = data_guardian.validate_word(content).unwrap();
@@ -22,7 +23,8 @@ fn test_validate_word_with_pii_should_contains_results() {
     path.push("tests");
     path.push("resources");
     path.push("pii_rules.yaml");
-    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
+    let data_guardian =
+        DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "test@gmail.com";
     let category = "PII";
     let result = data_guardian.validate_word(content).unwrap();
@@ -42,7 +44,8 @@ fn test_validate_word_with_inclusion_should_contains_results() {
     path.push("tests");
     path.push("resources");
     path.push("inclusion_rules.yaml");
-    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
+    let data_guardian =
+        DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "master";
     let category = "INCLUSION";
     let result = data_guardian.validate_word(content).unwrap();
@@ -62,7 +65,8 @@ fn test_validate_words_with_inclusion_should_contains_results() {
     path.push("tests");
     path.push("resources");
     path.push("inclusion_rules.yaml");
-    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
+    let data_guardian =
+        DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = vec!["no error", "no error 2", "master"];
     let category = "INCLUSION";
     let results = data_guardian.validate_words(content).unwrap();
@@ -84,7 +88,8 @@ fn test_validate_file_with_inclusion_should_contains_results() {
     path.push("tests");
     path.push("resources");
     path.push("inclusion_rules.yaml");
-    let data_guardian = DataRules::new(&path.into_os_string().into_string().unwrap()).unwrap();
+    let data_guardian =
+        DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let mut file = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     file.push("tests");
     file.push("resources");

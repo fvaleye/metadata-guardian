@@ -37,13 +37,25 @@ class MetadataGuardianResults:
 class DataRules:
     """Data Rules instances."""
 
-    def __init__(self, path: str) -> None:
-        self._data_rules = RawDataRules(path)
+    def __init__(self, data_rules: RawDataRules) -> None:
+        self._data_rules = data_rules
+
+    @classmethod
+    def from_path(cls, path: str) -> "DataRules":
+        """
+        Get Data Rules from a path.
+
+        :param path: the path of the yaml file
+        :return: the Data Rules instance
+        """
+        data_rules = RawDataRules.from_path(path)
+        return cls(data_rules=data_rules)
 
     @classmethod
     def from_available_category(cls, category: AvailableCategory) -> "DataRules":
         """
         Get Data Rules from an available category.
+
         :param category: the available category of the data rules
         :return: the Data Rules instance
         """
@@ -54,11 +66,12 @@ class DataRules:
             "metadata_guardian.rules", category.value
         ) as resource:
             path = str(resource)
-            return cls(path=path)
+            return cls.from_path(path=path)
 
     def validate_word(self, word: str) -> MetadataGuardianResults:
         """
         Validate a word with the data rules defined.
+
         :param word: the word to validate
         :return: the metadata guardian results
         """
@@ -79,7 +92,8 @@ class DataRules:
 
     def validate_words(self, words: List[str]) -> List[MetadataGuardianResults]:
         """
-        Validate a list of words with the data rules defined.:param word: the word to validate
+        Validate a list of words with the data rules defined.:param word: the word to validate.
+
         :param words: the words to validate
         :return: the metadata guardian results
         """
@@ -104,6 +118,7 @@ class DataRules:
     def validate_file(self, path: str) -> List[MetadataGuardianResults]:
         """
         Validate a file content with the data rules defined.
+
         :param path: the file path
         :return: the metadata guardian results
         """
@@ -124,9 +139,3 @@ class DataRules:
             )
             for result in results
         ]
-
-    def __str__(self) -> str:
-        return f"DataRules({[str(data_rule) for data_rule in self._data_rules]})"
-
-    def __repr__(self) -> str:
-        return f"DataRules({[str(data_rule) for data_rule in self._data_rules]})"

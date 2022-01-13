@@ -41,6 +41,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         def create_connection(self) -> None:
             """
             Create the connection of the Kafka Schema Registry.
+
             :return:
             """
             if self.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD:
@@ -55,6 +56,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         def close_connection(self) -> None:
             """
             Close the Kafka Schema Registry connection.
+
             :return:
             """
             self.connection.__exit__()
@@ -64,6 +66,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         ) -> List[str]:
             """
             Get the column names from the subject.
+
             :param database_name: not relevant
             :param table_name: the subject name
             :param include_comment: include the comment
@@ -75,9 +78,9 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 registered_schema = self.connection.get_latest_version(table_name)
                 columns = list()
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
-                    columns.append(field["name"].lower())
+                    columns.append(field["name"])
                     if include_comment and self.comment_field_name in field:
-                        columns.append(field[self.comment_field_name].lower())
+                        columns.append(field[self.comment_field_name])
                 return columns
             except Exception as exception:
                 logger.exception(
@@ -88,6 +91,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get all the subjects from the Schema Registry.
+
             :param database_name: not relevant in that case
             :return: the list of the table names of the database
             """
@@ -106,6 +110,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name of the source.
             """
             return "Kafka Schema Registry"

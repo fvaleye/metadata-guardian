@@ -65,7 +65,6 @@ class ExternalMetadataSource(MetadataSource):
         """
         pass
 
-    @abstractmethod
     def close_connection(self) -> None:
         """
         Close the connection of the source.

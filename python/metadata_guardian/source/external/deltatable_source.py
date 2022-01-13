@@ -63,9 +63,9 @@ if DELTA_LAKE_INSTALLED:
                 schema = self.connection.schema()
                 columns = list()
                 for field in schema.fields:
-                    columns.append(field.name.lower())
+                    columns.append(field.name)
                     if include_comment and field.metadata:
-                        columns.append(str(field.metadata).lower())
+                        columns.append(str(field.metadata))
                 return columns
             except Exception as exception:
                 logger.exception(
