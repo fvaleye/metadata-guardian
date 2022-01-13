@@ -155,6 +155,7 @@
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#K"><strong>K</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
@@ -206,15 +207,17 @@
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.close_connection">(metadata_guardian.source.external.gcp_source.BigQuerySource method)</a>
 </li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.close_connection">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource method)</a>
+</li>
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.close_connection">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
 </li>
       </ul></li>
       <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner">ColumnScanner (class in metadata_guardian.scanner)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.conf.configure_logger">configure_logger() (in module metadata_guardian.conf)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.scanner.ContentFilesScanner">ContentFilesScanner (class in metadata_guardian.scanner)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource.create_connection">create_connection() (metadata_guardian.source.external.aws_source.AthenaSource method)</a>
@@ -227,6 +230,10 @@
         <li><a href="api_reference.html#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.create_connection">(metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource method)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.create_connection">(metadata_guardian.source.external.gcp_source.BigQuerySource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.create_connection">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.create_connection">(metadata_guardian.source.external.mysql_source.MySQLSource method)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.create_connection">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
 </li>
@@ -266,6 +273,10 @@
       <li><a href="api_reference.html#metadata_guardian.data_rules.DataRules.from_available_category">from_available_category() (metadata_guardian.data_rules.DataRules class method)</a>
 </li>
   </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.data_rules.DataRules.from_path">from_path() (metadata_guardian.data_rules.DataRules class method)</a>
+</li>
+  </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
@@ -281,6 +292,10 @@
         <li><a href="api_reference.html#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_column_names">(metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource method)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.get_column_names">(metadata_guardian.source.external.gcp_source.BigQuerySource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.get_column_names">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.get_column_names">(metadata_guardian.source.external.mysql_source.MySQLSource method)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_column_names">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
 </li>
@@ -304,10 +319,26 @@
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.get_table_names_list">(metadata_guardian.source.external.gcp_source.BigQuerySource method)</a>
 </li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.get_table_names_list">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.get_table_names_list">(metadata_guardian.source.external.mysql_source.MySQLSource method)</a>
+</li>
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_table_names_list">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
 </li>
       </ul></li>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.GlueSource">GlueSource (class in metadata_guardian.source.external.aws_source)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="K">K</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication">KafkaSchemaRegistryAuthentication (class in metadata_guardian.source.external.kafka_schema_registry_source)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource">KafkaSchemaRegistrySource (class in metadata_guardian.source.external.kafka_schema_registry_source)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -380,6 +411,20 @@
 </li>
       </ul></li>
       <li>
+    metadata_guardian.source.external.kafka_schema_registry_source
+
+      <ul>
+        <li><a href="api_reference.html#module-metadata_guardian.source.external.kafka_schema_registry_source">module</a>
+</li>
+      </ul></li>
+      <li>
+    metadata_guardian.source.external.mysql_source
+
+      <ul>
+        <li><a href="api_reference.html#module-metadata_guardian.source.external.mysql_source">module</a>
+</li>
+      </ul></li>
+      <li>
     metadata_guardian.source.external.snowflake_source
 
       <ul>
@@ -442,6 +487,10 @@
 </li>
         <li><a href="api_reference.html#module-metadata_guardian.source.external.gcp_source">metadata_guardian.source.external.gcp_source</a>
 </li>
+        <li><a href="api_reference.html#module-metadata_guardian.source.external.kafka_schema_registry_source">metadata_guardian.source.external.kafka_schema_registry_source</a>
+</li>
+        <li><a href="api_reference.html#module-metadata_guardian.source.external.mysql_source">metadata_guardian.source.external.mysql_source</a>
+</li>
         <li><a href="api_reference.html#module-metadata_guardian.source.external.snowflake_source">metadata_guardian.source.external.snowflake_source</a>
 </li>
         <li><a href="api_reference.html#module-metadata_guardian.source.local.avro_source">metadata_guardian.source.local.avro_source</a>
@@ -453,6 +502,10 @@
         <li><a href="api_reference.html#module-metadata_guardian.source.metadata_source">metadata_guardian.source.metadata_source</a>
 </li>
       </ul></li>
+      <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLAuthenticator">MySQLAuthenticator (class in metadata_guardian.source.external.mysql_source)</a>
+</li>
+      <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource">MySQLSource (class in metadata_guardian.source.external.mysql_source)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -547,6 +600,10 @@
         <li><a href="api_reference.html#metadata_guardian.source.external.deltatable_source.DeltaTableSource.type">(metadata_guardian.source.external.deltatable_source.DeltaTableSource property)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.type">(metadata_guardian.source.external.gcp_source.BigQuerySource property)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.type">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource property)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.type">(metadata_guardian.source.external.mysql_source.MySQLSource property)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.type">(metadata_guardian.source.external.snowflake_source.SnowflakeSource property)</a>
 </li>
