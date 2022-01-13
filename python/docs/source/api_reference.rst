@@ -59,5 +59,11 @@ External Sources
 .. automodule:: metadata_guardian.source.external.gcp_source
     :members:
 
+.. automodule:: metadata_guardian.source.external.kafka_schema_registry_source
+    :members:
+
+.. automodule:: metadata_guardian.source.external.mysql_source
+    :members:
+
 .. automodule:: metadata_guardian.source.external.snowflake_source
     :members:

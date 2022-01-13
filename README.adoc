@@ -23,6 +23,7 @@ Using Rust, it makes blazing fast multi-regex matching.
 - Deltalake
 - GCP: BigQuery
 - Snowflake
+- MySQL
 - Kafka Schema Registry
 
 == Data Rules

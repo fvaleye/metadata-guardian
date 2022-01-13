@@ -29,6 +29,7 @@ if GCP_INSTALLED:
         def create_connection(self) -> None:
             """
             Get the Big Query connection.
+
             :return:
             """
             try:
@@ -43,7 +44,8 @@ if GCP_INSTALLED:
 
         def close_connection(self) -> None:
             """
-            Close the BigQuery connection
+            Close the BigQuery connection.
+
             :return:
             """
             self.connection.close()
@@ -53,6 +55,7 @@ if GCP_INSTALLED:
         ) -> List[str]:
             """
             Get column names from the table of the dataset.
+
             :param database_name: in that case the dataset
             :param table_name: the table name
             :param include_comment: include the comment
@@ -82,6 +85,7 @@ if GCP_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get the table names list from the GCP dataset.
+
             :param database_name: in that case the dataset
             :return: the list of the table names list
             """
@@ -107,6 +111,7 @@ if GCP_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name bof the source.
             """
             return "GCP BigQuery"

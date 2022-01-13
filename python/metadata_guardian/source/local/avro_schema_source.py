@@ -17,6 +17,7 @@ class AvroSchemaSource(LocalMetadataSource):
     def schema(self) -> Dict[str, Any]:
         """
         Get the AVRO schema.
+
         :return: the schema
         """
         content = self.read()
@@ -25,6 +26,7 @@ class AvroSchemaSource(LocalMetadataSource):
     def get_field_attribute(self, attribute_name: str) -> Optional[List[str]]:
         """
         Get the specific attribute from the AVRO Schema file.
+
         :param attribute_name: the attribute name to get
         :return: the list of attributes in the fields
         """
@@ -36,6 +38,7 @@ class AvroSchemaSource(LocalMetadataSource):
     def get_column_names(self) -> List[str]:
         """
         Get column names from the AVRO Schema file.
+
         :return: the list of the column names
         """
         return [field["name"] for field in self.schema()["fields"]]
@@ -44,6 +47,7 @@ class AvroSchemaSource(LocalMetadataSource):
     def namespace(self) -> str:
         """
         Namespace of the AVRO schema.
+
         :return: the namespace
         """
         return self.schema()["namespace"]
@@ -52,6 +56,7 @@ class AvroSchemaSource(LocalMetadataSource):
     def type(self) -> str:
         """
         The type of the source.
+
         :return: the name o of the source.
         """
         return "AvroSchema"

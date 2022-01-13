@@ -7,7 +7,7 @@ Metadata Guardian
 **Workflow:**
 
 1. Create the Data Rules
-2. Create the Metadata Source
+2. Create the Metadata Source and a Scanner
 3. Scan the Metadata Source
 4. Analyze the reports
 

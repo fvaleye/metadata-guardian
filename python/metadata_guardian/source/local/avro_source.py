@@ -30,6 +30,7 @@ if AVRO_INSTALLED:
         def schema(self) -> Dict[str, Any]:
             """
             Get the AVRO schema.
+
             :return: the schema
             """
             reader = self.read()
@@ -38,6 +39,7 @@ if AVRO_INSTALLED:
         def get_field_attribute(self, attribute_name: str) -> Optional[List[str]]:
             """
             Get the specific attribute from the AVRO Schema.
+
             :param attribute_name: the attribute name to get
             :return: the list of attributes in the fields
             """
@@ -49,6 +51,7 @@ if AVRO_INSTALLED:
         def get_column_names(self) -> List[str]:
             """
             Get column names from the AVRO file.
+
             :return: the list of the column names
             """
             return [field["name"] for field in self.schema()["fields"]]
@@ -57,6 +60,7 @@ if AVRO_INSTALLED:
         def namespace(self) -> str:
             """
             Namespace of the AVRO schema.
+
             :return: the namespace
             """
             return self.schema()["namespace"]
@@ -65,6 +69,7 @@ if AVRO_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name o of the source.
             """
             return "Avro"

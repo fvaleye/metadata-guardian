@@ -57,14 +57,22 @@ impl DataRule {
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct DataRules {
     /// Category of the regex
-    category: String,
+    pub category: String,
     /// All the data rules
-    data_rules: Vec<DataRule>,
+    pub data_rules: Vec<DataRule>,
 }
 
 impl DataRules {
     /// Create a new Data Rules.
-    pub fn new(path: &str) -> Result<Self, MetadataGuardianError> {
+    pub fn new(category: &str, data_rules: Vec<DataRule>) -> Self {
+        DataRules {
+            category: category.to_string(),
+            data_rules,
+        }
+    }
+
+    /// Create a new Data Rules from a path.
+    pub fn from_path(path: &str) -> Result<Self, MetadataGuardianError> {
         let file = std::fs::File::open(path)?;
         let data_rules: DataRules = serde_yaml::from_reader(file)?;
         Ok(data_rules)

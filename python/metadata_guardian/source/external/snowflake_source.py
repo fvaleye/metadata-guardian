@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, List, Optional
 
-import snowflake.connector
 from loguru import logger
 
 from .external_metadata_source import (
@@ -46,6 +45,7 @@ if SNOWFLAKE_INSTALLED:
         def create_connection(self) -> None:
             """
             Create a Snowflake connection based on the SnowflakeAuthenticator.
+
             :return:
             """
             if self.authenticator == SnowflakeAuthenticator.USER_PWD:
@@ -88,6 +88,7 @@ if SNOWFLAKE_INSTALLED:
         ) -> List[str]:
             """
             Get column names from the table.
+
             :param database_name: the database name
             :param table_name: the table name
             :param include_comment: include the comment
@@ -104,10 +105,10 @@ if SNOWFLAKE_INSTALLED:
                 columns = list()
                 for row in rows:
                     column_name = row[2]
-                    columns.append(column_name.lower())
+                    columns.append(column_name)
                     if include_comment:
                         column_comment = row[8]
-                        columns.append(column_comment.lower())
+                        columns.append(column_comment)
                 return columns
             except Exception as exception:
                 logger.exception(
@@ -120,6 +121,7 @@ if SNOWFLAKE_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get the table names list from the Snowflake database.
+
             :param database_name: the database name
             :return: the list of the table names of the database
             """
@@ -146,6 +148,7 @@ if SNOWFLAKE_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name of the source.
             """
             return "Snowflake"

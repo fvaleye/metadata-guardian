@@ -5,6 +5,12 @@ from metadata_guardian.scanner import ColumnScanner, ContentFilesScanner
 from metadata_guardian.source import AvroSchemaSource
 
 
+@pytest.mark.parametrize("local_file", ["example_rules.yaml"], indirect=["local_file"])
+def test_get_data_rules_from_path_should_work(local_file):
+    data_rules = DataRules.from_path(path=local_file)
+    assert data_rules._data_rules is not None
+
+
 @pytest.mark.parametrize(
     "local_file", ["users_avro_schema.json"], indirect=["local_file"]
 )

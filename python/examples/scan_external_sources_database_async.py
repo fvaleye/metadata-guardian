@@ -44,6 +44,14 @@ def get_delta_table() -> ExternalMetadataSource:
     return DeltaTableSource(uri=os.environ["DELTA_TABLE_URI"])
 
 
+def get_mysql() -> ExternalMetadataSource:
+    return MySQLSource(
+        user=os.environ["MYSQL_USER"],
+        password=os.environ["MYSQL_PASSWORD"],
+        host=os.environ["MYSQL_HOST"],
+    )
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -54,7 +62,13 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--external-source",
-        choices=["Snowflake", "GCP BigQuery", "Kafka Schema Registry", "Delta Table"],
+        choices=[
+            "Snowflake",
+            "GCP BigQuery",
+            "Kafka Schema Registry",
+            "Delta Table",
+            "MySQL",
+        ],
         required=True,
         help="The External Metadata Source to use",
     )
@@ -81,6 +95,8 @@ if __name__ == "__main__":
         source = get_kafka_schema_registry()
     elif args.external_source == "Delta Table":
         source = get_delta_table()
+    elif args.external_source == "MySQL":
+        source = get_mysql()
 
     with source:
         report = asyncio.run(

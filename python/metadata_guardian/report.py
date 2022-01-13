@@ -52,6 +52,7 @@ class ProgressionBar(Progress):
     ) -> None:
         """
         Add task in the Progression Bar.
+
         :param item_name: the name of the item to search
         :param current_item: the name of the current item
         :param source_type: the source type
@@ -70,6 +71,7 @@ class ProgressionBar(Progress):
     def update_item(self, current_item: str) -> None:
         """
         Update the current item of the task.
+
         :param current_item: the name of the current item
         :return:
         """
@@ -94,6 +96,7 @@ class MetadataGuardianReport:
     def append(self, other_report: "MetadataGuardianReport") -> None:
         """
         Concat the results before making the report.
+
         :param other_report: other report to append
         :return:
         """
@@ -102,6 +105,7 @@ class MetadataGuardianReport:
     def to_console(self) -> None:
         """
         Display the metadata guardian results to the console.
+
         :return:
         """
         _console = Console()

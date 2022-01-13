@@ -27,6 +27,7 @@ if DELTA_LAKE_INSTALLED:
         def create_connection(self) -> None:
             """
             Create the DeltaTable instance.
+
             :return:
             """
             self.connection = DeltaTable(self.uri)
@@ -42,6 +43,7 @@ if DELTA_LAKE_INSTALLED:
         ) -> List[str]:
             """
             Get column names from the Delta table.
+
             :param database_name: the database name
             :param table_name: the table name
             :param include_comment: include the comment
@@ -63,9 +65,9 @@ if DELTA_LAKE_INSTALLED:
                 schema = self.connection.schema()
                 columns = list()
                 for field in schema.fields:
-                    columns.append(field.name.lower())
+                    columns.append(field.name)
                     if include_comment and field.metadata:
-                        columns.append(str(field.metadata).lower())
+                        columns.append(str(field.metadata))
                 return columns
             except Exception as exception:
                 logger.exception(
@@ -75,7 +77,8 @@ if DELTA_LAKE_INSTALLED:
 
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
-            Not relevant, just return the current Delta Table URI
+            Not relevant, just return the current Delta Table URI.
+
             :param database_name: the database name
             :return: the list of the table names of the database
             """
@@ -85,6 +88,7 @@ if DELTA_LAKE_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
-            :return: the name o of the source.
+
+            :return: the name of the source.
             """
             return "Delta Table"

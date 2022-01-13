@@ -21,6 +21,7 @@ class Scanner(ABC):
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
         Scan the column names from the local source.
+
         :param source: the LocalMetadataSource to scan
         :return: a Metadata Guardian report
         """
@@ -36,6 +37,7 @@ class Scanner(ABC):
     ) -> MetadataGuardianReport:
         """
         Scan the column names from the external source.
+
         :param source: the ExternalMetadataSource to scan
         :param database_name: the name of the database
         :param table_name: the name of the table
@@ -55,6 +57,7 @@ class Scanner(ABC):
     ) -> MetadataGuardianReport:
         """
         Scan the column names from the external source asynchronously.
+
         :param source: the ExternalMetadataSource to scan
         :param database_name: the name of the database
         :param tasks_limit: the limit of the tasks to run in parallel
@@ -75,6 +78,7 @@ class ColumnScanner(Scanner):
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
         Scan the column names from the local source.
+
         :param source: the MetadataSource to scan
         :return: a Metadata Guardian report
         """
@@ -109,6 +113,7 @@ class ColumnScanner(Scanner):
     ) -> MetadataGuardianReport:
         """
         Scan the column names from the external source using a table name or a database name.
+
         :param source: the ExternalMetadataSource to scan
         :param database_name: the name of the database
         :param table_name: the name of the table

@@ -52,6 +52,7 @@ if AWS_INSTALLED:
         ) -> List[str]:
             """
             Get the column names from the table.
+
             :param database_name: the database name
             :param table_name: the table name
             :param include_comment: include the comment
@@ -81,6 +82,7 @@ if AWS_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get the table names list from the database in AWS Athena.
+
             :param database_name: the database name
             :return: the list of the table names of the database
             """
@@ -113,6 +115,7 @@ if AWS_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name o of the source.
             """
             return "AWS Athena"
@@ -127,7 +130,8 @@ if AWS_INSTALLED:
 
         def create_connection(self) -> None:
             """
-            Create the Glue connection
+            Create the Glue connection.
+
             :return:
             """
             self.connection = boto3.client(
@@ -145,6 +149,7 @@ if AWS_INSTALLED:
         ) -> List[str]:
             """
             Get the column names from AWS Glue table.
+
             :param database_name: the name of the database
             :param table_name: the name of the table
             :param include_comment: include the comments
@@ -158,10 +163,10 @@ if AWS_INSTALLED:
                 )
                 columns = list()
                 for row in response["Table"]["StorageDescriptor"]["Columns"]:
-                    columns.append(row["Name"].lower())
+                    columns.append(row["Name"])
                     if include_comment:
                         if "Comment" in row:
-                            columns.append(row["Comment"].lower())
+                            columns.append(row["Comment"])
                 return columns
             except botocore.exceptions.ClientError as exception:
                 logger.exception(
@@ -172,6 +177,7 @@ if AWS_INSTALLED:
         def get_table_names_list(self, database_name: str) -> List[str]:
             """
             Get the table names list from the database in AWS Glue.
+
             :param database_name: the database name
             :return: the list of the table names of the database
             """
@@ -201,6 +207,7 @@ if AWS_INSTALLED:
         def type(self) -> str:
             """
             The type of the source.
+
             :return: the name of the source.
             """
             return "AWS Glue"

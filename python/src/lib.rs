@@ -1,10 +1,11 @@
 extern crate pyo3;
 
+use metadata_guardian::DataRule;
 use metadata_guardian::DataRules;
 use pyo3::create_exception;
 use pyo3::exceptions::PyException;
 use pyo3::prelude::*;
-
+use pyo3::types::PyType;
 create_exception!(metadata_guardian, PyMetadataGuardianError, PyException);
 
 /// Python Metadata Guardian Errors.
@@ -74,10 +75,29 @@ impl<'a> From<&metadata_guardian::MetadataGuardianResults<'a>> for RawMetadataGu
 
 #[pymethods]
 impl RawDataRules {
-    /// Create a new Raw Data Rules instance
+    /// Create a new Raw Data Rules instance.
     #[new]
-    fn new(path: &str) -> PyResult<Self> {
-        let data_rules = DataRules::new(path).map_err(PyMetadataGuardianError::from_raw)?;
+    fn new(category: &str, data_rules: Vec<RawDataRule>) -> PyResult<RawDataRules> {
+        let data_rules = metadata_guardian::DataRules {
+            category: category.to_string(),
+            data_rules: data_rules
+                .iter()
+                .map(|data_rule| DataRule {
+                    rule_name: data_rule.rule_name.clone(),
+                    pattern: data_rule.pattern.clone(),
+                    documentation: data_rule.documentation.clone(),
+                })
+                .collect(),
+        };
+        Ok(RawDataRules {
+            _data_rules: data_rules,
+        })
+    }
+
+    /// Create a new Raw Data Rules instance from path.
+    #[classmethod]
+    fn from_path(_cls: &PyType, path: &str) -> PyResult<Self> {
+        let data_rules = DataRules::from_path(path).map_err(PyMetadataGuardianError::from_raw)?;
         Ok(RawDataRules {
             _data_rules: data_rules,
         })
