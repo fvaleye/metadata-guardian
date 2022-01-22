@@ -4,6 +4,8 @@ from typing import List, Optional
 
 
 class Metadata(ABC):
+    """Metadata contract."""
+
     @abstractmethod
     def as_list(self) -> List[str]:
         """
@@ -16,6 +18,8 @@ class Metadata(ABC):
 
 @dataclass
 class ColumnMetadata(Metadata):
+    """Column Metadata instance."""
+
     column_name: str
     column_comment: Optional[str] = None
 

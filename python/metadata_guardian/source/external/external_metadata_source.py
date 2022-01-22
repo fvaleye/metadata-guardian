@@ -41,6 +41,7 @@ class ExternalMetadataSource(MetadataSource):
     ) -> List[ColumnMetadata]:
         """
         Get the column names from the schema.
+
         :param database_name: the database name
         :param table_name: the table name
         :param include_comment: include the comment
@@ -52,6 +53,7 @@ class ExternalMetadataSource(MetadataSource):
     def get_table_names_list(self, database_name: str) -> List[str]:
         """
         Get the table names list from the database.
+
         :param database_name: the database name
         :return: the list of the table names of the database
         """
@@ -61,6 +63,7 @@ class ExternalMetadataSource(MetadataSource):
     def create_connection(self) -> None:
         """
         Create the connection of the source.
+
         :return:
         """
         pass
@@ -68,6 +71,7 @@ class ExternalMetadataSource(MetadataSource):
     def close_connection(self) -> None:
         """
         Close the connection of the source.
+
         :return:
         """
         pass

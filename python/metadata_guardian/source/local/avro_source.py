@@ -30,7 +30,6 @@ if AVRO_INSTALLED:
         def schema(self) -> Dict[str, Any]:
             """
             Get the AVRO schema.
-
             :return: the schema
             """
             reader = self.read()
@@ -54,7 +53,7 @@ if AVRO_INSTALLED:
 
         def get_column_names(self) -> List[ColumnMetadata]:
             """
-            Get metadata from the AVRO file.
+            Get column names from the AVRO file.
 
             :return: the list of the column names
             """
