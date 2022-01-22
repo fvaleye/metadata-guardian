@@ -3,6 +3,7 @@ from typing import Any, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -39,7 +40,7 @@ if DELTA_LAKE_INSTALLED:
             database_name: Optional[str] = None,
             table_name: Optional[str] = None,
             include_comment: bool = False,
-        ) -> List[str]:
+        ) -> List[ColumnMetadata]:
             """
             Get column names from the Delta table.
             :param database_name: the database name
@@ -63,9 +64,14 @@ if DELTA_LAKE_INSTALLED:
                 schema = self.connection.schema()
                 columns = list()
                 for field in schema.fields:
-                    columns.append(field.name)
+                    column_comment = None
                     if include_comment and field.metadata:
-                        columns.append(str(field.metadata))
+                        column_comment = str(field.metadata)
+                    columns.append(
+                        ColumnMetadata(
+                            column_name=field.name, column_comment=column_comment
+                        )
+                    )
                 return columns
             except Exception as exception:
                 logger.exception(

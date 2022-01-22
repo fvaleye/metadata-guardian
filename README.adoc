@@ -6,7 +6,7 @@ image:https://img.shields.io/pypi/v/metadata_guardian.svg?style=flat-square)[Pyp
 
 == Overview
 Metadata Guardian is a Python package that provides an easy way to protect your data source by searching in its metadata.
-By searching with regex and data rules, it will detect what you are looking to protect.
+By searching with data rules, it will detect what you are looking to protect.
 Using Rust, it makes blazing fast multi-regex matching.
 
 == Data Sources
@@ -32,13 +32,13 @@ The available data rules are here: *https://github.com/fvaleye/metadata-guardian
 == Where to get it
 
 ```sh
-# Install everything
+# Install all the data sources
 pip install 'metadata_guardian[all]'
 ```
 
 ```sh
-# Install with one metadata source in the list
-pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry]'
+# Install one or more data sources from the list
+pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry,mysql]'
 ```
 
 == Licence

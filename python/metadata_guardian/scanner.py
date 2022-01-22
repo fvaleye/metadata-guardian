@@ -73,7 +73,7 @@ class ColumnScanner(Scanner):
     """Column Scanner instance."""
 
     data_rules: DataRules
-    progression_bar_disable: bool = False
+    progression_bar_disabled: bool = True
 
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
@@ -85,19 +85,22 @@ class ColumnScanner(Scanner):
         logger.debug(
             f"[blue]Launch the metadata scanning of the local provider {source.type}"
         )
-        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             progression_bar.add_task_with_item(
                 item_name=source.local_path,
                 source_type=source.type,
                 total=1,
             )
+            words = [
+                word
+                for column_metadata in source.get_column_names()
+                for word in column_metadata.as_list()
+            ]
             report = MetadataGuardianReport(
                 report_results=[
                     ReportResults(
                         source=source.local_path,
-                        results=self.data_rules.validate_words(
-                            words=source.get_column_names()
-                        ),
+                        results=self.data_rules.validate_words(words=words),
                     )
                 ]
             )
@@ -123,7 +126,7 @@ class ColumnScanner(Scanner):
         logger.debug(
             f"[blue]Launch the metadata scanning of the external provider {source.type} for {database_name}"
         )
-        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             if table_name:
                 progression_bar.add_task_with_item(
                     item_name=database_name,
@@ -131,17 +134,20 @@ class ColumnScanner(Scanner):
                     total=1,
                     current_item=table_name,
                 )
+                words = [
+                    word
+                    for column_metadata in source.get_column_names(
+                        database_name=database_name,
+                        table_name=table_name,
+                        include_comment=include_comment,
+                    )
+                    for word in column_metadata.as_list()
+                ]
                 report = MetadataGuardianReport(
                     report_results=[
                         ReportResults(
                             source=f"{database_name}.{table_name}",
-                            results=self.data_rules.validate_words(
-                                words=source.get_column_names(
-                                    database_name=database_name,
-                                    table_name=table_name,
-                                    include_comment=include_comment,
-                                )
-                            ),
+                            results=self.data_rules.validate_words(words=words),
                         )
                     ]
                 )
@@ -158,18 +164,21 @@ class ColumnScanner(Scanner):
                 )
 
                 for table_name in table_names_list:
+                    words = [
+                        word
+                        for column_metadata in source.get_column_names(
+                            database_name=database_name,
+                            table_name=table_name,
+                            include_comment=include_comment,
+                        )
+                        for word in column_metadata.as_list()
+                    ]
                     report.append(
                         MetadataGuardianReport(
                             report_results=[
                                 ReportResults(
                                     source=f"{database_name}.{table_name}",
-                                    results=self.data_rules.validate_words(
-                                        words=source.get_column_names(
-                                            database_name=database_name,
-                                            table_name=table_name,
-                                            include_comment=include_comment,
-                                        )
-                                    ),
+                                    results=self.data_rules.validate_words(words=words),
                                 )
                             ]
                         )
@@ -206,20 +215,25 @@ class ColumnScanner(Scanner):
         ) -> ReportResults:
             async with semaphore:
                 loop = asyncio.get_event_loop()
-                words = await loop.run_in_executor(
+                columns_metadata = await loop.run_in_executor(
                     None,
                     source.get_column_names,
                     database_name,
                     table_name,
                     include_comment,
                 )
+                words = [
+                    word
+                    for column_metadata in columns_metadata
+                    for word in column_metadata.as_list()
+                ]
                 progression_bar.update_item(current_item=table_name)
                 return ReportResults(
                     source=f"{database_name}.{table_name}",
                     results=self.data_rules.validate_words(words=words),
                 )
 
-        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             if table_name:
                 tasks = [
                     async_validate_words(
@@ -252,7 +266,7 @@ class ContentFilesScanner:
     """Content Files Scanner instance."""
 
     data_rules: DataRules
-    progression_bar_disable: bool = False
+    progression_bar_disabled: bool = True
 
     def scan_local_file(self, path: str) -> MetadataGuardianReport:
         """
@@ -264,7 +278,7 @@ class ContentFilesScanner:
             f"[blue]Launch the metadata scanning the content of the file {path}"
         )
         progression_bar: ProgressionBar
-        with ProgressionBar(disable=self.progression_bar_disable) as progression_bar:
+        with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             progression_bar.add_task_with_item(
                 item_name=path, source_type="files", total=1
             )

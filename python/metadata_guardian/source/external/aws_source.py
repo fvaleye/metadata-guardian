@@ -3,6 +3,7 @@ from typing import Any, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -49,7 +50,7 @@ if AWS_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> List[ColumnMetadata]:
             """
             Get the column names from the table.
             :param database_name: the database name
@@ -67,10 +68,16 @@ if AWS_INSTALLED:
                 )
                 columns = list()
                 for row in response["TableMetadata"]["Columns"]:
-                    columns.append(row["Name"].lower())
+                    column_name = row["Name"]
+                    column_comment = None
                     if include_comment:
                         if "Comment" in row:
-                            columns.append(row["Comment"].lower())
+                            column_comment = row["Comment"]
+                    columns.append(
+                        ColumnMetadata(
+                            column_name=column_name, column_comment=column_comment
+                        )
+                    )
                 return columns
             except botocore.exceptions.ClientError as error:
                 logger.exception(
@@ -142,7 +149,7 @@ if AWS_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> List[ColumnMetadata]:
             """
             Get the column names from AWS Glue table.
             :param database_name: the name of the database
@@ -158,10 +165,16 @@ if AWS_INSTALLED:
                 )
                 columns = list()
                 for row in response["Table"]["StorageDescriptor"]["Columns"]:
-                    columns.append(row["Name"])
+                    column_name = row["Name"]
+                    column_comment = None
                     if include_comment:
                         if "Comment" in row:
-                            columns.append(row["Comment"])
+                            column_comment = row["Comment"]
+                    columns.append(
+                        ColumnMetadata(
+                            column_name=column_name, column_comment=column_comment
+                        )
+                    )
                 return columns
             except botocore.exceptions.ClientError as exception:
                 logger.exception(

@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from metadata_guardian.source import MySQLAuthenticator, MySQLSource
+from metadata_guardian.source import ColumnMetadata, MySQLAuthenticator, MySQLSource
 
 
 @patch("pymysql.connect")
@@ -36,7 +36,12 @@ def test_mysql_source_get_column_names(mock_connection):
         },
     ]
     mock_connection.execute.call_args == f"SHOW FULL COLUMNS FROM {database_name}.{table_name}"
-    expected = ["words", "Use column to contain words", "name"]
+    expected = [
+        ColumnMetadata(
+            column_name="words", column_comment="Use column to contain words"
+        ),
+        ColumnMetadata(column_name="name"),
+    ]
 
     source = MySQLSource(
         host=host,

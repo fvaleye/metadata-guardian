@@ -5,7 +5,7 @@ from typing import List
 
 from loguru import logger
 
-from .metadata_guardian import RawDataRules
+from .metadata_guardian import RawDataRule, RawDataRules
 
 
 class AvailableCategory(Enum):
@@ -39,6 +39,30 @@ class DataRules:
 
     def __init__(self, data_rules: RawDataRules) -> None:
         self._data_rules = data_rules
+
+    @classmethod
+    def from_new_category(
+        cls, category: str, data_rules: List[DataRule]
+    ) -> "DataRules":
+        """
+        Create data rules from a given category and data rules.
+
+        :param category: the category of the Data Rules
+        :param data_rules: the list of data rule
+        :return: the Data Rules instance
+        """
+        data_rules = RawDataRules(
+            category=category,
+            data_rules=[
+                RawDataRule(
+                    rule_name=data_rule.rule_name,
+                    pattern=data_rule.regex_pattern,
+                    documentation=data_rule.documentation,
+                )
+                for data_rule in data_rules
+            ],
+        )
+        return cls(data_rules=data_rules)
 
     @classmethod
     def from_path(cls, path: str) -> "DataRules":
@@ -92,7 +116,7 @@ class DataRules:
 
     def validate_words(self, words: List[str]) -> List[MetadataGuardianResults]:
         """
-        Validate a list of words with the data rules defined.:param word: the word to validate.
+        Validate a list of words with the data rules defined.
 
         :param words: the words to validate
         :return: the metadata guardian results

@@ -3,6 +3,7 @@ from unittest.mock import patch
 from confluent_kafka.schema_registry import RegisteredSchema, Schema
 
 from metadata_guardian.source import (
+    ColumnMetadata,
     KafkaSchemaRegistryAuthentication,
     KafkaSchemaRegistrySource,
 )
@@ -12,7 +13,10 @@ from metadata_guardian.source import (
 def test_kafka_schema_registry_source_get_column_names(mock_connection):
     url = "url"
     subject_name = "subject_name"
-    expected = ["key", "value", "doc"]
+    expected = [
+        ColumnMetadata(column_name="key"),
+        ColumnMetadata(column_name="value", column_comment="doc"),
+    ]
 
     source = KafkaSchemaRegistrySource(
         url=url,

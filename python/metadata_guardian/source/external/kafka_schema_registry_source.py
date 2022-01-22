@@ -5,6 +5,7 @@ from typing import Any, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -63,7 +64,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> List[ColumnMetadata]:
             """
             Get the column names from the subject.
 
@@ -78,9 +79,19 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 registered_schema = self.connection.get_latest_version(table_name)
                 columns = list()
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
-                    columns.append(field["name"])
-                    if include_comment and self.comment_field_name in field:
-                        columns.append(field[self.comment_field_name])
+                    column_name = field["name"]
+                    column_comment = None
+                    if (
+                        include_comment
+                        and self.comment_field_name in field
+                        and field[self.comment_field_name]
+                    ):
+                        column_comment = field[self.comment_field_name]
+                    columns.append(
+                        ColumnMetadata(
+                            column_name=column_name, column_comment=column_comment
+                        )
+                    )
                 return columns
             except Exception as exception:
                 logger.exception(

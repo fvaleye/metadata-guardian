@@ -4,6 +4,7 @@ from typing import Any, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -51,7 +52,7 @@ if MYSQL_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> List[ColumnMetadata]:
             """
             Get column names from the table.
 
@@ -69,11 +70,14 @@ if MYSQL_INSTALLED:
                 columns = list()
                 for row in rows:
                     column_name = row["Field"]
-                    columns.append(column_name)
-                    if include_comment:
+                    column_comment = None
+                    if include_comment and row["Comment"]:
                         column_comment = row["Comment"]
-                        if column_comment:
-                            columns.append(column_comment)
+                    columns.append(
+                        ColumnMetadata(
+                            column_name=column_name, column_comment=column_comment
+                        )
+                    )
                 return columns
             except Exception as exception:
                 logger.exception(

@@ -4,7 +4,7 @@ from typing import Any, List, Optional
 from loguru import logger
 
 from ...exceptions import MetadataGuardianException
-from ..metadata_source import MetadataSource
+from ..metadata_source import ColumnMetadata, MetadataSource
 
 
 class ExternalMetadataSource(MetadataSource):
@@ -38,7 +38,7 @@ class ExternalMetadataSource(MetadataSource):
         database_name: str,
         table_name: str,
         include_comment: bool = False,
-    ) -> List[str]:
+    ) -> List[ColumnMetadata]:
         """
         Get the column names from the schema.
         :param database_name: the database name

@@ -35,6 +35,9 @@ Source
 Local Sources
 -------------
 
+.. automodule:: metadata_guardian.source.local.avro_schema_source
+    :members:
+
 .. automodule:: metadata_guardian.source.local.avro_source
     :members:
 

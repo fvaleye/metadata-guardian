@@ -4,6 +4,7 @@ import os
 from metadata_guardian import (
     AvailableCategory,
     ColumnScanner,
+    DataRule,
     DataRules,
     ExternalMetadataSource,
 )
@@ -13,6 +14,7 @@ from metadata_guardian.source import (
     DeltaTableSource,
     GlueSource,
     KafkaSchemaRegistrySource,
+    MySQLSource,
     SnowflakeSource,
 )
 
@@ -54,11 +56,6 @@ def get_mysql() -> ExternalMetadataSource:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--data-rules-path",
-        required=True,
-        help="The Data Rules specification yaml file path to use for creating the Data Rules",
-    )
-    parser.add_argument(
         "--external-source",
         choices=[
             "Snowflake",
@@ -80,8 +77,17 @@ if __name__ == "__main__":
         "--include_comments", default=True, help="Include the comments in the scan"
     )
     args = parser.parse_args()
-    data_rules = DataRules.from_path(path=args.data_rules_path)
-    column_scanner = ColumnScanner(data_rules=data_rules)
+    category = "example"
+    data_rule = DataRule(
+        rule_name="example_rule_name",
+        regex_pattern="\b(test|example)\b",
+        documentation="example_test",
+    )
+    data_rules = [data_rule]
+    data_rules = DataRules.from_new_category(category=category, data_rules=data_rules)
+    column_scanner = ColumnScanner(
+        data_rules=data_rules, progression_bar_disabled=False
+    )
 
     if args.external_source == "Snowflake":
         source = get_snowflake()

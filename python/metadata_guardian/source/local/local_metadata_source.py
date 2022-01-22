@@ -6,7 +6,7 @@ from pyarrow import Schema
 from pyarrow.dataset import Dataset
 from pyarrow.fs import FileSystem, LocalFileSystem
 
-from ..metadata_source import MetadataSource
+from ..metadata_source import ColumnMetadata, MetadataSource
 
 
 @dataclass
@@ -32,10 +32,13 @@ class LocalMetadataSource(MetadataSource):
         """
         return self.read().schema
 
-    def get_column_names(self) -> List[str]:
+    def get_column_names(self) -> List[ColumnMetadata]:
         """
         Get the column names from the schema.
 
         :return: the list of the column names
         """
-        return [column for column in self.schema().names]
+        return [
+            ColumnMetadata(column_name=column_name)
+            for column_name in self.schema().names
+        ]

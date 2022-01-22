@@ -85,7 +85,9 @@ if __name__ == "__main__":
     data_rules = DataRules.from_available_category(
         category=AvailableCategory[args.data_rules]
     )
-    column_scanner = ColumnScanner(data_rules=data_rules)
+    column_scanner = ColumnScanner(
+        data_rules=data_rules, progression_bar_disabled=False
+    )
 
     if args.external_source == "Snowflake":
         source = get_snowflake()

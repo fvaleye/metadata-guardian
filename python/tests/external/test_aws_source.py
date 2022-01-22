@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from metadata_guardian.source import AthenaSource, GlueSource
+from metadata_guardian.source import AthenaSource, ColumnMetadata, GlueSource
 
 
 @patch("boto3.client")
@@ -22,7 +22,10 @@ def test_athena_source_get_column_names(mock_connection):
     }
     mock_connection.return_value = mock_connection
     mock_connection.get_table_metadata.return_value = response
-    expected = ["timestamp", "comment1", "address_id", "comment2"]
+    expected = [
+        ColumnMetadata(column_name="timestamp", column_comment="comment1"),
+        ColumnMetadata(column_name="address_id", column_comment="comment2"),
+    ]
 
     column_names = AthenaSource(s3_staging_dir=s3_staging_dir,).get_column_names(
         database_name=database_name, table_name=table_name, include_comment=True
@@ -70,7 +73,10 @@ def test_glue_source_get_column_names(mock_connection):
     }
     mock_connection.return_value = mock_connection
     mock_connection.get_table.return_value = response
-    expected = ["timestamp", "comment1", "address_id", "comment2"]
+    expected = [
+        ColumnMetadata(column_name="timestamp", column_comment="comment1"),
+        ColumnMetadata(column_name="address_id", column_comment="comment2"),
+    ]
 
     column_names = GlueSource().get_column_names(
         database_name=database_name, table_name=table_name, include_comment=True

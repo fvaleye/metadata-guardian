@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 
 from google.cloud import bigquery
 
-from metadata_guardian.source import BigQuerySource
+from metadata_guardian.source import BigQuerySource, ColumnMetadata
 
 
 @patch("google.cloud.bigquery.Client.from_service_account_json")
@@ -23,7 +23,10 @@ def test_big_query_source_get_column_names(mock_connection):
     )
     mock_connection.return_value = mock_connection
     mock_connection.get_table.return_value = results
-    expected = ["timestamp", "description1", "address_id", "description2"]
+    expected = [
+        ColumnMetadata(column_name="timestamp", column_comment="description1"),
+        ColumnMetadata(column_name="address_id", column_comment="description2"),
+    ]
 
     column_names = BigQuerySource(
         service_account_json_path=service_account_json_path

@@ -1,5 +1,6 @@
 import pytest
 
+from metadata_guardian.source import ColumnMetadata
 from metadata_guardian.source.local.avro_schema_source import AvroSchemaSource
 
 
@@ -8,7 +9,11 @@ from metadata_guardian.source.local.avro_schema_source import AvroSchemaSource
 )
 def test_avro_schema_source(local_file):
     source = AvroSchemaSource(local_path=local_file)
-    expected = ["name", "favorite_number", "favorite_color"]
+    expected = [
+        ColumnMetadata(column_name="name"),
+        ColumnMetadata(column_name="favorite_number"),
+        ColumnMetadata(column_name="favorite_color"),
+    ]
 
     column_names = source.get_column_names()
 
@@ -30,7 +35,11 @@ def test_avro_schema_source_namespace(local_file):
 )
 def test_avro_schema_source_attribute_type(local_file):
     source = AvroSchemaSource(local_path=local_file)
-    expected = ["string", ["int", "null"], ["string", "null"]]
+    expected = [
+        ColumnMetadata(column_name="string"),
+        ColumnMetadata(column_name="['int', 'null']"),
+        ColumnMetadata(column_name="['string', 'null']"),
+    ]
 
     field_attribute_type = source.get_field_attribute(attribute_name="type")
 

@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -50,7 +51,7 @@ if GCP_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> List[ColumnMetadata]:
             """
             Get column names from the table of the dataset.
             :param database_name: in that case the dataset
@@ -69,9 +70,15 @@ if GCP_INSTALLED:
                 table = self.connection.get_table(table_reference)
                 columns = list()
                 for column in table.schema:
-                    columns.append(column.name.lower())
+                    column_name = column.name
+                    column_comment = None
                     if include_comment and column.description:
-                        columns.append(column.description.lower())
+                        column_comment = column.description
+                    columns.append(
+                        ColumnMetadata(
+                            column_name=column_name, column_comment=column_comment
+                        )
+                    )
                 return columns
             except Exception as exception:
                 logger.exception(

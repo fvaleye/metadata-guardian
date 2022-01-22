@@ -13,6 +13,7 @@ from metadata_guardian.source import (
     DeltaTableSource,
     GlueSource,
     KafkaSchemaRegistrySource,
+    MySQLSource,
     SnowflakeSource,
 )
 
@@ -81,7 +82,9 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     data_rules = DataRules.from_path(path=args.data_rules_path)
-    column_scanner = ColumnScanner(data_rules=data_rules)
+    column_scanner = ColumnScanner(
+        data_rules=data_rules, progression_bar_disabled=False
+    )
 
     if args.external_source == "Snowflake":
         source = get_snowflake()
