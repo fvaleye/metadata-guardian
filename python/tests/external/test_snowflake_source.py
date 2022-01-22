@@ -40,7 +40,7 @@ def test_snowflake_source_get_column_names(mock_connection):
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
     assert source.authenticator == SnowflakeAuthenticator.USER_PWD
 
 
@@ -68,7 +68,7 @@ def test_snowflake_source_get_table_names_list(mock_connection):
         schema_name=schema_name,
     )
 
-    talbe_names = source.get_table_names_list(database_name=database_name)
+    table_names = source.get_table_names_list(database_name=database_name)
 
-    assert talbe_names == expected
+    assert list(table_names) == expected
     assert source.authenticator == SnowflakeAuthenticator.USER_PWD

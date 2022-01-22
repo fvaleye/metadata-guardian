@@ -154,8 +154,8 @@ class ColumnScanner(Scanner):
                 progression_bar.update_item(current_item=table_name)
             else:
                 report = MetadataGuardianReport()
-                table_names_list = source.get_table_names_list(
-                    database_name=database_name
+                table_names_list = list(
+                    source.get_table_names_list(database_name=database_name)
                 )
                 progression_bar.add_task_with_item(
                     item_name=database_name,

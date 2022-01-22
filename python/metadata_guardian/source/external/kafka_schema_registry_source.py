@@ -1,7 +1,7 @@
 import json
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
@@ -64,7 +64,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[ColumnMetadata]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get the column names from the subject.
 
@@ -77,7 +77,6 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 if not self.connection:
                     self.create_connection()
                 registered_schema = self.connection.get_latest_version(table_name)
-                columns = list()
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
                     column_name = field["name"]
                     column_comment = None
@@ -87,19 +86,16 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                         and field[self.comment_field_name]
                     ):
                         column_comment = field[self.comment_field_name]
-                    columns.append(
-                        ColumnMetadata(
-                            column_name=column_name, column_comment=column_comment
-                        )
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
                     )
-                return columns
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from the Kafka Schema Registry {table_name}"
                 )
                 raise exception
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get all the subjects from the Schema Registry.
 
@@ -109,8 +105,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             try:
                 if not self.connection:
                     self.create_connection()
-                all_subjects = self.connection.get_subjects()
-                return all_subjects
+                yield from self.connection.get_subjects()
             except Exception as exception:
                 logger.exception(
                     f"Error all the subjects from the subject in the Kafka Schema Registry"

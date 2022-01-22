@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import Iterator, List, Optional
 
 
 class Metadata(ABC):
     """Metadata contract."""
 
     @abstractmethod
-    def as_list(self) -> List[str]:
+    def as_list(self) -> Iterator[str]:
         """
         Return as a raw list of strings.
 
@@ -23,17 +23,15 @@ class ColumnMetadata(Metadata):
     column_name: str
     column_comment: Optional[str] = None
 
-    def as_list(self) -> List[str]:
+    def as_list(self) -> Iterator[str]:
         """
         Return as a raw list of strings.
 
         :return: a list of string
         """
-        temp_list = list()
-        temp_list.append(self.column_name)
+        yield self.column_name
         if self.column_comment:
-            temp_list.append(self.column_comment)
-        return temp_list
+            yield self.column_comment
 
 
 class MetadataSource(ABC):

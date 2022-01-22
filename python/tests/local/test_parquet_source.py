@@ -17,4 +17,4 @@ def test_parquet_source_column_names(local_file):
 
     column_names = source.get_column_names()
 
-    assert expected == column_names
+    assert list(column_names) == expected

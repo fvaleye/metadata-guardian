@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 import pyarrow
 from pyarrow.orc import ORCFile
@@ -27,16 +27,14 @@ class ORCSource(LocalMetadataSource):
         """
         return self.read().schema
 
-    def get_column_names(self) -> List[ColumnMetadata]:
+    def get_column_names(self) -> Iterator[ColumnMetadata]:
         """
         Get the column names from the schema.
 
         :return: the list of the column names
         """
-        return [
-            ColumnMetadata(column_name=column_name)
-            for column_name in self.schema().names
-        ]
+        for column_name in self.schema().names:
+            yield ColumnMetadata(column_name=column_name)
 
     @property
     def type(self) -> str:

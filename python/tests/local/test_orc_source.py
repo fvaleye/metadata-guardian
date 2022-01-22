@@ -24,4 +24,4 @@ def test_orc_source(local_file):
 
     column_names = source.get_column_names()
 
-    assert expected == column_names
+    assert list(column_names) == expected

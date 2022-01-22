@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
@@ -38,7 +38,7 @@ class ExternalMetadataSource(MetadataSource):
         database_name: str,
         table_name: str,
         include_comment: bool = False,
-    ) -> List[ColumnMetadata]:
+    ) -> Iterator[ColumnMetadata]:
         """
         Get the column names from the schema.
 
@@ -50,7 +50,7 @@ class ExternalMetadataSource(MetadataSource):
         pass
 
     @abstractmethod
-    def get_table_names_list(self, database_name: str) -> List[str]:
+    def get_table_names_list(self, database_name: str) -> Iterator[str]:
         """
         Get the table names list from the database.
 

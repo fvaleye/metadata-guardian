@@ -1,6 +1,6 @@
 import json
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
@@ -51,16 +51,14 @@ if AVRO_INSTALLED:
                 for field in self.schema()["fields"]
             ]
 
-        def get_column_names(self) -> List[ColumnMetadata]:
+        def get_column_names(self) -> Iterator[ColumnMetadata]:
             """
             Get column names from the AVRO file.
 
             :return: the list of the column names
             """
-            return [
-                ColumnMetadata(column_name=field["name"])
-                for field in self.schema()["fields"]
-            ]
+            for field in self.schema()["fields"]:
+                yield ColumnMetadata(column_name=field["name"])
 
         @property
         def namespace(self) -> str:

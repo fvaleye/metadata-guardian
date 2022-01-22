@@ -54,7 +54,7 @@ def test_mysql_source_get_column_names(mock_connection):
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
     assert source.authenticator == MySQLAuthenticator.USER_PWD
 
 
@@ -81,5 +81,5 @@ def test_mysql_source_get_table_names_list(mock_connection):
 
     table_names = source.get_table_names_list(database_name=database_name)
 
-    assert table_names == expected
+    assert list(table_names) == expected
     assert source.authenticator == MySQLAuthenticator.USER_PWD

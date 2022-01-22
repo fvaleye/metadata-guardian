@@ -34,7 +34,7 @@ def test_big_query_source_get_column_names(mock_connection):
         database_name=dataset_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
 
 
 @patch("google.cloud.bigquery.Client.from_service_account_json")
@@ -57,4 +57,4 @@ def test_big_query_source_get_table_names_list(mock_connection):
         database_name=dataset_name,
     )
 
-    assert table_names_list == expected
+    assert list(table_names_list) == expected

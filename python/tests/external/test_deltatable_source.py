@@ -39,7 +39,7 @@ def test_deltatable_source_get_column_names(mock_connection):
     delta_table.connection = mock_connection
     column_names = delta_table.get_column_names(include_comment=True)
 
-    assert column_names == expected
+    assert list(column_names) == expected
 
 
 @patch("deltalake.DeltaTable.from_data_catalog")
@@ -82,4 +82,4 @@ def test_deltatable_source_get_column_names_from_database_and_table(mock_connect
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected

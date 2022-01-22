@@ -77,11 +77,11 @@ impl<'a> From<&metadata_guardian::MetadataGuardianResults<'a>> for RawMetadataGu
 impl RawDataRule {
     /// Create a new Raw Data Rule instance.
     #[new]
-    fn new(rule_name: String, pattern: String, documentation: String) -> PyResult<RawDataRule> {
+    fn new(rule_name: &str, pattern: &str, documentation: &str) -> PyResult<RawDataRule> {
         Ok(RawDataRule {
-            rule_name,
-            pattern,
-            documentation,
+            rule_name: rule_name.to_string(),
+            pattern: pattern.to_string(),
+            documentation: documentation.to_string(),
         })
     }
 }

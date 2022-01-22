@@ -31,7 +31,7 @@ def test_athena_source_get_column_names(mock_connection):
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
 
 
 @patch("boto3.client")
@@ -54,7 +54,7 @@ def test_athena_source_get_table_names_list(mock_connection):
         s3_staging_dir=s3_staging_dir,
     ).get_table_names_list(database_name=database_name)
 
-    assert table_names_list == expected
+    assert list(table_names_list) == expected
 
 
 @patch("boto3.client")
@@ -82,7 +82,7 @@ def test_glue_source_get_column_names(mock_connection):
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
 
 
 @patch("boto3.client")
@@ -101,6 +101,6 @@ def test_glue_source_get_table_names_list(mock_connection):
     mock_connection.get_tables.return_value = response
     expected = [table_name]
 
-    table_names_list = GlueSource().get_table_names_list(database_name=database_name)
+    table_name_list = GlueSource().get_table_names_list(database_name=database_name)
 
-    assert table_names_list == expected
+    assert list(table_name_list) == expected

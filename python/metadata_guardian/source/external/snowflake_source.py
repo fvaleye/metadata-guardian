@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
@@ -86,7 +86,7 @@ if SNOWFLAKE_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[ColumnMetadata]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get column names from the table.
 
@@ -103,18 +103,14 @@ if SNOWFLAKE_INSTALLED:
                     f'SHOW COLUMNS IN "{database_name}"."{self.schema_name}"."{table_name}"'
                 )
                 rows = cursor.fetchall()
-                columns = list()
                 for row in rows:
                     column_name = row[2]
                     column_comment = None
                     if include_comment:
                         column_comment = row[8]
-                    columns.append(
-                        ColumnMetadata(
-                            column_name=column_name, column_comment=column_comment
-                        )
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
                     )
-                return columns
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from Snowflake {database_name}.{self.schema_name}.{table_name}"
@@ -123,7 +119,7 @@ if SNOWFLAKE_INSTALLED:
             finally:
                 cursor.close()
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get the table names list from the Snowflake database.
 
@@ -136,11 +132,9 @@ if SNOWFLAKE_INSTALLED:
                 cursor = self.connection.cursor()
                 cursor.execute(f'SHOW TABLES IN DATABASE "{database_name}"')
                 rows = cursor.fetchall()
-                table_list = list()
                 for row in rows:
                     table_name = row[1]
-                    table_list.append(table_name.upper())
-                return table_list
+                    yield table_name.upper()
             except Exception as exception:
                 logger.exception(
                     f"Error in getting table names from the database {database_name} in Snowflake"

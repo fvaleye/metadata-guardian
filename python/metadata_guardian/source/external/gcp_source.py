@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Iterator, List, Optional, Union
 
 from loguru import logger
 
@@ -53,7 +53,7 @@ if GCP_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[ColumnMetadata]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get column names from the table of the dataset.
 
@@ -71,25 +71,21 @@ if GCP_INSTALLED:
                     database_name, project=self.project
                 ).table(table_name)
                 table = self.connection.get_table(table_reference)
-                columns = list()
                 for column in table.schema:
                     column_name = column.name
                     column_comment = None
                     if include_comment and column.description:
                         column_comment = column.description
-                    columns.append(
-                        ColumnMetadata(
-                            column_name=column_name, column_comment=column_comment
-                        )
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
                     )
-                return columns
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from BigQuery {database_name}.{table_name}"
                 )
                 raise ExternalMetadataSourceException(exception)
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get the table names list from the GCP dataset.
 
@@ -104,10 +100,8 @@ if GCP_INSTALLED:
                     f"SELECT table_name FROM `{database_name}.INFORMATION_SCHEMA.TABLES`"
                 )
                 results = query_job.result()
-                table_names_list = list()
                 for row in results:
-                    table_names_list.append(row.table_name.lower())
-                return table_names_list
+                    yield row.table_name
             except Exception as exception:
                 logger.exception(
                     f"Error in getting the table names list name from BigQuery {database_name}"

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
@@ -52,7 +52,7 @@ if MYSQL_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[ColumnMetadata]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get column names from the table.
 
@@ -67,18 +67,14 @@ if MYSQL_INSTALLED:
                 cursor = self.connection.cursor()
                 cursor.execute(f"SHOW FULL COLUMNS FROM {database_name}.{table_name}")
                 rows = cursor.fetchall()
-                columns = list()
                 for row in rows:
                     column_name = row["Field"]
                     column_comment = None
                     if include_comment and row["Comment"]:
                         column_comment = row["Comment"]
-                    columns.append(
-                        ColumnMetadata(
-                            column_name=column_name, column_comment=column_comment
-                        )
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
                     )
-                return columns
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from MySQL {database_name}.{table_name}"
@@ -87,7 +83,7 @@ if MYSQL_INSTALLED:
             finally:
                 cursor.close()
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get the table names list from the MySQL database.
 
@@ -100,11 +96,9 @@ if MYSQL_INSTALLED:
                 cursor = self.connection.cursor()
                 cursor.execute(f"SHOW TABLES IN {database_name}")
                 rows = cursor.fetchall()
-                table_list = list()
                 for row in rows:
                     table_name = list(row.values())[0]
-                    table_list.append(table_name)
-                return table_list
+                    yield table_name
             except Exception as exception:
                 logger.exception(
                     f"Error in getting table names from the database {database_name} in MySQL"

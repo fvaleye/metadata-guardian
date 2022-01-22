@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Dict, Iterator, List
 
 import pyarrow
 from pyarrow import Schema
@@ -32,13 +32,11 @@ class LocalMetadataSource(MetadataSource):
         """
         return self.read().schema
 
-    def get_column_names(self) -> List[ColumnMetadata]:
+    def get_column_names(self) -> Iterator[ColumnMetadata]:
         """
         Get the column names from the schema.
 
         :return: the list of the column names
         """
-        return [
-            ColumnMetadata(column_name=column_name)
-            for column_name in self.schema().names
-        ]
+        for column_name in self.schema().names:
+            yield ColumnMetadata(column_name=column_name)

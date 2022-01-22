@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
@@ -41,7 +41,7 @@ if DELTA_LAKE_INSTALLED:
             database_name: Optional[str] = None,
             table_name: Optional[str] = None,
             include_comment: bool = False,
-        ) -> List[ColumnMetadata]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get column names from the Delta table.
 
@@ -64,31 +64,27 @@ if DELTA_LAKE_INSTALLED:
                 elif not self.connection:
                     self.create_connection()
                 schema = self.connection.schema()
-                columns = list()
                 for field in schema.fields:
                     column_comment = None
                     if include_comment and field.metadata:
                         column_comment = str(field.metadata)
-                    columns.append(
-                        ColumnMetadata(
-                            column_name=field.name, column_comment=column_comment
-                        )
+                    yield ColumnMetadata(
+                        column_name=field.name, column_comment=column_comment
                     )
-                return columns
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from the DeltaTable {self.uri}"
                 )
                 raise ExternalMetadataSourceException(exception)
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Not relevant, just return the current Delta Table URI.
 
             :param database_name: the database name
             :return: the list of the table names of the database
             """
-            return [self.uri]
+            yield self.uri
 
         @property
         def type(self) -> str:

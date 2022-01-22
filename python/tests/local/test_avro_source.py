@@ -15,7 +15,7 @@ def test_avro_source(local_file):
 
     column_names = source.get_column_names()
 
-    assert expected == column_names
+    assert list(column_names) == expected
 
 
 @pytest.mark.parametrize("local_file", ["users.avro"], indirect=["local_file"])
