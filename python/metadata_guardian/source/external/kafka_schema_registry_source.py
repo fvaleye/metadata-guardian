@@ -33,7 +33,6 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         url: str
         ssl_certificate_location: Optional[str] = None
         ssl_key_location: Optional[str] = None
-        connection: Optional[SchemaRegistryClient] = None
         authenticator: Optional[
             KafkaSchemaRegistryAuthentication
         ] = KafkaSchemaRegistryAuthentication.USER_PWD
@@ -112,8 +111,9 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 )
                 raise ExternalMetadataSourceException(exception)
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

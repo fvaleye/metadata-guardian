@@ -108,8 +108,9 @@ if GCP_INSTALLED:
                 )
                 raise exception
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

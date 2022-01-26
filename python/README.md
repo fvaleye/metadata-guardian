@@ -7,13 +7,13 @@ Metadata Guardian
 
 ## Overview
 
-Metadata Guardian is a Python package that provides an easy way to protect your data source by searching in its metadata.
-By searching with regex and data rules, it will detect what you are looking to protect.
+Metadata Guardian is a Python package that provides an easy way to protect your data sources by searching its metadata.
+By searching with data rules, it will detect what you are looking to protect.
 Using Rust, it makes blazing fast multi-regex matching.
 
 ## Usage
 
-With multiple metadata sources available, Python relies on Rust to benefit from using multiple regular expressions simultaneously with [regex](https://github.com/rust-lang/regex) and parrallelize it with [rayon](https://github.com/rayon-rs/rayon), providing an easy way of creating the data rules for scanning the metadata.
+Benefit from data sources available of the Python ecosystem while Rust provides fast multi-regex processing with [regex](https://github.com/rust-lang/regex) and parallelizes the process with [rayon](https://github.com/rayon-rs/rayon).
 
 ## Data Rules
 - [PII](https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml)

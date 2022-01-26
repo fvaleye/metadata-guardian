@@ -80,7 +80,7 @@ if AWS_INSTALLED:
                 logger.exception(
                     f"Error in getting columns name from AWS Athena {database_name}.{table_name} for catalog {self.catalog_name}"
                 )
-                raise ExternalMetadataSource(error)
+                raise ExternalMetadataSourceException(error)
 
         def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
@@ -112,8 +112,9 @@ if AWS_INSTALLED:
                 )
                 raise ExternalMetadataSourceException(exception)
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 
@@ -204,6 +205,7 @@ if AWS_INSTALLED:
                 )
                 raise error
 
+        @classmethod
         @property
         def type(self) -> str:
             """

@@ -4,10 +4,6 @@ VENV := venv
 MATURIN_VERSION := $(shell awk -F '[ ="]+' '$$1 == "requires" { print $$4 }' pyproject.toml)
 PACKAGE_VERSION := $(shell cargo pkgid | cut -d\# -f2 | cut -d: -f2)
 
-.PHONY:docker-build
-docker-build: ## Build the Docker image
-	$(info --- Docker build ---)
-	docker build -t metadata_guardian ../
 
 .PHONY: setup-venv
 setup-venv: ## Setup the virtualenv

@@ -86,6 +86,7 @@ if DELTA_LAKE_INSTALLED:
             """
             yield self.uri
 
+        @classmethod
         @property
         def type(self) -> str:
             """

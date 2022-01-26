@@ -6,8 +6,8 @@ RUN $HOME/.cargo/bin/rustup default stable
 ENV PATH /root/.cargo/bin:$PATH
 
 # Setup Python
-ENV PATH /opt/python/cp36-cp36m/bin:$PATH
-RUN python -m pip install --upgrade pip
+ENV PATH /opt/python/cp37-cp37m/bin:$PATH
+RUN python -m pip install --upgrade pip virtualenv
 
 # Copy metadata guardian
 COPY Cargo.toml metadata_guardian/Cargo.toml
@@ -15,4 +15,5 @@ COPY Cargo.lock metadata_guardian/Cargo.lock
 COPY /rust metadata_guardian/rust
 COPY /python metadata_guardian/python
 
+# Ready for following the python README.md
 WORKDIR metadata_guardian/python

@@ -20,7 +20,7 @@ class Scanner(ABC):
     @abstractmethod
     def scan_local(self, source: LocalMetadataSource) -> MetadataGuardianReport:
         """
-        Scan the column names from the local source.
+        Scan the local source.
 
         :param source: the LocalMetadataSource to scan
         :return: a Metadata Guardian report
@@ -88,7 +88,7 @@ class ColumnScanner(Scanner):
         with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             progression_bar.add_task_with_item(
                 item_name=source.local_path,
-                source_type=source.type,
+                source_type=str(source.type),
                 total=1,
             )
             words = [
@@ -130,7 +130,7 @@ class ColumnScanner(Scanner):
             if table_name:
                 progression_bar.add_task_with_item(
                     item_name=database_name,
-                    source_type=source.type,
+                    source_type=str(source.type),
                     total=1,
                     current_item=table_name,
                 )
@@ -159,7 +159,7 @@ class ColumnScanner(Scanner):
                 )
                 progression_bar.add_task_with_item(
                     item_name=database_name,
-                    source_type=source.type,
+                    source_type=str(source.type),
                     total=len(table_names_list),
                 )
 
@@ -253,7 +253,7 @@ class ColumnScanner(Scanner):
                 ]
             progression_bar.add_task_with_item(
                 item_name=database_name,
-                source_type=source.type,
+                source_type=str(source.type),
                 total=len(tasks),
             )
             report_results = await asyncio.gather(*tasks)
@@ -271,6 +271,7 @@ class ContentFilesScanner:
     def scan_local_file(self, path: str) -> MetadataGuardianReport:
         """
         Scan a file with data rules.
+
         :param path: the path of the file to scan
         :return: a Metadata Guardian report
         """
@@ -298,6 +299,7 @@ class ContentFilesScanner:
     ) -> MetadataGuardianReport:
         """
         Scan all the files inside directory path with the file name extension.
+
         :param directory_path: the directory path to scan
         :param file_names_extension: the file name extension to include (without the ".")
         :return: a Metadata Guardian report

@@ -10,7 +10,7 @@ from ..metadata_source import ColumnMetadata, MetadataSource
 class ExternalMetadataSource(MetadataSource):
     """ExternalMetadataSource Source."""
 
-    connection: Optional[Any] = None
+    connection: Any = None
 
     def __enter__(self) -> "ExternalMetadataSource":
         try:
@@ -22,7 +22,7 @@ class ExternalMetadataSource(MetadataSource):
             raise exception
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:  # type: ignore
+    def __exit__(self, exc_type, exc_val, exc_tb) -> "ExternalMetadataSource":  # type: ignore
         try:
             self.close_connection()
         except Exception as exception:

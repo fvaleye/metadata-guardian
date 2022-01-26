@@ -37,7 +37,7 @@ if AVRO_INSTALLED:
 
         def get_field_attribute(
             self, attribute_name: str
-        ) -> Optional[List[ColumnMetadata]]:
+        ) -> List[Optional[ColumnMetadata]]:
             """
             Get the specific attribute from the AVRO Schema.
 
@@ -69,8 +69,9 @@ if AVRO_INSTALLED:
             """
             return self.schema()["namespace"]
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

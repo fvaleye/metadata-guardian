@@ -143,8 +143,9 @@ if SNOWFLAKE_INSTALLED:
             finally:
                 cursor.close()
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

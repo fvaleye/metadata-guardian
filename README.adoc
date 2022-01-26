@@ -5,9 +5,25 @@ image:https://img.shields.io/badge/docs-python-blue.svg?style=flat-square[Docs,l
 image:https://img.shields.io/pypi/v/metadata_guardian.svg?style=flat-square)[Pypi, link=https://pypi.org/project/metadata-guardian/]
 
 == Overview
-Metadata Guardian is a Python package that provides an easy way to protect your data source by searching in its metadata.
+Metadata Guardian is a Python package that provides an easy way to protect your data sources by searching its metadata.
 By searching with data rules, it will detect what you are looking to protect.
 Using Rust, it makes blazing fast multi-regex matching.
+
+== Where to get it
+
+```sh
+# Install all the data sources
+pip install 'metadata_guardian[all]'
+```
+
+```sh
+# Install one or more data sources from the list
+pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry,mysql]'
+```
+
+== Data Rules
+The available data rules are here: *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml[INCLUSION]*.
+But you could also your custom data rules to suit your needs.
 
 == Data Sources
 
@@ -26,19 +42,31 @@ Using Rust, it makes blazing fast multi-regex matching.
 - MySQL
 - Kafka Schema Registry
 
-== Data Rules
-The available data rules are here: *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml[INCLUSION]*. But it aims to be extended with custom data rules that could serve multiple purposes (for example: detect data that may contain IA biais, detect credentials...).
+== Usage
+```python
+from metadata_guardian import (
+    AvailableCategory,
+    ColumnScanner,
+    DataRules,
+)
+from metadata_guardian.source import MySQLSource
 
-== Where to get it
+source = MySQLSource(
+        user="root",
+        password="12345678",
+        host="localhost",
+    )
 
-```sh
-# Install all the data sources
-pip install 'metadata_guardian[all]'
-```
+data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
+column_scanner = ColumnScanner(data_rules=data_rules)
 
-```sh
-# Install one or more data sources from the list
-pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry,mysql]'
+with source:
+    report = column_scanner.scan_external(
+        source,
+        database_name="sequelmovie",
+        include_comment=True,
+    )
+    report.to_console()
 ```
 
 == Licence

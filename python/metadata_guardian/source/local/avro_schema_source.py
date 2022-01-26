@@ -25,7 +25,7 @@ class AvroSchemaSource(LocalMetadataSource):
 
     def get_field_attribute(
         self, attribute_name: str
-    ) -> Optional[List[ColumnMetadata]]:
+    ) -> List[Optional[ColumnMetadata]]:
         """
         Get the specific attribute from the AVRO Schema file.
 
@@ -57,8 +57,9 @@ class AvroSchemaSource(LocalMetadataSource):
         """
         return self.schema()["namespace"]
 
+    @classmethod
     @property
-    def type(self) -> str:
+    def type(cls) -> str:
         """
         The type of the source.
 

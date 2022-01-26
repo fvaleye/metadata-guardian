@@ -79,6 +79,7 @@ class DataRules:
     def from_available_category(cls, category: AvailableCategory) -> "DataRules":
         """
         Get Data Rules from an available category.
+
         :param category: the available category of the data rules
         :return: the Data Rules instance
         """
@@ -141,6 +142,7 @@ class DataRules:
     def validate_file(self, path: str) -> List[MetadataGuardianResults]:
         """
         Validate a file content with the data rules defined.
+
         :param path: the file path
         :return: the metadata guardian results
         """

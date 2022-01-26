@@ -37,9 +37,9 @@ class ColumnMetadata(Metadata):
 class MetadataSource(ABC):
     """Metadata Source contract."""
 
+    @classmethod
     @property
-    @abstractmethod
-    def type(self) -> str:
+    def type(cls) -> str:
         """
         The type of the source.
 
