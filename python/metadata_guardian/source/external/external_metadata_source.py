@@ -1,16 +1,16 @@
 from abc import abstractmethod
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
 from ...exceptions import MetadataGuardianException
-from ..metadata_source import MetadataSource
+from ..metadata_source import ColumnMetadata, MetadataSource
 
 
 class ExternalMetadataSource(MetadataSource):
     """ExternalMetadataSource Source."""
 
-    connection: Optional[Any] = None
+    connection: Any = None
 
     def __enter__(self) -> "ExternalMetadataSource":
         try:
@@ -22,7 +22,7 @@ class ExternalMetadataSource(MetadataSource):
             raise exception
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:  # type: ignore
+    def __exit__(self, exc_type, exc_val, exc_tb) -> "ExternalMetadataSource":  # type: ignore
         try:
             self.close_connection()
         except Exception as exception:
@@ -38,7 +38,7 @@ class ExternalMetadataSource(MetadataSource):
         database_name: str,
         table_name: str,
         include_comment: bool = False,
-    ) -> List[str]:
+    ) -> Iterator[ColumnMetadata]:
         """
         Get the column names from the schema.
 
@@ -50,7 +50,7 @@ class ExternalMetadataSource(MetadataSource):
         pass
 
     @abstractmethod
-    def get_table_names_list(self, database_name: str) -> List[str]:
+    def get_table_names_list(self, database_name: str) -> Iterator[str]:
         """
         Get the table names list from the database.
 

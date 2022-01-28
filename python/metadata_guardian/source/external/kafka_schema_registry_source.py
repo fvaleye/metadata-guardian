@@ -1,10 +1,11 @@
 import json
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -32,7 +33,6 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         url: str
         ssl_certificate_location: Optional[str] = None
         ssl_key_location: Optional[str] = None
-        connection: Optional[SchemaRegistryClient] = None
         authenticator: Optional[
             KafkaSchemaRegistryAuthentication
         ] = KafkaSchemaRegistryAuthentication.USER_PWD
@@ -63,7 +63,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get the column names from the subject.
 
@@ -76,19 +76,25 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 if not self.connection:
                     self.create_connection()
                 registered_schema = self.connection.get_latest_version(table_name)
-                columns = list()
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
-                    columns.append(field["name"])
-                    if include_comment and self.comment_field_name in field:
-                        columns.append(field[self.comment_field_name])
-                return columns
+                    column_name = field["name"]
+                    column_comment = None
+                    if (
+                        include_comment
+                        and self.comment_field_name in field
+                        and field[self.comment_field_name]
+                    ):
+                        column_comment = field[self.comment_field_name]
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
+                    )
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from the Kafka Schema Registry {table_name}"
                 )
                 raise exception
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get all the subjects from the Schema Registry.
 
@@ -98,16 +104,16 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             try:
                 if not self.connection:
                     self.create_connection()
-                all_subjects = self.connection.get_subjects()
-                return all_subjects
+                yield from self.connection.get_subjects()
             except Exception as exception:
                 logger.exception(
                     f"Error all the subjects from the subject in the Kafka Schema Registry"
                 )
                 raise ExternalMetadataSourceException(exception)
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

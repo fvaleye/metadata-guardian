@@ -1,6 +1,10 @@
 from unittest.mock import patch
 
-from metadata_guardian.source import SnowflakeAuthenticator, SnowflakeSource
+from metadata_guardian.source import (
+    ColumnMetadata,
+    SnowflakeAuthenticator,
+    SnowflakeSource,
+)
 
 
 @patch("snowflake.connector")
@@ -19,7 +23,10 @@ def test_snowflake_source_get_column_names(mock_connection):
         (database_name, table_name, "column2", "", "", "", "", "", "comment2"),
     ]
     mocked_cursor_one.execute.call_args == f'SHOW COLUMNS IN "{database_name}"."{schema_name}"."{table_name}"'
-    expected = ["column1", "comment1", "column2", "comment2"]
+    expected = [
+        ColumnMetadata(column_name="column1", column_comment="comment1"),
+        ColumnMetadata(column_name="column2", column_comment="comment2"),
+    ]
 
     source = SnowflakeSource(
         sf_account=sf_account,
@@ -33,7 +40,7 @@ def test_snowflake_source_get_column_names(mock_connection):
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
     assert source.authenticator == SnowflakeAuthenticator.USER_PWD
 
 
@@ -61,7 +68,7 @@ def test_snowflake_source_get_table_names_list(mock_connection):
         schema_name=schema_name,
     )
 
-    talbe_names = source.get_table_names_list(database_name=database_name)
+    table_names = source.get_table_names_list(database_name=database_name)
 
-    assert talbe_names == expected
+    assert list(table_names) == expected
     assert source.authenticator == SnowflakeAuthenticator.USER_PWD

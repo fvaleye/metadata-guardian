@@ -1,12 +1,13 @@
+from abc import abstractmethod
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Dict, Iterator, List
 
 import pyarrow
 from pyarrow import Schema
 from pyarrow.dataset import Dataset
 from pyarrow.fs import FileSystem, LocalFileSystem
 
-from ..metadata_source import MetadataSource
+from ..metadata_source import ColumnMetadata, MetadataSource
 
 
 @dataclass
@@ -32,10 +33,11 @@ class LocalMetadataSource(MetadataSource):
         """
         return self.read().schema
 
-    def get_column_names(self) -> List[str]:
+    def get_column_names(self) -> Iterator[ColumnMetadata]:
         """
         Get the column names from the schema.
 
         :return: the list of the column names
         """
-        return [column for column in self.schema().names]
+        for column_name in self.schema().names:
+            yield ColumnMetadata(column_name=column_name)

@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -51,7 +52,7 @@ if MYSQL_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get column names from the table.
 
@@ -66,15 +67,14 @@ if MYSQL_INSTALLED:
                 cursor = self.connection.cursor()
                 cursor.execute(f"SHOW FULL COLUMNS FROM {database_name}.{table_name}")
                 rows = cursor.fetchall()
-                columns = list()
                 for row in rows:
                     column_name = row["Field"]
-                    columns.append(column_name)
-                    if include_comment:
+                    column_comment = None
+                    if include_comment and row["Comment"]:
                         column_comment = row["Comment"]
-                        if column_comment:
-                            columns.append(column_comment)
-                return columns
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
+                    )
             except Exception as exception:
                 logger.exception(
                     f"Error in getting columns name from MySQL {database_name}.{table_name}"
@@ -83,7 +83,7 @@ if MYSQL_INSTALLED:
             finally:
                 cursor.close()
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get the table names list from the MySQL database.
 
@@ -96,11 +96,9 @@ if MYSQL_INSTALLED:
                 cursor = self.connection.cursor()
                 cursor.execute(f"SHOW TABLES IN {database_name}")
                 rows = cursor.fetchall()
-                table_list = list()
                 for row in rows:
                     table_name = list(row.values())[0]
-                    table_list.append(table_name)
-                return table_list
+                    yield table_name
             except Exception as exception:
                 logger.exception(
                     f"Error in getting table names from the database {database_name} in MySQL"
@@ -109,8 +107,9 @@ if MYSQL_INSTALLED:
             finally:
                 cursor.close()
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

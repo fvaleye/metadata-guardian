@@ -1,8 +1,9 @@
 from dataclasses import dataclass
-from typing import Any, List, Optional
+from typing import Any, Iterator, List, Optional
 
 from loguru import logger
 
+from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
     ExternalMetadataSource,
     ExternalMetadataSourceException,
@@ -49,7 +50,7 @@ if AWS_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get the column names from the table.
 
@@ -66,20 +67,22 @@ if AWS_INSTALLED:
                     DatabaseName=database_name,
                     TableName=table_name,
                 )
-                columns = list()
                 for row in response["TableMetadata"]["Columns"]:
-                    columns.append(row["Name"].lower())
+                    column_name = row["Name"]
+                    column_comment = None
                     if include_comment:
                         if "Comment" in row:
-                            columns.append(row["Comment"].lower())
-                return columns
+                            column_comment = row["Comment"]
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
+                    )
             except botocore.exceptions.ClientError as error:
                 logger.exception(
                     f"Error in getting columns name from AWS Athena {database_name}.{table_name} for catalog {self.catalog_name}"
                 )
-                raise ExternalMetadataSource(error)
+                raise ExternalMetadataSourceException(error)
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get the table names list from the database in AWS Athena.
 
@@ -89,13 +92,12 @@ if AWS_INSTALLED:
             try:
                 if not self.connection:
                     self.create_connection()
-                table_names_list = list()
                 response = self.connection.list_table_metadata(
                     CatalogName=self.catalog_name,
                     DatabaseName=database_name,
                 )
                 for table in response["TableMetadataList"]:
-                    table_names_list.append(table["Name"])
+                    yield table["Name"]
                 while "NextToken" in response:
                     response = self.connection.list_table_metadata(
                         CatalogName=self.catalog_name,
@@ -103,16 +105,16 @@ if AWS_INSTALLED:
                         NextToken=response["NextToken"],
                     )
                     for table in response["TableMetadataList"]:
-                        table_names_list.append(table["Name"])
-                return table_names_list
+                        yield table["Name"]
             except botocore.exceptions.ClientError as exception:
                 logger.exception(
                     f"Error in getting table names list from AWS Athena from the database {database_name} for catalog {self.catalog_name}"
                 )
                 raise ExternalMetadataSourceException(exception)
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 
@@ -146,7 +148,7 @@ if AWS_INSTALLED:
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
-        ) -> List[str]:
+        ) -> Iterator[ColumnMetadata]:
             """
             Get the column names from AWS Glue table.
 
@@ -161,20 +163,22 @@ if AWS_INSTALLED:
                 response = self.connection.get_table(
                     DatabaseName=database_name, Name=table_name
                 )
-                columns = list()
                 for row in response["Table"]["StorageDescriptor"]["Columns"]:
-                    columns.append(row["Name"])
+                    column_name = row["Name"]
+                    column_comment = None
                     if include_comment:
                         if "Comment" in row:
-                            columns.append(row["Comment"])
-                return columns
+                            column_comment = row["Comment"]
+                    yield ColumnMetadata(
+                        column_name=column_name, column_comment=column_comment
+                    )
             except botocore.exceptions.ClientError as exception:
                 logger.exception(
                     f"Error in getting columns name from AWS Glue from the table {database_name}.{table_name}"
                 )
                 raise ExternalMetadataSourceException(exception)
 
-        def get_table_names_list(self, database_name: str) -> List[str]:
+        def get_table_names_list(self, database_name: str) -> Iterator[str]:
             """
             Get the table names list from the database in AWS Glue.
 
@@ -184,25 +188,24 @@ if AWS_INSTALLED:
             try:
                 if not self.connection:
                     self.create_connection()
-                table_names_list = list()
                 response = self.connection.get_tables(
                     DatabaseName=database_name,
                 )
                 for table in response["TableList"]:
-                    table_names_list.append(table["Name"])
+                    yield table["Name"]
                 while "NextToken" in response:
                     response = self.connection.get_tables(
                         DatabaseName=database_name, NextToken=response["NextToken"]
                     )
                     for table in response["TableList"]:
-                        table_names_list.append(table["Name"])
-                return table_names_list
+                        yield table["Name"]
             except botocore.exceptions.ClientError as error:
                 logger.exception(
                     f"Error in getting table names list from AWS Glue from the database {database_name}"
                 )
                 raise error
 
+        @classmethod
         @property
         def type(self) -> str:
             """

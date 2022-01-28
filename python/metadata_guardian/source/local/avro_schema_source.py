@@ -1,8 +1,8 @@
 import json
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Text, Union
+from typing import Any, Dict, Iterator, List, Optional, Text, Union
 
-from .local_metadata_source import LocalMetadataSource
+from .local_metadata_source import ColumnMetadata, LocalMetadataSource
 
 
 @dataclass
@@ -23,7 +23,9 @@ class AvroSchemaSource(LocalMetadataSource):
         content = self.read()
         return json.loads(content)
 
-    def get_field_attribute(self, attribute_name: str) -> Optional[List[str]]:
+    def get_field_attribute(
+        self, attribute_name: str
+    ) -> List[Optional[ColumnMetadata]]:
         """
         Get the specific attribute from the AVRO Schema file.
 
@@ -31,17 +33,20 @@ class AvroSchemaSource(LocalMetadataSource):
         :return: the list of attributes in the fields
         """
         return [
-            field[attribute_name] if attribute_name in field else None
+            ColumnMetadata(column_name=str(field[attribute_name]))
+            if attribute_name in field
+            else None
             for field in self.schema()["fields"]
         ]
 
-    def get_column_names(self) -> List[str]:
+    def get_column_names(self) -> Iterator[ColumnMetadata]:
         """
         Get column names from the AVRO Schema file.
 
         :return: the list of the column names
         """
-        return [field["name"] for field in self.schema()["fields"]]
+        for field in self.schema()["fields"]:
+            yield ColumnMetadata(column_name=field["name"])
 
     @property
     def namespace(self) -> str:
@@ -52,8 +57,9 @@ class AvroSchemaSource(LocalMetadataSource):
         """
         return self.schema()["namespace"]
 
+    @classmethod
     @property
-    def type(self) -> str:
+    def type(cls) -> str:
         """
         The type of the source.
 

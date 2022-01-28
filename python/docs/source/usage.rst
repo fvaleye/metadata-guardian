@@ -6,10 +6,10 @@ Metadata Guardian
 
 **Workflow:**
 
-1. Create the Data Rules
-2. Create the Metadata Source and a Scanner
-3. Scan the Metadata Source
-4. Analyze the reports
+1. Create :class:`.DataRules`
+2. Create :class:`.MetadataSource` and a :class:`.Scanner`
+3. Scan the :class:`.MetadataSource`
+4. Analyze the :class:`.MetadataGuardianReport`
 
 Scan an external Metadata Source
 --------------------------------

@@ -74,6 +74,19 @@ impl<'a> From<&metadata_guardian::MetadataGuardianResults<'a>> for RawMetadataGu
 }
 
 #[pymethods]
+impl RawDataRule {
+    /// Create a new Raw Data Rule instance.
+    #[new]
+    fn new(rule_name: &str, pattern: &str, documentation: &str) -> PyResult<RawDataRule> {
+        Ok(RawDataRule {
+            rule_name: rule_name.to_string(),
+            pattern: pattern.to_string(),
+            documentation: documentation.to_string(),
+        })
+    }
+}
+
+#[pymethods]
 impl RawDataRules {
     /// Create a new Raw Data Rules instance.
     #[new]
@@ -150,6 +163,7 @@ fn rust_core_version() -> &'static str {
 fn metadata_guardian(py: Python, module: &PyModule) -> PyResult<()> {
     env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("warn")).init();
     module.add_function(pyo3::wrap_pyfunction!(rust_core_version, module)?)?;
+    module.add_class::<RawDataRule>()?;
     module.add_class::<RawDataRules>()?;
     module.add_class::<RawMetadataGuardianResults>()?;
     module.add(

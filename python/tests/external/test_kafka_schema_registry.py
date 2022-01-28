@@ -3,6 +3,7 @@ from unittest.mock import patch
 from confluent_kafka.schema_registry import RegisteredSchema, Schema
 
 from metadata_guardian.source import (
+    ColumnMetadata,
     KafkaSchemaRegistryAuthentication,
     KafkaSchemaRegistrySource,
 )
@@ -12,7 +13,10 @@ from metadata_guardian.source import (
 def test_kafka_schema_registry_source_get_column_names(mock_connection):
     url = "url"
     subject_name = "subject_name"
-    expected = ["key", "value", "doc"]
+    expected = [
+        ColumnMetadata(column_name="key"),
+        ColumnMetadata(column_name="value", column_comment="doc"),
+    ]
 
     source = KafkaSchemaRegistrySource(
         url=url,
@@ -47,7 +51,7 @@ def test_kafka_schema_registry_source_get_column_names(mock_connection):
         database_name=None, table_name=subject_name, include_comment=True
     )
 
-    assert column_names == expected
+    assert list(column_names) == expected
     assert source.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD
 
 
@@ -65,5 +69,5 @@ def test_kafka_schema_registry_source_get_table_names_list(mock_connection):
 
     subjects_list = source.get_table_names_list(database_name=None)
 
-    assert subjects_list == expected
+    assert list(subjects_list) == expected
     assert source.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD

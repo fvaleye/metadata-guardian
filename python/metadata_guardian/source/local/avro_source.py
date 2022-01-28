@@ -1,10 +1,10 @@
 import json
 from dataclasses import dataclass
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
-from .local_metadata_source import LocalMetadataSource
+from .local_metadata_source import ColumnMetadata, LocalMetadataSource
 
 try:
     from avro.datafile import DataFileReader, DataFileWriter
@@ -30,13 +30,14 @@ if AVRO_INSTALLED:
         def schema(self) -> Dict[str, Any]:
             """
             Get the AVRO schema.
-
             :return: the schema
             """
             reader = self.read()
             return json.loads(reader.meta["avro.schema"])
 
-        def get_field_attribute(self, attribute_name: str) -> Optional[List[str]]:
+        def get_field_attribute(
+            self, attribute_name: str
+        ) -> List[Optional[ColumnMetadata]]:
             """
             Get the specific attribute from the AVRO Schema.
 
@@ -44,17 +45,20 @@ if AVRO_INSTALLED:
             :return: the list of attributes in the fields
             """
             return [
-                field[attribute_name] if attribute_name in field else None
+                ColumnMetadata(column_name=str(field[attribute_name]))
+                if attribute_name in field
+                else None
                 for field in self.schema()["fields"]
             ]
 
-        def get_column_names(self) -> List[str]:
+        def get_column_names(self) -> Iterator[ColumnMetadata]:
             """
             Get column names from the AVRO file.
 
             :return: the list of the column names
             """
-            return [field["name"] for field in self.schema()["fields"]]
+            for field in self.schema()["fields"]:
+                yield ColumnMetadata(column_name=field["name"])
 
         @property
         def namespace(self) -> str:
@@ -65,8 +69,9 @@ if AVRO_INSTALLED:
             """
             return self.schema()["namespace"]
 
+        @classmethod
         @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 

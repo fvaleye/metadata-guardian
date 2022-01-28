@@ -55,10 +55,9 @@ def get_mysql() -> ExternalMetadataSource:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--data-rules",
-        choices=["PII", "INCLUSION"],
-        default="PII",
-        help="The Data Rules to use",
+        "--data-rules-path",
+        required=True,
+        help="The Data Rules specification yaml file path to use for creating the Data Rules",
     )
     parser.add_argument(
         "--external-source",
@@ -82,9 +81,7 @@ if __name__ == "__main__":
         "--include_comments", default=True, help="Include the comments in the scan"
     )
     args = parser.parse_args()
-    data_rules = DataRules.from_available_category(
-        category=AvailableCategory[args.data_rules]
-    )
+    data_rules = DataRules.from_path(path=args.data_rules_path)
     column_scanner = ColumnScanner(
         data_rules=data_rules, progression_bar_disabled=False
     )

@@ -7,8 +7,9 @@ from .local_metadata_source import LocalMetadataSource
 class ParquetSource(LocalMetadataSource):
     """Instance for a local Parquet file."""
 
+    @classmethod
     @property
-    def type(self) -> str:
+    def type(cls) -> str:
         """
         The type of the source.
 
