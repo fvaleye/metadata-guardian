@@ -38,11 +38,10 @@ class MetadataSource(ABC):
     """Metadata Source contract."""
 
     @classmethod
-    @property
     def type(cls) -> str:
         """
         The type of the source.
 
-        :return: the name o of the source.
+        :return: the name of the source.
         """
         pass

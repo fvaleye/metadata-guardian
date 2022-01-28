@@ -9,6 +9,7 @@ This is the documentation of the Metadata Guardian.
    installation
    usage
    api_reference
+   development
 
 
 Indices and tables

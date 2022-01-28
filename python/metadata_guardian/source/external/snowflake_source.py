@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Iterator, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
@@ -42,6 +42,7 @@ if SNOWFLAKE_INSTALLED:
         oauth_token: Optional[str] = None
         oauth_host: Optional[str] = None
         authenticator: SnowflakeAuthenticator = SnowflakeAuthenticator.USER_PWD
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -56,6 +57,7 @@ if SNOWFLAKE_INSTALLED:
                     password=self.sf_password,
                     warehouse=self.warehouse,
                     converter_class=SnowflakeNoConverterToPython,
+                    **self.extra_connection_args,
                 )
             elif self.authenticator == SnowflakeAuthenticator.OKTA:
                 self.connection = snowflake.connector.connect(
@@ -65,6 +67,7 @@ if SNOWFLAKE_INSTALLED:
                     warehouse=self.warehouse,
                     authenticator=f"https://{self.okta_account_name}.okta.com/",
                     converter_class=SnowflakeNoConverterToPython,
+                    **self.extra_connection_args,
                 )
             elif self.authenticator == SnowflakeAuthenticator.TOKEN:
                 self.connection = snowflake.connector.connect(
@@ -75,6 +78,7 @@ if SNOWFLAKE_INSTALLED:
                     authenticator="oauth",
                     token=self.oauth_token,
                     converter_class=SnowflakeNoConverterToPython,
+                    **self.extra_connection_args,
                 )
 
         def close_connection(self) -> None:
@@ -144,7 +148,6 @@ if SNOWFLAKE_INSTALLED:
                 cursor.close()
 
         @classmethod
-        @property
         def type(cls) -> str:
             """
             The type of the source.

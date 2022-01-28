@@ -21,7 +21,7 @@ def get_external_source(source: str, configuration):  # type: ignore
         selected_source = next(  # type: ignore
             cls
             for cls in ExternalMetadataSource.__subclasses__()
-            if str(cls.type) == source
+            if cls.type() == source
         )(**configuration_dict)
     except Exception as exception:
         logger.exception("This source initiation failed.")
@@ -31,7 +31,7 @@ def get_external_source(source: str, configuration):  # type: ignore
 
 @app.command(help="List the external metadata sources")
 def list(displayed: bool = True) -> List[str]:
-    sources = [str(cls.type) for cls in ExternalMetadataSource.__subclasses__()]
+    sources = [cls.type() for cls in ExternalMetadataSource.__subclasses__()]
     if displayed:
         logger.info(f"Available External sources: {sources}")
     return sources

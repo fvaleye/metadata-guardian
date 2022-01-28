@@ -37,7 +37,6 @@ class ORCSource(LocalMetadataSource):
             yield ColumnMetadata(column_name=column_name)
 
     @classmethod
-    @property
     def type(cls) -> str:
         """
         The type of the source.

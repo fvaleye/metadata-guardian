@@ -1,7 +1,7 @@
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Iterator, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
@@ -33,10 +33,11 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         url: str
         ssl_certificate_location: Optional[str] = None
         ssl_key_location: Optional[str] = None
-        authenticator: Optional[
-            KafkaSchemaRegistryAuthentication
-        ] = KafkaSchemaRegistryAuthentication.USER_PWD
+        authenticator: KafkaSchemaRegistryAuthentication = (
+            KafkaSchemaRegistryAuthentication.USER_PWD
+        )
         comment_field_name: str = "doc"
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -46,9 +47,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             """
             if self.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD:
                 self.connection = SchemaRegistryClient(
-                    {
-                        "url": self.url,
-                    }
+                    {"url": self.url, **self.extra_connection_args}
                 )
             else:
                 raise NotImplementedError()
@@ -112,7 +111,6 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 raise ExternalMetadataSourceException(exception)
 
         @classmethod
-        @property
         def type(cls) -> str:
             """
             The type of the source.

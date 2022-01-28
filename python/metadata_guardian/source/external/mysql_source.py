@@ -1,6 +1,6 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Any, Iterator, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
@@ -34,6 +34,7 @@ if MYSQL_INSTALLED:
         host: str
         database: Optional[str] = None
         authenticator: MySQLAuthenticator = MySQLAuthenticator.USER_PWD
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -48,6 +49,7 @@ if MYSQL_INSTALLED:
                     password=self.password,
                     database=self.database,
                     cursorclass=pymysql.cursors.DictCursor,
+                    **self.extra_connection_args,
                 )
 
         def get_column_names(
@@ -108,7 +110,6 @@ if MYSQL_INSTALLED:
                 cursor.close()
 
         @classmethod
-        @property
         def type(cls) -> str:
             """
             The type of the source.

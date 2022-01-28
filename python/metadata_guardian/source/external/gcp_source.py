@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, Iterator, List, Optional, Union
 
 from loguru import logger
@@ -26,6 +26,7 @@ if GCP_INSTALLED:
         service_account_json_path: str
         project: Optional[str] = None
         location: Optional[str] = None
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -38,6 +39,7 @@ if GCP_INSTALLED:
                     self.service_account_json_path,
                     project=self.project,
                     location=self.location,
+                    **self.extra_connection_args,
                 )
             except Exception as exception:
                 logger.exception("Error when connecting to BigQuery")
@@ -109,7 +111,6 @@ if GCP_INSTALLED:
                 raise exception
 
         @classmethod
-        @property
         def type(cls) -> str:
             """
             The type of the source.

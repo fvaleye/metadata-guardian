@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Any, Iterator, List, Optional
+from dataclasses import dataclass, field
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
@@ -32,6 +32,7 @@ if AWS_INSTALLED:
         region_name: Optional[str] = None
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -43,6 +44,7 @@ if AWS_INSTALLED:
                 region_name=self.region_name,
                 aws_access_key_id=self.aws_access_key_id,
                 aws_secret_access_key=self.aws_secret_access_key,
+                **self.extra_connection_args,
             )
 
         def close_connection(self) -> None:
@@ -113,7 +115,6 @@ if AWS_INSTALLED:
                 raise ExternalMetadataSourceException(exception)
 
         @classmethod
-        @property
         def type(cls) -> str:
             """
             The type of the source.
@@ -129,6 +130,7 @@ if AWS_INSTALLED:
         region_name: Optional[str] = None
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -141,6 +143,7 @@ if AWS_INSTALLED:
                 region_name=self.region_name,
                 aws_access_key_id=self.aws_access_key_id,
                 aws_secret_access_key=self.aws_secret_access_key,
+                **self.extra_connection_args,
             )
 
         def close_connection(self) -> None:
@@ -206,8 +209,7 @@ if AWS_INSTALLED:
                 raise error
 
         @classmethod
-        @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 
