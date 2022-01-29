@@ -1,5 +1,4 @@
-from abc import abstractmethod
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Dict, Iterator, List
 
 import pyarrow
@@ -16,6 +15,7 @@ class LocalMetadataSource(MetadataSource):
 
     local_path: str
     fs: FileSystem = LocalFileSystem()
+    extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
     def read(self) -> Dataset:
         """
@@ -23,7 +23,9 @@ class LocalMetadataSource(MetadataSource):
 
         :return: the file content
         """
-        return pyarrow.dataset.dataset(self.local_path, filesystem=self.fs)
+        return pyarrow.dataset.dataset(
+            self.local_path, filesystem=self.fs, **self.extra_connection_args
+        )
 
     def schema(self) -> Schema:
         """

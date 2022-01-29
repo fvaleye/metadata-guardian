@@ -8,7 +8,6 @@ class ParquetSource(LocalMetadataSource):
     """Instance for a local Parquet file."""
 
     @classmethod
-    @property
     def type(cls) -> str:
         """
         The type of the source.

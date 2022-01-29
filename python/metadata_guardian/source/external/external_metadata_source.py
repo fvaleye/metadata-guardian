@@ -1,5 +1,5 @@
 from abc import abstractmethod
-from typing import Any, Iterator, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 

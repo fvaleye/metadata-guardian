@@ -1,8 +1,9 @@
+************
 Installation
-====================================
+************
 
 Using Pip
----------
+=========
 .. code-block:: bash
 
     # Install all the data sources

@@ -1,10 +1,9 @@
+*****
 Usage
-====================================
+*****
 
 Metadata Guardian
------------------
-
-**Workflow:**
+=================
 
 1. Create :class:`.DataRules`
 2. Create :class:`.MetadataSource` and a :class:`.Scanner`
@@ -12,7 +11,7 @@ Metadata Guardian
 4. Analyze the :class:`.MetadataGuardianReport`
 
 Scan an external Metadata Source
---------------------------------
+================================
 
 Scan the column names of a external source on a table:
 
@@ -53,7 +52,7 @@ Scan the column names of an external source for a database asynchronously with a
 
 
 Scan an internal Metadata Source
---------------------------------
+================================
 
 Scan the column names of a local source:
 

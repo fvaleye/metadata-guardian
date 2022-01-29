@@ -70,7 +70,6 @@ if AVRO_INSTALLED:
             return self.schema()["namespace"]
 
         @classmethod
-        @property
         def type(cls) -> str:
             """
             The type of the source.

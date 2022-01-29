@@ -1,39 +1,40 @@
+*************
 API Reference
-====================================
+*************
 
 Data Rules
-----------
+==========
 
 .. automodule:: metadata_guardian.data_rules
     :members:
 
 Configuration
--------------
+=============
 
 .. automodule:: metadata_guardian.conf
     :members:
 
 Scanner
--------
+=======
 
 .. automodule:: metadata_guardian.scanner
     :members:
 
 Report
--------
+======
 
 .. automodule:: metadata_guardian.report
     :members:
 
 
 Source
-------
+======
 
 .. automodule:: metadata_guardian.source.metadata_source
     :members:
 
 Local Sources
--------------
+=============
 
 .. automodule:: metadata_guardian.source.local.avro_schema_source
     :members:
@@ -48,7 +49,7 @@ Local Sources
     :members:
 
 External Sources
-----------------
+================
 
 .. automodule:: metadata_guardian.source.external.aws_source
     :members:

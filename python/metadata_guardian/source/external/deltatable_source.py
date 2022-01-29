@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Any, Iterator, List, Optional
+from dataclasses import dataclass, field
+from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
 
@@ -24,6 +24,7 @@ if DELTA_LAKE_INSTALLED:
         uri: str
         data_catalog: DataCatalog = DataCatalog.AWS
         external_data_catalog_disable: bool = True
+        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -31,7 +32,7 @@ if DELTA_LAKE_INSTALLED:
 
             :return:
             """
-            self.connection = DeltaTable(self.uri)
+            self.connection = DeltaTable(self.uri, **self.extra_connection_args)
 
         def close_connection(self) -> None:
             pass
@@ -87,8 +88,7 @@ if DELTA_LAKE_INSTALLED:
             yield self.uri
 
         @classmethod
-        @property
-        def type(self) -> str:
+        def type(cls) -> str:
             """
             The type of the source.
 
