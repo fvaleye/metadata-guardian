@@ -11,22 +11,21 @@ from ...source.external.external_metadata_source import ExternalMetadataSource
 app = typer.Typer()
 
 
-def get_external_source(source: str, configuration):  # type: ignore
+def get_external_source(source: str, configuration) -> ExternalMetadataSource:  # type: ignore
     sources = list(displayed=False)
     if source not in sources:
         raise ValueError(f"This source is not available in the list: {sources}")
 
     try:
-        configuration_dict = json.loads(configuration)
-        selected_source = next(  # type: ignore
+        selected_source = next(
             cls
             for cls in ExternalMetadataSource.__subclasses__()
             if cls.type() == source
-        )(**configuration_dict)
+        )
     except Exception as exception:
         logger.exception("This source initiation failed.")
         raise exception
-    return selected_source
+    return selected_source.parse_raw(configuration)
 
 
 @app.command(help="List the external metadata sources")

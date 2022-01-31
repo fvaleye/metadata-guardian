@@ -1,6 +1,6 @@
-from dataclasses import dataclass, field
 from typing import List, NamedTuple, Optional, Tuple
 
+from pydantic import BaseModel, Field
 from rich.console import Console
 from rich.markup import escape
 from rich.progress import (
@@ -16,7 +16,6 @@ from rich.table import Table
 from .data_rules import MetadataGuardianResults
 
 
-@dataclass(init=False)
 class ProgressionBar(Progress):
     """
     Progression Bar provides a progression bar to display the results of the scanner.
@@ -79,19 +78,17 @@ class ProgressionBar(Progress):
             super().update(self.task_id, advance=1, current_item=current_item)
 
 
-@dataclass
-class ReportResults:
+class ReportResults(BaseModel):
     """Metadata Guardian Results."""
 
     source: str
-    results: List[MetadataGuardianResults] = field(default_factory=list)
+    results: List[MetadataGuardianResults] = Field(default_factory=list)
 
 
-@dataclass
-class MetadataGuardianReport:
+class MetadataGuardianReport(BaseModel):
     """Metadata Guardian Report."""
 
-    report_results: List[ReportResults] = field(default_factory=list)
+    report_results: List[ReportResults] = Field(default_factory=list)
 
     def append(self, other_report: "MetadataGuardianReport") -> None:
         """

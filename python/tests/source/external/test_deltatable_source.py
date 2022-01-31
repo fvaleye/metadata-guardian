@@ -36,7 +36,7 @@ def test_deltatable_source_get_column_names(mock_connection):
     ]
 
     delta_table = DeltaTableSource(uri=uri)
-    delta_table.connection = mock_connection
+    delta_table._connection = mock_connection
     column_names = delta_table.get_column_names(include_comment=True)
 
     assert list(column_names) == expected

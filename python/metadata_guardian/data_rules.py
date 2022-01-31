@@ -1,9 +1,9 @@
 import importlib.resources
-from dataclasses import dataclass
 from enum import Enum
-from typing import List
+from typing import Any, List
 
 from loguru import logger
+from pydantic import BaseModel, PrivateAttr
 
 from .metadata_guardian import RawDataRule, RawDataRules
 
@@ -15,8 +15,7 @@ class AvailableCategory(Enum):
     INCLUSION = "inclusion_rules.yaml"
 
 
-@dataclass
-class DataRule:
+class DataRule(BaseModel):
     """DataRule instance with a regex pattern and a documentation."""
 
     rule_name: str
@@ -24,8 +23,7 @@ class DataRule:
     documentation: str
 
 
-@dataclass
-class MetadataGuardianResults:
+class MetadataGuardianResults(BaseModel):
     """Metadata Guardian Results instance with the content that matches with the data rules."""
 
     category: str
@@ -33,11 +31,13 @@ class MetadataGuardianResults:
     data_rules: List[DataRule]
 
 
-@dataclass(init=False)
-class DataRules:
+class DataRules(BaseModel):
     """Data Rules instances."""
 
-    def __init__(self, data_rules: RawDataRules) -> None:
+    _data_rules: Any = PrivateAttr()
+
+    def __init__(self, data_rules: RawDataRules, **data: Any) -> None:
+        super().__init__(**data)
         self._data_rules = data_rules
 
     @classmethod
@@ -56,7 +56,7 @@ class DataRules:
             data_rules=[
                 RawDataRule(
                     rule_name=data_rule.rule_name,
-                    pattern=data_rule.regex_pattern,
+                    pattern=str(data_rule.regex_pattern),
                     documentation=data_rule.documentation,
                 )
                 for data_rule in data_rules
@@ -106,9 +106,9 @@ class DataRules:
             content=result._content,
             data_rules=[
                 DataRule(
-                    data_rule.rule_name,
-                    data_rule.pattern,
-                    data_rule.documentation,
+                    rule_name=data_rule.rule_name,
+                    regex_pattern=data_rule.pattern,
+                    documentation=data_rule.documentation,
                 )
                 for data_rule in result._data_rules
             ],
@@ -129,9 +129,9 @@ class DataRules:
                 content=result._content,
                 data_rules=[
                     DataRule(
-                        data_rule.rule_name,
-                        data_rule.pattern,
-                        data_rule.documentation,
+                        rule_name=data_rule.rule_name,
+                        regex_pattern=data_rule.pattern,
+                        documentation=data_rule.documentation,
                     )
                     for data_rule in result._data_rules
                 ],
@@ -154,9 +154,9 @@ class DataRules:
                 content=result._content,
                 data_rules=[
                     DataRule(
-                        data_rule.rule_name,
-                        data_rule.pattern,
-                        data_rule.documentation,
+                        rule_name=data_rule.rule_name,
+                        regex_pattern=data_rule.pattern,
+                        documentation=data_rule.documentation,
                     )
                     for data_rule in result._data_rules
                 ],

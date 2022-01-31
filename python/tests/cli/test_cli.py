@@ -9,14 +9,7 @@ def test_get_external_source_():
         '{"user": "user", "password": "password", "host": "host",'
         ' "extra_connection_args": {"test": "True"}}'
     )
-    expected = MySQLSource(
-        **{
-            "user": "user",
-            "password": "password",
-            "host": "host",
-            "extra_connection_args": {"test": "True"},
-        }
-    )
+    expected = MySQLSource.parse_raw(configuration)
 
     source = get_external_source(source=source, configuration=configuration)
 

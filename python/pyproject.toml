@@ -20,7 +20,8 @@ dependencies = [
     "rich",
     "loguru",
     "pyarrow",
-    "typer"
+    "typer",
+    "pydantic"
 ]
 
 [project.scripts]

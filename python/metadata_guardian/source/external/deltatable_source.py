@@ -1,7 +1,7 @@
-from dataclasses import dataclass, field
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
+from pydantic import Field
 
 from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
@@ -19,12 +19,11 @@ except ImportError:
 
 if DELTA_LAKE_INSTALLED:
 
-    @dataclass
     class DeltaTableSource(ExternalMetadataSource):
         uri: str
         data_catalog: DataCatalog = DataCatalog.AWS
         external_data_catalog_disable: bool = True
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -32,7 +31,7 @@ if DELTA_LAKE_INSTALLED:
 
             :return:
             """
-            self.connection = DeltaTable(self.uri, **self.extra_connection_args)
+            self._connection = DeltaTable(self.uri, **self.extra_connection_args)
 
         def close_connection(self) -> None:
             pass
@@ -57,14 +56,14 @@ if DELTA_LAKE_INSTALLED:
                     and database_name
                     and table_name
                 ):
-                    self.connection = DeltaTable.from_data_catalog(
+                    self._connection = DeltaTable.from_data_catalog(
                         data_catalog=self.data_catalog,
                         database_name=database_name,
                         table_name=table_name,
                     )
-                elif not self.connection:
+                elif not self._connection:
                     self.create_connection()
-                schema = self.connection.schema()
+                schema = self._connection.schema()
                 for field in schema.fields:
                     column_comment = None
                     if include_comment and field.metadata:

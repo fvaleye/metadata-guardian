@@ -1,8 +1,8 @@
-from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
+from pydantic import Field
 
 from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
@@ -25,7 +25,6 @@ if MYSQL_INSTALLED:
 
         USER_PWD = 1
 
-    @dataclass
     class MySQLSource(ExternalMetadataSource):
         """Instance of a MySQL source."""
 
@@ -34,7 +33,7 @@ if MYSQL_INSTALLED:
         host: str
         database: Optional[str] = None
         authenticator: MySQLAuthenticator = MySQLAuthenticator.USER_PWD
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -43,7 +42,7 @@ if MYSQL_INSTALLED:
             :return:
             """
             if self.authenticator == MySQLAuthenticator.USER_PWD:
-                self.connection = pymysql.connect(
+                self._connection = pymysql.connect(
                     host=self.host,
                     user=self.user,
                     password=self.password,
@@ -64,9 +63,9 @@ if MYSQL_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if not self.connection or not self.connection.open:
+                if not self._connection or not self._connection.open:
                     self.create_connection()
-                cursor = self.connection.cursor()
+                cursor = self._connection.cursor()
                 cursor.execute(f"SHOW FULL COLUMNS FROM {database_name}.{table_name}")
                 rows = cursor.fetchall()
                 for row in rows:
@@ -93,9 +92,9 @@ if MYSQL_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                if not self.connection or not self.connection.open:
+                if not self._connection or not self._connection.open:
                     self.create_connection()
-                cursor = self.connection.cursor()
+                cursor = self._connection.cursor()
                 cursor.execute(f"SHOW TABLES IN {database_name}")
                 rows = cursor.fetchall()
                 for row in rows:

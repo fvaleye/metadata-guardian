@@ -1,5 +1,4 @@
 import json
-from dataclasses import dataclass
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
@@ -18,7 +17,6 @@ except ImportError:
 
 if AVRO_INSTALLED:
 
-    @dataclass
     class AvroSource(LocalMetadataSource):
         """Instance for a local Avro file."""
 
@@ -26,14 +24,6 @@ if AVRO_INSTALLED:
             """Read the AVRO file."""
             with open(self.local_path, "rb") as file:
                 return DataFileReader(file, DatumReader())
-
-        def schema(self) -> Dict[str, Any]:
-            """
-            Get the AVRO schema.
-            :return: the schema
-            """
-            reader = self.read()
-            return json.loads(reader.meta["avro.schema"])
 
         def get_field_attribute(
             self, attribute_name: str
@@ -44,11 +34,13 @@ if AVRO_INSTALLED:
             :param attribute_name: the attribute name to get
             :return: the list of attributes in the fields
             """
+            reader = self.read()
+            schema = json.loads(reader.meta["avro.schema"])
             return [
                 ColumnMetadata(column_name=str(field[attribute_name]))
                 if attribute_name in field
                 else None
-                for field in self.schema()["fields"]
+                for field in schema["fields"]
             ]
 
         def get_column_names(self) -> Iterator[ColumnMetadata]:
@@ -57,7 +49,9 @@ if AVRO_INSTALLED:
 
             :return: the list of the column names
             """
-            for field in self.schema()["fields"]:
+            reader = self.read()
+            schema = json.loads(reader.meta["avro.schema"])
+            for field in schema["fields"]:
                 yield ColumnMetadata(column_name=field["name"])
 
         @property
@@ -67,7 +61,9 @@ if AVRO_INSTALLED:
 
             :return: the namespace
             """
-            return self.schema()["namespace"]
+            reader = self.read()
+            schema = json.loads(reader.meta["avro.schema"])
+            return schema["namespace"]
 
         @classmethod
         def type(cls) -> str:

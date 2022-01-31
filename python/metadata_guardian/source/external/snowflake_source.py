@@ -1,8 +1,8 @@
-from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
+from pydantic import Field
 
 from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
@@ -29,7 +29,6 @@ if SNOWFLAKE_INSTALLED:
         OKTA = 2
         TOKEN = 3
 
-    @dataclass
     class SnowflakeSource(ExternalMetadataSource):
         """Instance of a Snowflake source."""
 
@@ -42,7 +41,7 @@ if SNOWFLAKE_INSTALLED:
         oauth_token: Optional[str] = None
         oauth_host: Optional[str] = None
         authenticator: SnowflakeAuthenticator = SnowflakeAuthenticator.USER_PWD
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -51,7 +50,7 @@ if SNOWFLAKE_INSTALLED:
             :return:
             """
             if self.authenticator == SnowflakeAuthenticator.USER_PWD:
-                self.connection = snowflake.connector.connect(
+                self._connection = snowflake.connector.connect(
                     account=self.sf_account,
                     user=self.sf_user,
                     password=self.sf_password,
@@ -60,7 +59,7 @@ if SNOWFLAKE_INSTALLED:
                     **self.extra_connection_args,
                 )
             elif self.authenticator == SnowflakeAuthenticator.OKTA:
-                self.connection = snowflake.connector.connect(
+                self._connection = snowflake.connector.connect(
                     account=self.sf_account,
                     user=self.sf_user,
                     password=self.sf_password,
@@ -70,7 +69,7 @@ if SNOWFLAKE_INSTALLED:
                     **self.extra_connection_args,
                 )
             elif self.authenticator == SnowflakeAuthenticator.TOKEN:
-                self.connection = snowflake.connector.connect(
+                self._connection = snowflake.connector.connect(
                     account=self.sf_account,
                     user=self.sf_user,
                     password=self.sf_password,
@@ -86,7 +85,7 @@ if SNOWFLAKE_INSTALLED:
             Close the Snowflake connection.
             :return:
             """
-            self.connection.close()
+            self._connection.close()
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
@@ -100,9 +99,9 @@ if SNOWFLAKE_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if not self.connection or self.connection.is_closed():
+                if not self._connection or self._connection.is_closed():
                     self.create_connection()
-                cursor = self.connection.cursor()
+                cursor = self._connection.cursor()
                 cursor.execute(
                     f'SHOW COLUMNS IN "{database_name}"."{self.schema_name}"."{table_name}"'
                 )
@@ -131,9 +130,9 @@ if SNOWFLAKE_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                if not self.connection or self.connection.is_closed():
+                if not self._connection or self._connection.is_closed():
                     self.create_connection()
-                cursor = self.connection.cursor()
+                cursor = self._connection.cursor()
                 cursor.execute(f'SHOW TABLES IN DATABASE "{database_name}"')
                 rows = cursor.fetchall()
                 for row in rows:

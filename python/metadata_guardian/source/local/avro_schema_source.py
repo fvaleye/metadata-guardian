@@ -1,67 +1,53 @@
-import json
-from dataclasses import dataclass
 from typing import Any, Dict, Iterator, List, Optional, Text, Union
+
+from loguru import logger
 
 from .local_metadata_source import ColumnMetadata, LocalMetadataSource
 
+try:
+    from avro.schema import parse
 
-@dataclass
-class AvroSchemaSource(LocalMetadataSource):
-    """Instance for a local Avro Schema file."""
+    AVRO_INSTALLED = True
 
-    def read(self) -> Union[Text, bytes]:
-        """Read the AVRO Schema file."""
-        with open(self.local_path, "r") as file:
-            return file.read()
+except ImportError:
+    logger.warning("AVRO optional dependency is not installed.")
+    AVRO_INSTALLED = False
 
-    def schema(self) -> Dict[str, Any]:
-        """
-        Get the AVRO schema.
+if AVRO_INSTALLED:
 
-        :return: the schema
-        """
-        content = self.read()
-        return json.loads(content)
+    class AvroSchemaSource(LocalMetadataSource):
+        """Instance for a local Avro Schema file."""
 
-    def get_field_attribute(
-        self, attribute_name: str
-    ) -> List[Optional[ColumnMetadata]]:
-        """
-        Get the specific attribute from the AVRO Schema file.
+        def read(self) -> Union[Text, bytes]:
+            """Read the AVRO Schema file."""
+            with open(self.local_path, "r") as file:
+                return file.read()
 
-        :param attribute_name: the attribute name to get
-        :return: the list of attributes in the fields
-        """
-        return [
-            ColumnMetadata(column_name=str(field[attribute_name]))
-            if attribute_name in field
-            else None
-            for field in self.schema()["fields"]
-        ]
+        def get_column_names(self) -> Iterator[ColumnMetadata]:
+            """
+            Get column names from the AVRO Schema file.
 
-    def get_column_names(self) -> Iterator[ColumnMetadata]:
-        """
-        Get column names from the AVRO Schema file.
+            :return: the list of the column names
+            """
+            schema = parse(self.read())
+            for field in schema.fields:
+                yield ColumnMetadata(column_name=field.name)
 
-        :return: the list of the column names
-        """
-        for field in self.schema()["fields"]:
-            yield ColumnMetadata(column_name=field["name"])
+        @property
+        def namespace(self) -> str:
+            """
+            Namespace of the AVRO schema.
 
-    @property
-    def namespace(self) -> str:
-        """
-        Namespace of the AVRO schema.
+            :return: the namespace
+            """
+            schema = parse(self.read())
+            return schema.namespace
 
-        :return: the namespace
-        """
-        return self.schema()["namespace"]
+        @classmethod
+        def type(cls) -> str:
+            """
+            The type of the source.
 
-    @classmethod
-    def type(cls) -> str:
-        """
-        The type of the source.
-
-        :return: the name o of the source.
-        """
-        return "AvroSchema"
+            :return: the name o of the source.
+            """
+            return "AvroSchema"
