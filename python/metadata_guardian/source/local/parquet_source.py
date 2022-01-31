@@ -1,9 +1,6 @@
-from dataclasses import dataclass
-
 from .local_metadata_source import LocalMetadataSource
 
 
-@dataclass
 class ParquetSource(LocalMetadataSource):
     """Instance for a local Parquet file."""
 

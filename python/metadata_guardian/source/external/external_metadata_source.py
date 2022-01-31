@@ -2,6 +2,7 @@ from abc import abstractmethod
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
+from pydantic import PrivateAttr
 
 from ...exceptions import MetadataGuardianException
 from ..metadata_source import ColumnMetadata, MetadataSource
@@ -10,7 +11,11 @@ from ..metadata_source import ColumnMetadata, MetadataSource
 class ExternalMetadataSource(MetadataSource):
     """ExternalMetadataSource Source."""
 
-    connection: Any = None
+    _connection: Any = PrivateAttr()
+
+    def __init__(self, **data: Any) -> None:
+        super().__init__(**data)
+        self._connection = None
 
     def __enter__(self) -> "ExternalMetadataSource":
         try:

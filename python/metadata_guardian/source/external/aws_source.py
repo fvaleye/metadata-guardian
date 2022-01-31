@@ -1,7 +1,7 @@
-from dataclasses import dataclass, field
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
+from pydantic import Field
 
 from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
@@ -23,7 +23,6 @@ except ImportError:
 
 if AWS_INSTALLED:
 
-    @dataclass
     class AthenaSource(ExternalMetadataSource):
         """Athena Source instance."""
 
@@ -32,14 +31,14 @@ if AWS_INSTALLED:
         region_name: Optional[str] = None
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
             Create Athena connection.
             :return:
             """
-            self.connection = boto3.client(
+            self._connection = boto3.client(
                 "athena",
                 region_name=self.region_name,
                 aws_access_key_id=self.aws_access_key_id,
@@ -62,9 +61,9 @@ if AWS_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                response = self.connection.get_table_metadata(
+                response = self._connection.get_table_metadata(
                     CatalogName=self.catalog_name,
                     DatabaseName=database_name,
                     TableName=table_name,
@@ -92,16 +91,16 @@ if AWS_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                response = self.connection.list_table_metadata(
+                response = self._connection.list_table_metadata(
                     CatalogName=self.catalog_name,
                     DatabaseName=database_name,
                 )
                 for table in response["TableMetadataList"]:
                     yield table["Name"]
                 while "NextToken" in response:
-                    response = self.connection.list_table_metadata(
+                    response = self._connection.list_table_metadata(
                         CatalogName=self.catalog_name,
                         DatabaseName=database_name,
                         NextToken=response["NextToken"],
@@ -123,14 +122,13 @@ if AWS_INSTALLED:
             """
             return "AWS Athena"
 
-    @dataclass
     class GlueSource(ExternalMetadataSource):
         """Glue Source instance."""
 
         region_name: Optional[str] = None
         aws_access_key_id: Optional[str] = None
         aws_secret_access_key: Optional[str] = None
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -138,7 +136,7 @@ if AWS_INSTALLED:
 
             :return:
             """
-            self.connection = boto3.client(
+            self._connection = boto3.client(
                 "glue",
                 region_name=self.region_name,
                 aws_access_key_id=self.aws_access_key_id,
@@ -161,9 +159,9 @@ if AWS_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                response = self.connection.get_table(
+                response = self._connection.get_table(
                     DatabaseName=database_name, Name=table_name
                 )
                 for row in response["Table"]["StorageDescriptor"]["Columns"]:
@@ -189,15 +187,15 @@ if AWS_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                response = self.connection.get_tables(
+                response = self._connection.get_tables(
                     DatabaseName=database_name,
                 )
                 for table in response["TableList"]:
                     yield table["Name"]
                 while "NextToken" in response:
-                    response = self.connection.get_tables(
+                    response = self._connection.get_tables(
                         DatabaseName=database_name, NextToken=response["NextToken"]
                     )
                     for table in response["TableList"]:

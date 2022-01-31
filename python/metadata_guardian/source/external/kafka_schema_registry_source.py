@@ -1,9 +1,9 @@
 import json
-from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Dict, Iterator, List, Optional
 
 from loguru import logger
+from pydantic import Field
 
 from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
@@ -26,7 +26,6 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
 
         USER_PWD = 1
 
-    @dataclass
     class KafkaSchemaRegistrySource(ExternalMetadataSource):
         """Instance of a Kafka Schema Registry source."""
 
@@ -37,7 +36,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             KafkaSchemaRegistryAuthentication.USER_PWD
         )
         comment_field_name: str = "doc"
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -46,7 +45,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             :return:
             """
             if self.authenticator == KafkaSchemaRegistryAuthentication.USER_PWD:
-                self.connection = SchemaRegistryClient(
+                self._connection = SchemaRegistryClient(
                     {"url": self.url, **self.extra_connection_args}
                 )
             else:
@@ -58,7 +57,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
 
             :return:
             """
-            self.connection.__exit__()
+            self._connection.__exit__()
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
@@ -72,9 +71,9 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                registered_schema = self.connection.get_latest_version(table_name)
+                registered_schema = self._connection.get_latest_version(table_name)
                 for field in json.loads(registered_schema.schema.schema_str)["fields"]:
                     column_name = field["name"]
                     column_comment = None
@@ -101,9 +100,9 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
             :return: the list of the table names of the database
             """
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                yield from self.connection.get_subjects()
+                yield from self._connection.get_subjects()
             except Exception as exception:
                 logger.exception(
                     f"Error all the subjects from the subject in the Kafka Schema Registry"

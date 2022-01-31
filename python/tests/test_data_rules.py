@@ -16,7 +16,7 @@ def test_get_data_rules_from_path_should_work(local_file):
 )
 def test_get_data_rules_from_category_pii_with_violation(local_file):
     data_rules = DataRules.from_available_category(category=AvailableCategory.PII)
-    source = AvroSchemaSource(local_file)
+    source = AvroSchemaSource(local_path=local_file)
 
     md_results = ColumnScanner(data_rules=data_rules).scan_local(source=source)
 
@@ -41,7 +41,7 @@ def test_get_data_rules_from_category_pii_with_violation(local_file):
 )
 def test_get_data_rules_from_category_inclusion_no_violation(local_file):
     data_rules = DataRules.from_available_category(category=AvailableCategory.INCLUSION)
-    source = AvroSchemaSource(local_file)
+    source = AvroSchemaSource(local_path=local_file)
 
     md_results = ColumnScanner(data_rules=data_rules).scan_local(source=source)
 

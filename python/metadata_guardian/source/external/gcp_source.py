@@ -1,7 +1,7 @@
-from dataclasses import dataclass, field
 from typing import Any, Dict, Iterator, List, Optional, Union
 
 from loguru import logger
+from pydantic import Field
 
 from ..metadata_source import ColumnMetadata
 from .external_metadata_source import (
@@ -19,14 +19,13 @@ except ImportError:
 
 if GCP_INSTALLED:
 
-    @dataclass
     class BigQuerySource(ExternalMetadataSource):
         """Instance of a BigQuery source."""
 
         service_account_json_path: str
         project: Optional[str] = None
         location: Optional[str] = None
-        extra_connection_args: Dict[str, Any] = field(default_factory=dict)
+        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -35,7 +34,7 @@ if GCP_INSTALLED:
             :return:
             """
             try:
-                self.connection = bigquery.Client.from_service_account_json(
+                self._connection = bigquery.Client.from_service_account_json(
                     self.service_account_json_path,
                     project=self.project,
                     location=self.location,
@@ -51,7 +50,7 @@ if GCP_INSTALLED:
 
             :return:
             """
-            self.connection.close()
+            self._connection.close()
 
         def get_column_names(
             self, database_name: str, table_name: str, include_comment: bool = False
@@ -66,13 +65,13 @@ if GCP_INSTALLED:
             """
 
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
 
-                table_reference = self.connection.dataset(
+                table_reference = self._connection.dataset(
                     database_name, project=self.project
                 ).table(table_name)
-                table = self.connection.get_table(table_reference)
+                table = self._connection.get_table(table_reference)
                 for column in table.schema:
                     column_name = column.name
                     column_comment = None
@@ -96,9 +95,9 @@ if GCP_INSTALLED:
             """
 
             try:
-                if not self.connection:
+                if not self._connection:
                     self.create_connection()
-                query_job = self.connection.query(
+                query_job = self._connection.query(
                     f"SELECT table_name FROM `{database_name}.INFORMATION_SCHEMA.TABLES`"
                 )
                 results = query_job.result()

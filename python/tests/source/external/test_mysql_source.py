@@ -48,7 +48,7 @@ def test_mysql_source_get_column_names(mock_connection):
         user=user,
         password=password,
     )
-    source.connection = mock_connection
+    source._connection = mock_connection
 
     column_names = source.get_column_names(
         database_name=database_name, table_name=table_name, include_comment=True
@@ -77,7 +77,7 @@ def test_mysql_source_get_table_names_list(mock_connection):
         user=user,
         password=password,
     )
-    source.connection = mock_connection
+    source._connection = mock_connection
 
     table_names = source.get_table_names_list(database_name=database_name)
 

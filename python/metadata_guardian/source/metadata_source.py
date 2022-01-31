@@ -1,9 +1,10 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from typing import Iterator, List, Optional
 
+from pydantic import BaseModel
 
-class Metadata(ABC):
+
+class Metadata(BaseModel, ABC):
     """Metadata contract."""
 
     @abstractmethod
@@ -16,7 +17,6 @@ class Metadata(ABC):
         pass
 
 
-@dataclass
 class ColumnMetadata(Metadata):
     """Column Metadata instance."""
 
@@ -34,7 +34,7 @@ class ColumnMetadata(Metadata):
             yield self.column_comment
 
 
-class MetadataSource(ABC):
+class MetadataSource(BaseModel, ABC):
     """Metadata Source contract."""
 
     @classmethod

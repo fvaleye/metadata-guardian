@@ -45,7 +45,7 @@ def test_kafka_schema_registry_source_get_column_names(mock_connection):
         version=1,
     )
     mock_connection.get_latest_version.return_value = schema
-    source.connection = mock_connection
+    source._connection = mock_connection
 
     column_names = source.get_column_names(
         database_name=None, table_name=subject_name, include_comment=True
@@ -65,7 +65,7 @@ def test_kafka_schema_registry_source_get_table_names_list(mock_connection):
     )
     subjects = ["subject1", "subject2"]
     mock_connection.get_subjects.return_value = subjects
-    source.connection = mock_connection
+    source._connection = mock_connection
 
     subjects_list = source.get_table_names_list(database_name=None)
 

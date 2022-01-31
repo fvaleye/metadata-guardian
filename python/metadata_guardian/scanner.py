@@ -1,18 +1,18 @@
 import asyncio
 import os
 from abc import ABC, abstractmethod
-from dataclasses import dataclass
 from typing import Optional
 
 from loguru import logger
 from pyarrow import cpu_count
+from pydantic import BaseModel
 
 from .data_rules import DataRules
 from .report import MetadataGuardianReport, ProgressionBar, ReportResults
 from .source import ExternalMetadataSource, LocalMetadataSource, MetadataSource
 
 
-class Scanner(ABC):
+class Scanner(BaseModel, ABC):
     """
     Scanner Interface.
     """
@@ -68,7 +68,6 @@ class Scanner(ABC):
         pass
 
 
-@dataclass
 class ColumnScanner(Scanner):
     """Column Scanner instance."""
 
@@ -261,8 +260,7 @@ class ColumnScanner(Scanner):
         return report
 
 
-@dataclass
-class ContentFilesScanner:
+class ContentFilesScanner(BaseModel):
     """Content Files Scanner instance."""
 
     data_rules: DataRules
