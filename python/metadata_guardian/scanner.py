@@ -82,12 +82,12 @@ class ColumnScanner(Scanner):
         :return: a Metadata Guardian report
         """
         logger.debug(
-            f"[blue]Launch the metadata scanning of the local provider {source.type}"
+            f"[blue]Launch the metadata scanning of the local provider {source.type()}"
         )
         with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             progression_bar.add_task_with_item(
                 item_name=source.local_path,
-                source_type=str(source.type),
+                source_type=source.type(),
                 total=1,
             )
             words = [
@@ -123,13 +123,13 @@ class ColumnScanner(Scanner):
         :return: a Metadata Guardian report
         """
         logger.debug(
-            f"[blue]Launch the metadata scanning of the external provider {source.type} for {database_name}"
+            f"[blue]Launch the metadata scanning of the external provider {source.type()} for {database_name}"
         )
         with ProgressionBar(disable=self.progression_bar_disabled) as progression_bar:
             if table_name:
                 progression_bar.add_task_with_item(
                     item_name=database_name,
-                    source_type=str(source.type),
+                    source_type=source.type(),
                     total=1,
                     current_item=table_name,
                 )
@@ -158,7 +158,7 @@ class ColumnScanner(Scanner):
                 )
                 progression_bar.add_task_with_item(
                     item_name=database_name,
-                    source_type=str(source.type),
+                    source_type=source.type(),
                     total=len(table_names_list),
                 )
 
@@ -206,7 +206,7 @@ class ColumnScanner(Scanner):
         """
         semaphore = asyncio.Semaphore(tasks_limit)
         logger.debug(
-            f"[blue]Launch asynchronously the metadata scanning of the external provider {source.type} for the database {database_name}"
+            f"[blue]Launch asynchronously the metadata scanning of the external provider {source.type()} for the database {database_name}"
         )
 
         async def async_validate_words(
@@ -252,7 +252,7 @@ class ColumnScanner(Scanner):
                 ]
             progression_bar.add_task_with_item(
                 item_name=database_name,
-                source_type=str(source.type),
+                source_type=source.type(),
                 total=len(tasks),
             )
             report_results = await asyncio.gather(*tasks)
