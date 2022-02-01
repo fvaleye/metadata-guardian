@@ -8,26 +8,26 @@
 
     <title>API Reference &#8212; metadata-guardian  documentation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
-
+    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
-
+    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -35,6 +35,7 @@
     <link rel="shortcut icon" href="_static/logo.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Development" href="development.html" />
     <link rel="prev" title="Usage" href="usage.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -90,6 +91,12 @@
  </a>
 </li>
 
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="development.html">
+  Development
+ </a>
+</li>
+
     
 </ul>
       </div>
@@ -101,10 +108,8 @@
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/fvaleye/MetadataGuardian" rel="noopener" target="_blank" title="GitHub">
-            <span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label>
-          </a>
+          <a class="nav-link" href="https://github.com/fvaleye/MetadataGuardian" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
         </li>
       </ul>
       </div>
@@ -120,7 +125,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -128,6 +134,9 @@
     
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -170,7 +179,7 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-metadata_guardian.source.local.avro_source">
+  <a class="reference internal nav-link" href="#module-metadata_guardian.source.local.avro_schema_source">
    Local Sources
   </a>
  </li>
@@ -212,7 +221,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRule">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">DataRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rule_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRule" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">DataRule</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rule_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">regex_pattern</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">documentation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRule" title="Permalink to this definition">¶</a></dt>
 <dd><p>DataRule instance with a regex pattern and a documentation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -258,6 +267,26 @@
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRules.from_new_category">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_new_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules.from_new_category" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create data rules from a given category and data rules.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>category</strong> (<em>str</em>) – the category of the Data Rules</p></li>
+<li><p><strong>data_rules</strong> (<em>List</em><em>[</em><a class="reference internal" href="#metadata_guardian.data_rules.DataRule" title="metadata_guardian.data_rules.DataRule"><em>metadata_guardian.data_rules.DataRule</em></a><em>]</em>) – the list of data rule</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the Data Rules instance</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules">metadata_guardian.data_rules.DataRules</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRules.from_path">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules.from_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get Data Rules from a path.</p>
@@ -286,7 +315,7 @@
 <dd class="field-even"><p>the metadata guardian results</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="metadata_guardian.data_rules.MetadataGuardianResults">metadata_guardian.data_rules.MetadataGuardianResults</a>]</p>
+<dd class="field-odd"><p><em>List</em>[<a class="reference internal" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="metadata_guardian.data_rules.MetadataGuardianResults">metadata_guardian.data_rules.MetadataGuardianResults</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -311,7 +340,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.DataRules.validate_words">
 <span class="sig-name descname"><span class="pre">validate_words</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.DataRules.validate_words" title="Permalink to this definition">¶</a></dt>
-<dd><p>Validate a list of words with the data rules defined.:param word: the word to validate.</p>
+<dd><p>Validate a list of words with the data rules defined.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>words</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – the words to validate</p>
@@ -320,7 +349,7 @@
 <dd class="field-even"><p>the metadata guardian results</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="metadata_guardian.data_rules.MetadataGuardianResults">metadata_guardian.data_rules.MetadataGuardianResults</a>]</p>
+<dd class="field-odd"><p><em>List</em>[<a class="reference internal" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="metadata_guardian.data_rules.MetadataGuardianResults">metadata_guardian.data_rules.MetadataGuardianResults</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -329,7 +358,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.data_rules.MetadataGuardianResults">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">MetadataGuardianResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.data_rules.</span></span><span class="sig-name descname"><span class="pre">MetadataGuardianResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">category</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.data_rules.MetadataGuardianResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Metadata Guardian Results instance with the content that matches with the data rules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -367,13 +396,13 @@
 <span id="scanner"></span><h2>Scanner<a class="headerlink" href="#module-metadata_guardian.scanner" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ColumnScanner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ColumnScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progression_bar_disable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ColumnScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progression_bar_disabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Column Scanner instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_rules</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules"><em>metadata_guardian.data_rules.DataRules</em></a>) – </p></li>
-<li><p><strong>progression_bar_disable</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>progression_bar_disabled</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -404,7 +433,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ColumnScanner.scan_external_async">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scan_external_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tasks_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner.scan_external_async" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scan_external_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tasks_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ColumnScanner.scan_external_async" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scan the column names from the external source using a table name or a database name.
 Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="field-list simple">
@@ -447,13 +476,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ContentFilesScanner">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ContentFilesScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progression_bar_disable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFilesScanner" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">ContentFilesScanner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_rules</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progression_bar_disabled</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFilesScanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Content Files Scanner instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data_rules</strong> (<a class="reference internal" href="#metadata_guardian.data_rules.DataRules" title="metadata_guardian.data_rules.DataRules"><em>metadata_guardian.data_rules.DataRules</em></a>) – </p></li>
-<li><p><strong>progression_bar_disable</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>progression_bar_disabled</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -463,19 +492,19 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ContentFilesScanner.scan_directory">
 <span class="sig-name descname"><span class="pre">scan_directory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_names_extension</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFilesScanner.scan_directory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scan all the files inside directory path with the file name extension.
-:param directory_path: the directory path to scan
-:param file_names_extension: the file name extension to include (without the “.”)
-:return: a Metadata Guardian report</p>
+<dd><p>Scan all the files inside directory path with the file name extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>directory_path</strong> (<em>str</em>) – </p></li>
-<li><p><strong>file_names_extension</strong> (<em>str</em>) – </p></li>
+<li><p><strong>directory_path</strong> (<em>str</em>) – the directory path to scan</p></li>
+<li><p><strong>file_names_extension</strong> (<em>str</em>) – the file name extension to include (without the “.”)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a Metadata Guardian report</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -483,15 +512,16 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.ContentFilesScanner.scan_local_file">
 <span class="sig-name descname"><span class="pre">scan_local_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.ContentFilesScanner.scan_local_file" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scan a file with data rules.
-:param path: the path of the file to scan
-:return: a Metadata Guardian report</p>
+<dd><p>Scan a file with data rules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – the path of the file to scan</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a Metadata Guardian report</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#metadata_guardian.report.MetadataGuardianReport" title="metadata_guardian.report.MetadataGuardianReport">metadata_guardian.report.MetadataGuardianReport</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -502,6 +532,11 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.scanner.</span></span><span class="sig-name descname"><span class="pre">Scanner</span></span><a class="headerlink" href="#metadata_guardian.scanner.Scanner" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scanner Interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner.scan_external">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scan_external</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.Scanner.scan_external" title="Permalink to this definition">¶</a></dt>
@@ -550,7 +585,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.scanner.Scanner.scan_local">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scan_local</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.scanner.Scanner.scan_local" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scan the column names from the local source.</p>
+<dd><p>Scan the local source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>source</strong> (<a class="reference internal" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource"><em>metadata_guardian.source.local.local_metadata_source.LocalMetadataSource</em></a>) – the LocalMetadataSource to scan</p>
@@ -571,7 +606,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <span id="report"></span><h2>Report<a class="headerlink" href="#module-metadata_guardian.report" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.report.MetadataGuardianReport">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">MetadataGuardianReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report_results=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.MetadataGuardianReport" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">MetadataGuardianReport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">report_results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.MetadataGuardianReport" title="Permalink to this definition">¶</a></dt>
 <dd><p>Metadata Guardian Report.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -669,7 +704,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.report.ReportResults">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">ReportResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results=&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.ReportResults" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.report.</span></span><span class="sig-name descname"><span class="pre">ReportResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">results</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.report.ReportResults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Metadata Guardian Results.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -688,16 +723,80 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <section id="module-metadata_guardian.source.metadata_source">
 <span id="source"></span><h2>Source<a class="headerlink" href="#module-metadata_guardian.source.metadata_source" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.ColumnMetadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.metadata_source.</span></span><span class="sig-name descname"><span class="pre">ColumnMetadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Column Metadata instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>column_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>column_comment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.ColumnMetadata.as_list">
+<span class="sig-name descname"><span class="pre">as_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.metadata_source.ColumnMetadata.as_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a raw list of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Iterator</em>[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.Metadata">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.metadata_source.</span></span><span class="sig-name descname"><span class="pre">Metadata</span></span><a class="headerlink" href="#metadata_guardian.source.metadata_source.Metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata contract.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.Metadata.as_list">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.metadata_source.Metadata.as_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return as a raw list of strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of string</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Iterator</em>[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.MetadataSource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.metadata_source.</span></span><span class="sig-name descname"><span class="pre">MetadataSource</span></span><a class="headerlink" href="#metadata_guardian.source.metadata_source.MetadataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Metadata Source contract.</p>
-<dl class="py property">
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.metadata_source.MetadataSource.type">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.metadata_source.MetadataSource.type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.metadata_source.MetadataSource.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the name o of the source.</p>
+<dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -705,17 +804,86 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 </dd></dl>
 
 </section>
-<section id="module-metadata_guardian.source.local.avro_source">
-<span id="local-sources"></span><h2>Local Sources<a class="headerlink" href="#module-metadata_guardian.source.local.avro_source" title="Permalink to this headline">¶</a></h2>
+<section id="module-metadata_guardian.source.local.avro_schema_source">
+<span id="local-sources"></span><h2>Local Sources<a class="headerlink" href="#module-metadata_guardian.source.local.avro_schema_source" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.avro_schema_source.AvroSchemaSource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.avro_schema_source.</span></span><span class="sig-name descname"><span class="pre">AvroSchemaSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instance for a local Avro Schema file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
+<li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.get_column_names">
+<span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.get_column_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get column names from the AVRO Schema file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the list of the column names</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.namespace">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">namespace</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.namespace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Namespace of the AVRO schema.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the namespace</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.read">
+<span class="sig-name descname"><span class="pre">read</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read the AVRO Schema file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Union</em>[str, bytes]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.type">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name o of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-metadata_guardian.source.local.avro_source"></span><dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.avro_source.AvroSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.avro_source.</span></span><span class="sig-name descname"><span class="pre">AvroSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.avro_source.</span></span><span class="sig-name descname"><span class="pre">AvroSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance for a local Avro file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
 <li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -731,7 +899,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-odd"><p>the list of the column names</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dd class="field-even"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -748,7 +916,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of attributes in the fields</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Optional[List[str]]</p>
+<dd class="field-odd"><p><em>List</em>[<em>Optional</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -776,26 +944,15 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.avro_source.AvroSource.schema">
-<span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource.schema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the AVRO schema.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the schema</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Dict[str, Any]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.avro_source.AvroSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource.type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.avro_source.AvroSource.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the name o of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -804,13 +961,14 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <span class="target" id="module-metadata_guardian.source.local.local_metadata_source"></span><dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.local_metadata_source.</span></span><span class="sig-name descname"><span class="pre">LocalMetadataSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.local_metadata_source.</span></span><span class="sig-name descname"><span class="pre">LocalMetadataSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>LocalMetadata Source contract.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
 <li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -826,7 +984,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-odd"><p>the list of the column names</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dd class="field-even"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -845,44 +1003,34 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 </dl>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema">
-<span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the source schema.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>the file schema</p>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>pyarrow.lib.Schema</p>
-</dd>
-</dl>
-</dd></dl>
-
 </dd></dl>
 
 <span class="target" id="module-metadata_guardian.source.local.parquet_source"></span><dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.parquet_source.</span></span><span class="sig-name descname"><span class="pre">ParquetSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.local.parquet_source.</span></span><span class="sig-name descname"><span class="pre">ParquetSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fs=&lt;pyarrow._fs.LocalFileSystem</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance for a local Parquet file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>local_path</strong> (<em>str</em>) – </p></li>
 <li><p><strong>fs</strong> (<em>pyarrow._fs.FileSystem</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.local.parquet_source.ParquetSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource.type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.local.parquet_source.ParquetSource.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -894,7 +1042,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <span id="external-sources"></span><h2>External Sources<a class="headerlink" href="#module-metadata_guardian.source.external.aws_source" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.AthenaSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.aws_source.</span></span><span class="sig-name descname"><span class="pre">AthenaSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s3_staging_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AWSDataCatalog'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_access_key_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_secret_access_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.aws_source.</span></span><span class="sig-name descname"><span class="pre">AthenaSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s3_staging_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">catalog_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'AWSDataCatalog'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_access_key_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_secret_access_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Athena Source instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -904,6 +1052,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <li><p><strong>region_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>aws_access_key_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>aws_secret_access_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -913,11 +1062,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.AthenaSource.close_connection">
 <span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.close_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the connection of the source.
-:return:</p>
+<dd><p>Close the connection of the source.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -937,21 +1088,20 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.AthenaSource.get_column_names">
 <span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.get_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the column names from the table.
-:param database_name: the database name
-:param table_name: the table name
-:param include_comment: include the comment
-:return: the list of the column names</p>
+<dd><p>Get the column names from the table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>database_name</strong> (<em>str</em>) – the database name</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – the table name</p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – include the comment</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the column names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -959,31 +1109,39 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.AthenaSource.get_table_names_list">
 <span class="sig-name descname"><span class="pre">get_table_names_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.get_table_names_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the table names list from the database in AWS Athena.
-:param database_name: the database name
-:return: the list of the table names of the database</p>
+<dd><p>Get the table names list from the database in AWS Athena.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – the database name</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the table names of the database</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.AthenaSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of the source.
-:return: the name o of the source.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.AthenaSource.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name o of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.aws_source.</span></span><span class="sig-name descname"><span class="pre">GlueSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_access_key_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_secret_access_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.aws_source.</span></span><span class="sig-name descname"><span class="pre">GlueSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_access_key_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aws_secret_access_key</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Glue Source instance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -991,6 +1149,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <li><p><strong>region_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>aws_access_key_id</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>aws_secret_access_key</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1000,11 +1159,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource.close_connection">
 <span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.close_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the connection of the source.
-:return:</p>
+<dd><p>Close the connection of the source.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1012,11 +1173,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource.create_connection">
 <span class="sig-name descname"><span class="pre">create_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.create_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the Glue connection
-:return:</p>
+<dd><p>Create the Glue connection.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1024,21 +1187,20 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource.get_column_names">
 <span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.get_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the column names from AWS Glue table.
-:param database_name: the name of the database
-:param table_name: the name of the table
-:param include_comment: include the comments
-:return: the list of the column names</p>
+<dd><p>Get the column names from AWS Glue table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>database_name</strong> (<em>str</em>) – the name of the database</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – the name of the table</p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – include the comments</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the column names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1046,37 +1208,46 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource.get_table_names_list">
 <span class="sig-name descname"><span class="pre">get_table_names_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.get_table_names_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the table names list from the database in AWS Glue.
-:param database_name: the database name
-:return: the list of the table names of the database</p>
+<dd><p>Get the table names list from the database in AWS Glue.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – the database name</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the table names of the database</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.aws_source.GlueSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of the source.
-:return: the name of the source.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.aws_source.GlueSource.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <span class="target" id="module-metadata_guardian.source.external.deltatable_source"></span><dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.deltatable_source.</span></span><span class="sig-name descname"><span class="pre">DeltaTableSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_catalog:</span> <span class="pre">deltalake.data_catalog.DataCatalog</span> <span class="pre">=</span> <span class="pre">&lt;DataCatalog.AWS:</span> <span class="pre">'glue'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data_catalog_disable:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.deltatable_source.</span></span><span class="sig-name descname"><span class="pre">DeltaTableSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_catalog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">DataCatalog.AWS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_data_catalog_disable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uri</strong> (<em>str</em>) – </p></li>
 <li><p><strong>data_catalog</strong> (<em>deltalake.data_catalog.DataCatalog</em>) – </p></li>
 <li><p><strong>external_data_catalog_disable</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1086,11 +1257,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource.close_connection">
 <span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.close_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the connection of the source.
-:return:</p>
+<dd><p>Close the connection of the source.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1098,11 +1271,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource.create_connection">
 <span class="sig-name descname"><span class="pre">create_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.create_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the DeltaTable instance.
-:return:</p>
+<dd><p>Create the DeltaTable instance.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1110,21 +1285,20 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_column_names">
 <span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get column names from the Delta table.
-:param database_name: the database name
-:param table_name: the table name
-:param include_comment: include the comment
-:return: the list of the column names</p>
+<dd><p>Get column names from the Delta table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>database_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>table_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>database_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – the database name</p></li>
+<li><p><strong>table_name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – the table name</p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – include the comment</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the column names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1132,24 +1306,32 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_table_names_list">
 <span class="sig-name descname"><span class="pre">get_table_names_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.get_table_names_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Not relevant, just return the current Delta Table URI
-:param database_name: the database name
-:return: the list of the table names of the database</p>
+<dd><p>Not relevant, just return the current Delta Table URI.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – the database name</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the table names of the database</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.deltatable_source.DeltaTableSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of the source.
-:return: the name o of the source.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.deltatable_source.DeltaTableSource.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1158,14 +1340,21 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.external_metadata_source.</span></span><span class="sig-name descname"><span class="pre">ExternalMetadataSource</span></span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>ExternalMetadataSource Source.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.close_connection">
-<span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.close_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the connection of the source.
-:return:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.close_connection">
+<span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.close_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the connection of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1173,11 +1362,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.create_connection">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.create_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the connection of the source.
-:return:</p>
+<dd><p>Create the connection of the source.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1185,21 +1376,20 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_column_names">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the column names from the schema.
-:param database_name: the database name
-:param table_name: the table name
-:param include_comment: include the comment
-:return: the list of the column names</p>
+<dd><p>Get the column names from the schema.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>database_name</strong> (<em>str</em>) – the database name</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – the table name</p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – include the comment</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the column names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1207,15 +1397,16 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_table_names_list">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_table_names_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.external_metadata_source.ExternalMetadataSource.get_table_names_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the table names list from the database.
-:param database_name: the database name
-:return: the list of the table names of the database</p>
+<dd><p>Get the table names list from the database.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – the database name</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the table names of the database</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1230,7 +1421,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <span class="target" id="module-metadata_guardian.source.external.gcp_source"></span><dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.gcp_source.</span></span><span class="sig-name descname"><span class="pre">BigQuerySource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_account_json_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.gcp_source.</span></span><span class="sig-name descname"><span class="pre">BigQuerySource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_account_json_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance of a BigQuery source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1238,6 +1429,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <li><p><strong>service_account_json_path</strong> (<em>str</em>) – </p></li>
 <li><p><strong>project</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>location</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1247,11 +1439,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource.close_connection">
 <span class="sig-name descname"><span class="pre">close_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.close_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Close the BigQuery connection
-:return:</p>
+<dd><p>Close the BigQuery connection.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1259,11 +1453,13 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource.create_connection">
 <span class="sig-name descname"><span class="pre">create_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.create_connection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the Big Query connection.
-:return:</p>
+<dd><p>Get the Big Query connection.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1271,21 +1467,20 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource.get_column_names">
 <span class="sig-name descname"><span class="pre">get_column_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.get_column_names" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get column names from the table of the dataset.
-:param database_name: in that case the dataset
-:param table_name: the table name
-:param include_comment: include the comment
-:return: the list of the column names</p>
+<dd><p>Get column names from the table of the dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>database_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>table_name</strong> (<em>str</em>) – </p></li>
-<li><p><strong>include_comment</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>database_name</strong> (<em>str</em>) – in that case the dataset</p></li>
+<li><p><strong>table_name</strong> (<em>str</em>) – the table name</p></li>
+<li><p><strong>include_comment</strong> (<em>bool</em>) – include the comment</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the column names</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1293,24 +1488,32 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource.get_table_names_list">
 <span class="sig-name descname"><span class="pre">get_table_names_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">database_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.get_table_names_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the table names list from the GCP dataset.
-:param database_name: in that case the dataset
-:return: the list of the table names list</p>
+<dd><p>Get the table names list from the GCP dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – </p>
+<dd class="field-odd"><p><strong>database_name</strong> (<em>str</em>) – in that case the dataset</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>List[str]</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the list of the table names list</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.gcp_source.BigQuerySource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.type" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of the source.
-:return: the name bof the source.</p>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.gcp_source.BigQuerySource.type" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the source.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name bof the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -1323,7 +1526,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.kafka_schema_registry_source.</span></span><span class="sig-name descname"><span class="pre">KafkaSchemaRegistrySource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_certificate_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_key_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">KafkaSchemaRegistryAuthentication.USER_PWD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_field_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'doc'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.kafka_schema_registry_source.</span></span><span class="sig-name descname"><span class="pre">KafkaSchemaRegistrySource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_certificate_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_key_location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">KafkaSchemaRegistryAuthentication.USER_PWD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment_field_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'doc'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance of a Kafka Schema Registry source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1331,9 +1534,9 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <li><p><strong>url</strong> (<em>str</em>) – </p></li>
 <li><p><strong>ssl_certificate_location</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>ssl_key_location</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
-<li><p><strong>connection</strong> (<em>Optional</em><em>[</em><em>confluent_kafka.schema_registry.schema_registry_client.SchemaRegistryClient</em><em>]</em>) – </p></li>
-<li><p><strong>authenticator</strong> (<em>Optional</em><em>[</em><a class="reference internal" href="#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication" title="metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication"><em>metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication</em></a><em>]</em>) – </p></li>
+<li><p><strong>authenticator</strong> (<a class="reference internal" href="#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication" title="metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication"><em>metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistryAuthentication</em></a>) – </p></li>
 <li><p><strong>comment_field_name</strong> (<em>str</em>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1384,7 +1587,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of the column names</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1401,18 +1604,21 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of the table names of the database</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1427,7 +1633,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.mysql_source.MySQLSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.mysql_source.</span></span><span class="sig-name descname"><span class="pre">MySQLSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MySQLAuthenticator.USER_PWD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.mysql_source.MySQLSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.mysql_source.</span></span><span class="sig-name descname"><span class="pre">MySQLSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">MySQLAuthenticator.USER_PWD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.mysql_source.MySQLSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance of a MySQL source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1437,6 +1643,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <li><p><strong>host</strong> (<em>str</em>) – </p></li>
 <li><p><strong>database</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>authenticator</strong> (<a class="reference internal" href="#metadata_guardian.source.external.mysql_source.MySQLAuthenticator" title="metadata_guardian.source.external.mysql_source.MySQLAuthenticator"><em>metadata_guardian.source.external.mysql_source.MySQLAuthenticator</em></a>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1473,7 +1680,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of the column names</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1490,18 +1697,21 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of the table names of the database</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.mysql_source.MySQLSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.mysql_source.MySQLSource.type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.mysql_source.MySQLSource.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1516,7 +1726,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.snowflake_source.SnowflakeSource">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.snowflake_source.</span></span><span class="sig-name descname"><span class="pre">SnowflakeSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sf_account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warehouse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">okta_account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth_host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SnowflakeAuthenticator.USER_PWD</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.snowflake_source.SnowflakeSource" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">metadata_guardian.source.external.snowflake_source.</span></span><span class="sig-name descname"><span class="pre">SnowflakeSource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_account</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sf_password</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">warehouse</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">schema_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">okta_account_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth_token</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">oauth_host</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">authenticator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">SnowflakeAuthenticator.USER_PWD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra_connection_args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.snowflake_source.SnowflakeSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instance of a Snowflake source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1530,6 +1740,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <li><p><strong>oauth_token</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>oauth_host</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
 <li><p><strong>authenticator</strong> (<a class="reference internal" href="#metadata_guardian.source.external.snowflake_source.SnowflakeAuthenticator" title="metadata_guardian.source.external.snowflake_source.SnowflakeAuthenticator"><em>metadata_guardian.source.external.snowflake_source.SnowflakeAuthenticator</em></a>) – </p></li>
+<li><p><strong>extra_connection_args</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -1578,7 +1789,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of the column names</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><em>Iterator</em>[<a class="reference internal" href="#metadata_guardian.source.metadata_source.ColumnMetadata" title="metadata_guardian.source.metadata_source.ColumnMetadata">metadata_guardian.source.metadata_source.ColumnMetadata</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1595,18 +1806,21 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
 <dd class="field-even"><p>the list of the table names of the database</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[str]</p>
+<dd class="field-odd"><p><em>Iterator</em>[str]</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
+<dl class="py method">
 <dt class="sig sig-object py" id="metadata_guardian.source.external.snowflake_source.SnowflakeSource.type">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#metadata_guardian.source.external.snowflake_source.SnowflakeSource.type" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">type</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#metadata_guardian.source.external.snowflake_source.SnowflakeSource.type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The type of the source.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the name of the source.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1621,13 +1835,20 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
               
               
               <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="usage.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Usage</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="development.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Development</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
               
@@ -1637,8 +1858,8 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
-<footer class="footer mt-5 mt-md-0">
+    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -1649,7 +1870,7 @@ Note that it can generate multiple concurrent calls to your metadata source.</p>
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     

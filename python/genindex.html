@@ -7,26 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index &#8212; metadata-guardian  documentation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
-
+    <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  
     
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
-
+    <link rel="stylesheet"
+      href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+      href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
     
       
-
+  
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/css/blank.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/pydata-sphinx-theme.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
-
+    <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
@@ -88,6 +88,12 @@
  </a>
 </li>
 
+<li class="toctree-l1 nav-item">
+ <a class="reference internal nav-link" href="development.html">
+  Development
+ </a>
+</li>
+
     
 </ul>
       </div>
@@ -99,10 +105,8 @@
       <div class="navbar-end-item">
         <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/fvaleye/MetadataGuardian" rel="noopener" target="_blank" title="GitHub">
-            <span><i class="fab fa-github-square"></i></span>
-            <label class="sr-only">GitHub</label>
-          </a>
+          <a class="nav-link" href="https://github.com/fvaleye/MetadataGuardian" rel="noopener" target="_blank" title="GitHub"><span><i class="fab fa-github-square"></i></span>
+            <label class="sr-only">GitHub</label></a>
         </li>
       </ul>
       </div>
@@ -118,7 +122,8 @@
           
             
             <!-- Only show if we have sidebars configured, else just a small margin  -->
-            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+            <div class="col-12 col-md-3 bd-sidebar">
+              <div class="sidebar-start-items"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
@@ -126,6 +131,9 @@
     
   </div>
 </nav>
+              </div>
+              <div class="sidebar-end-items">
+              </div>
             </div>
             
           
@@ -174,11 +182,19 @@
 </li>
       <li><a href="api_reference.html#metadata_guardian.report.MetadataGuardianReport.append">append() (metadata_guardian.report.MetadataGuardianReport method)</a>
 </li>
+      <li><a href="api_reference.html#metadata_guardian.source.metadata_source.ColumnMetadata.as_list">as_list() (metadata_guardian.source.metadata_source.ColumnMetadata method)</a>
+
+      <ul>
+        <li><a href="api_reference.html#metadata_guardian.source.metadata_source.Metadata.as_list">(metadata_guardian.source.metadata_source.Metadata method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource">AthenaSource (class in metadata_guardian.source.external.aws_source)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.data_rules.AvailableCategory">AvailableCategory (class in metadata_guardian.data_rules)</a>
+</li>
+      <li><a href="api_reference.html#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource">AvroSchemaSource (class in metadata_guardian.source.local.avro_schema_source)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource">AvroSource (class in metadata_guardian.source.local.avro_source)</a>
 </li>
@@ -212,12 +228,14 @@
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.close_connection">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
 </li>
       </ul></li>
-      <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner">ColumnScanner (class in metadata_guardian.scanner)</a>
+      <li><a href="api_reference.html#metadata_guardian.source.metadata_source.ColumnMetadata">ColumnMetadata (class in metadata_guardian.source.metadata_source)</a>
 </li>
-      <li><a href="api_reference.html#metadata_guardian.conf.configure_logger">configure_logger() (in module metadata_guardian.conf)</a>
+      <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner">ColumnScanner (class in metadata_guardian.scanner)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.conf.configure_logger">configure_logger() (in module metadata_guardian.conf)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.scanner.ContentFilesScanner">ContentFilesScanner (class in metadata_guardian.scanner)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource.create_connection">create_connection() (metadata_guardian.source.external.aws_source.AthenaSource method)</a>
@@ -274,6 +292,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.data_rules.DataRules.from_new_category">from_new_category() (metadata_guardian.data_rules.DataRules class method)</a>
+</li>
       <li><a href="api_reference.html#metadata_guardian.data_rules.DataRules.from_path">from_path() (metadata_guardian.data_rules.DataRules class method)</a>
 </li>
   </ul></td>
@@ -298,6 +318,8 @@
         <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.get_column_names">(metadata_guardian.source.external.mysql_source.MySQLSource method)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.get_column_names">(metadata_guardian.source.external.snowflake_source.SnowflakeSource method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.get_column_names">(metadata_guardian.source.local.avro_schema_source.AvroSchemaSource method)</a>
 </li>
         <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.get_column_names">(metadata_guardian.source.local.avro_source.AvroSource method)</a>
 </li>
@@ -354,6 +376,8 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api_reference.html#metadata_guardian.source.metadata_source.Metadata">Metadata (class in metadata_guardian.source.metadata_source)</a>
+</li>
       <li>
     metadata_guardian.conf
 
@@ -432,12 +456,21 @@
 </li>
       </ul></li>
       <li>
+    metadata_guardian.source.local.avro_schema_source
+
+      <ul>
+        <li><a href="api_reference.html#module-metadata_guardian.source.local.avro_schema_source">module</a>
+</li>
+      </ul></li>
+      <li>
     metadata_guardian.source.local.avro_source
 
       <ul>
         <li><a href="api_reference.html#module-metadata_guardian.source.local.avro_source">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     metadata_guardian.source.local.local_metadata_source
 
@@ -445,8 +478,6 @@
         <li><a href="api_reference.html#module-metadata_guardian.source.local.local_metadata_source">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     metadata_guardian.source.local.parquet_source
 
@@ -493,6 +524,8 @@
 </li>
         <li><a href="api_reference.html#module-metadata_guardian.source.external.snowflake_source">metadata_guardian.source.external.snowflake_source</a>
 </li>
+        <li><a href="api_reference.html#module-metadata_guardian.source.local.avro_schema_source">metadata_guardian.source.local.avro_schema_source</a>
+</li>
         <li><a href="api_reference.html#module-metadata_guardian.source.local.avro_source">metadata_guardian.source.local.avro_source</a>
 </li>
         <li><a href="api_reference.html#module-metadata_guardian.source.local.local_metadata_source">metadata_guardian.source.local.local_metadata_source</a>
@@ -512,8 +545,12 @@
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.namespace">namespace (metadata_guardian.source.local.avro_source.AvroSource property)</a>
+      <li><a href="api_reference.html#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.namespace">namespace (metadata_guardian.source.local.avro_schema_source.AvroSchemaSource property)</a>
+
+      <ul>
+        <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.namespace">(metadata_guardian.source.local.avro_source.AvroSource property)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -532,9 +569,11 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.read">read() (metadata_guardian.source.local.avro_source.AvroSource method)</a>
+      <li><a href="api_reference.html#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.read">read() (metadata_guardian.source.local.avro_schema_source.AvroSchemaSource method)</a>
 
       <ul>
+        <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.read">(metadata_guardian.source.local.avro_source.AvroSource method)</a>
+</li>
         <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.read">(metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
 </li>
       </ul></li>
@@ -562,24 +601,18 @@
         <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_external_async">(metadata_guardian.scanner.Scanner method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.scanner.ColumnScanner.scan_local">scan_local() (metadata_guardian.scanner.ColumnScanner method)</a>
 
       <ul>
         <li><a href="api_reference.html#metadata_guardian.scanner.Scanner.scan_local">(metadata_guardian.scanner.Scanner method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.scanner.ContentFilesScanner.scan_local_file">scan_local_file() (metadata_guardian.scanner.ContentFilesScanner method)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.scanner.Scanner">Scanner (class in metadata_guardian.scanner)</a>
 </li>
-      <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.schema">schema() (metadata_guardian.source.local.avro_source.AvroSource method)</a>
-
-      <ul>
-        <li><a href="api_reference.html#metadata_guardian.source.local.local_metadata_source.LocalMetadataSource.schema">(metadata_guardian.source.local.local_metadata_source.LocalMetadataSource method)</a>
-</li>
-      </ul></li>
       <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeAuthenticator">SnowflakeAuthenticator (class in metadata_guardian.source.external.snowflake_source)</a>
 </li>
       <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource">SnowflakeSource (class in metadata_guardian.source.external.snowflake_source)</a>
@@ -592,26 +625,28 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api_reference.html#metadata_guardian.report.MetadataGuardianReport.to_console">to_console() (metadata_guardian.report.MetadataGuardianReport method)</a>
 </li>
-      <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource.type">type (metadata_guardian.source.external.aws_source.AthenaSource property)</a>
+      <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.AthenaSource.type">type() (metadata_guardian.source.external.aws_source.AthenaSource class method)</a>
 
       <ul>
-        <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.GlueSource.type">(metadata_guardian.source.external.aws_source.GlueSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.external.aws_source.GlueSource.type">(metadata_guardian.source.external.aws_source.GlueSource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.external.deltatable_source.DeltaTableSource.type">(metadata_guardian.source.external.deltatable_source.DeltaTableSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.external.deltatable_source.DeltaTableSource.type">(metadata_guardian.source.external.deltatable_source.DeltaTableSource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.type">(metadata_guardian.source.external.gcp_source.BigQuerySource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.external.gcp_source.BigQuerySource.type">(metadata_guardian.source.external.gcp_source.BigQuerySource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.type">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource.type">(metadata_guardian.source.external.kafka_schema_registry_source.KafkaSchemaRegistrySource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.type">(metadata_guardian.source.external.mysql_source.MySQLSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.external.mysql_source.MySQLSource.type">(metadata_guardian.source.external.mysql_source.MySQLSource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.type">(metadata_guardian.source.external.snowflake_source.SnowflakeSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.external.snowflake_source.SnowflakeSource.type">(metadata_guardian.source.external.snowflake_source.SnowflakeSource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.type">(metadata_guardian.source.local.avro_source.AvroSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.local.avro_schema_source.AvroSchemaSource.type">(metadata_guardian.source.local.avro_schema_source.AvroSchemaSource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.local.parquet_source.ParquetSource.type">(metadata_guardian.source.local.parquet_source.ParquetSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.local.avro_source.AvroSource.type">(metadata_guardian.source.local.avro_source.AvroSource class method)</a>
 </li>
-        <li><a href="api_reference.html#metadata_guardian.source.metadata_source.MetadataSource.type">(metadata_guardian.source.metadata_source.MetadataSource property)</a>
+        <li><a href="api_reference.html#metadata_guardian.source.local.parquet_source.ParquetSource.type">(metadata_guardian.source.local.parquet_source.ParquetSource class method)</a>
+</li>
+        <li><a href="api_reference.html#metadata_guardian.source.metadata_source.MetadataSource.type">(metadata_guardian.source.metadata_source.MetadataSource class method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -654,8 +689,8 @@
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
-<footer class="footer mt-5 mt-md-0">
+    <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <footer class="footer mt-5 mt-md-0">
   <div class="container">
     
     <div class="footer-item">
@@ -666,7 +701,7 @@
     
     <div class="footer-item">
       <p class="sphinx-version">
-Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br>
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.4.0.<br>
 </p>
     </div>
     
