@@ -9,6 +9,8 @@ Metadata Guardian is a Python package that provides an easy way to protect your 
 By searching with data rules, it will detect what you are looking to protect.
 Using Rust, it makes blazing fast multi-regex matching.
 
+Read more in this https://medium.com/@florian.valeye/metadata-guardian-protect-your-data-by-searching-its-metadata-fe479c24f1b1[article].
+
 == Where to get it
 
 ```sh
