@@ -16,9 +16,6 @@ With virtualenv
 ===============
 .. code-block:: bash
 
-    # Get virtualenv
-    pip install virtualenv
-
     # Inside Python folder
     make setup-venv
 

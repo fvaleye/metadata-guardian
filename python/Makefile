@@ -8,7 +8,7 @@ PACKAGE_VERSION := $(shell cargo pkgid | cut -d\# -f2 | cut -d: -f2)
 .PHONY: setup-venv
 setup-venv: ## Setup the virtualenv
 	$(info --- Setup virtualenv ---)
-	virtualenv venv $(VENV)
+	python -m venv $(VENV)
 
 .PHONY: setup
 setup: ## Setup the requirements
