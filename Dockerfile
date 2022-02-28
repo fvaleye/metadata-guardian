@@ -7,7 +7,7 @@ ENV PATH /root/.cargo/bin:$PATH
 
 # Setup Python
 ENV PATH /opt/python/cp37-cp37m/bin:$PATH
-RUN python -m pip install --upgrade pip virtualenv
+RUN python -m pip install --upgrade pip
 
 # Copy metadata guardian
 COPY Cargo.toml metadata_guardian/Cargo.toml
