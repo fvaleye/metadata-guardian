@@ -2,7 +2,7 @@
 name = "metadata_guardian"
 version = "0.0.1"
 authors = ["Florian Valeye <fvaleye@github.com>"]
-homepage = ""
+homepage = "https://github.com/fvaleye/metadata-guardian/rust"
 license = "Apache-2.0"
 keywords = ["pii", "inclusion", "biais", "metadata_dataguardian", "metadata", "guardian"]
 description = "MetadataGuardian is used to protect data by searching the source metadata."
