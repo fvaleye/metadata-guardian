@@ -1,8 +1,20 @@
 import argparse
 import os
 
-from metadata_guardian import AvailableCategory, ColumnScanner, DataRules
-from metadata_guardian.source import AvroSource, ORCSource, ParquetSource
+from metadata_guardian import (
+    AvailableCategory,
+    ColumnScanner,
+    DataRules,
+    ExternalMetadataSource,
+)
+from metadata_guardian.source import (
+    AvroSource,
+    BigQuerySource,
+    DeltaTableSource,
+    KafkaSchemaRegistrySource,
+    ORCSource,
+    ParquetSource,
+)
 
 
 def get_gcp_bigquery() -> ExternalMetadataSource:

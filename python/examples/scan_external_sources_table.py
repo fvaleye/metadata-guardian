@@ -13,6 +13,7 @@ from metadata_guardian.source import (
     DeltaTableSource,
     GlueSource,
     KafkaSchemaRegistrySource,
+    MySQLSource,
     SnowflakeSource,
 )
 

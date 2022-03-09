@@ -1,5 +1,7 @@
 from typing import List, NamedTuple, Optional, Tuple
 
+import pyarrow
+from pyarrow import csv
 from pydantic import BaseModel, Field
 from rich.console import Console
 from rich.markup import escape
@@ -136,3 +138,39 @@ class MetadataGuardianReport(BaseModel):
             _console.print(
                 f":thumbs_up: No data rules violation were detected by Metadata Guardian."
             )
+
+    def to_csv(self, file_path: str) -> None:
+        """
+        Save the metadata guardian results to a CSV file.
+
+        :param: file path is the path of the CSV file.
+        :return:
+        """
+        _schema = pyarrow.schema(
+            {
+                "category": pyarrow.string(),
+                "source": pyarrow.string(),
+                "content": pyarrow.string(),
+                "name": pyarrow.string(),
+                "documentation": pyarrow.string(),
+            }
+        )
+        category = []
+        source = []
+        content = []
+        name = []
+        documentation = []
+
+        for report in self.report_results:
+            for result in report.results:
+                for data_rule in result.data_rules:
+                    category.append(result.category)
+                    source.append(report.source)
+                    content.append(result.content.strip())
+                    name.append(data_rule.rule_name)
+                    documentation.append(data_rule.documentation)
+        _table = pyarrow.Table.from_pydict(
+            dict(zip(_schema.names, (category, source, content, name, documentation))),
+            schema=_schema,
+        )
+        csv.write_csv(_table, file_path)
