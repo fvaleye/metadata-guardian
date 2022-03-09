@@ -29,9 +29,9 @@ class ColumnMetadata(Metadata):
 
         :return: a list of string
         """
-        yield self.column_name
+        yield self.column_name.lower()
         if self.column_comment:
-            yield self.column_comment
+            yield self.column_comment.lower()
 
 
 class MetadataSource(BaseModel, ABC):
