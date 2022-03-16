@@ -4,14 +4,14 @@ image:https://github.com/fvaleye/metadata-guardian/actions/workflows/rust_build.
 image:https://img.shields.io/badge/docs-python-blue.svg?style=flat-square[Docs,link=https://fvaleye.github.io/metadata-guardian/python]
 image:https://img.shields.io/pypi/v/metadata_guardian.svg?style=flat-square)[Pypi, link=https://pypi.org/project/metadata-guardian/]
 
-== Overview
+== 📌 Overview
 Metadata Guardian is a Python package that provides an easy way to protect your data sources by searching its metadata.
 By searching with data rules, it will detect what you are looking to protect.
 Using Rust, it makes blazing fast multi-regex matching.
 
 Read more in this https://medium.com/@florian.valeye/metadata-guardian-protect-your-data-by-searching-its-metadata-fe479c24f1b1[article].
 
-== Where to get it
+== 📦 Where to get it
 
 ```sh
 # Install all the data sources
@@ -23,11 +23,11 @@ pip install 'metadata_guardian[all]'
 pip install 'metadata_guardian[snowflake,avro,aws,gcp,deltalake,kafka_schema_registry,mysql]'
 ```
 
-== Data Rules
+== 📜 Data Rules
 The available data rules are here: *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/pii_rules.yaml[PII]* and *https://github.com/fvaleye/metadata-guardian/blob/main/python/metadata_guardian/rules/inclusion_rules.yaml[INCLUSION]*.
 But you could also your custom data rules to suit your needs.
 
-== Data Sources
+== 📊 Data Sources
 
 === Local
 - Parquet
@@ -44,7 +44,9 @@ But you could also your custom data rules to suit your needs.
 - MySQL
 - Kafka Schema Registry
 
-== Usage
+== 🔎 Usage
+
+With available Data Rules:
 ```python
 from metadata_guardian import (
     AvailableCategory,
@@ -71,8 +73,45 @@ with source:
     report.to_console()
 ```
 
-== Licence
+With custom Data Rules:
+```python
+from metadata_guardian import (
+    AvailableCategory,
+    ColumnScanner,
+    DataRule,
+    DataRules,
+)
+from metadata_guardian.source import MySQLSource
+
+source = MySQLSource(
+        user="root",
+        password="12345678",
+        host="localhost",
+    )
+
+category = "example"
+data_rule = DataRule(
+rule_name="example_rule_name",
+regex_pattern="\b(test|example)\b",
+documentation="example_test",
+)
+data_rules = [data_rule]
+data_rules = DataRules.from_new_category(category=category, data_rules=data_rules)
+column_scanner = ColumnScanner(
+data_rules=data_rules, progression_bar_disabled=False
+)
+
+with source:
+    report = column_scanner.scan_external(
+    source,
+    database_name="sequelmovie",
+    include_comment=True,
+    )
+    report.to_console()
+```
+
+== 🛡️ Licence
 https://raw.githubusercontent.com/fvaleye/metadata-guardian/main/LICENSE.txt[Apache License 2.0]
 
-== Documentation
+== 📚 Documentation
 The documentation is hosted here: https://fvaleye.github.io/metadata-guardian/python/
