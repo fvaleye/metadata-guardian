@@ -1,5 +1,5 @@
 [build-system]
-requires = ["maturin==0.12.10"]
+requires = ["maturin==0.12.14"]
 build-backend = "maturin"
 
 [project]
@@ -29,12 +29,12 @@ metadata-guardian = "metadata_guardian.cli:main"
 
 
 [project.optional-dependencies]
-all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery", "confluent-kafka", "PyMySQL", "types-PyMySQL"]
+all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery", "confluent-kafka", "PyMySQL", "types-PyMySQL", "pandas"]
 snowflake = [ "snowflake-connector-python" ]
 avro = [ "avro" ]
 aws = [ "boto3", "boto3-stubs[athena,glue]" ]
 gcp = [ "google-cloud-bigquery"]
-deltalake = [ "deltalake" ]
+deltalake = [ "deltalake", "pandas" ]
 kafka_schema_registry = [ "confluent-kafka" ]
 mysql = ["PyMySQL", "types-PyMySQL"]
 devel = [
