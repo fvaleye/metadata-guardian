@@ -66,8 +66,20 @@ jobs:
   release-pypi-manylinux:
     needs: validate-git-tag
     name: PyPI release manylinux
-    runs-on: ubuntu-20.04
-    container: quay.io/pypa/manylinux2010_x86_64:2020-12-31-4928808
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-20.04
+        include:
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-20.04
+            container: quay.io/pypa/manylinux2010_x86_64:2022-03-14-b2cd80b
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-20.04
+            container: quay.io/pypa/manylinux2014_aarch64:2022-03-14-b2cd80b
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
     steps:
       - uses: actions/checkout@v1
 
@@ -86,7 +98,7 @@ jobs:
       - name: Publish manylinux to pypi (without sdist)
         env:
           MATURIN_PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-        run: make publish TARGET="x86_64-unknown-linux-gnu" EXTRA_ARGS=""
+        run: make publish TARGET="${{ matrix.target }}" EXTRA_ARGS=""
 
 
   release-documentation:

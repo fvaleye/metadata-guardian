@@ -9,7 +9,7 @@ from pydantic import BaseModel
 
 from .data_rules import DataRules
 from .report import MetadataGuardianReport, ProgressionBar, ReportResults
-from .source import ExternalMetadataSource, LocalMetadataSource, MetadataSource
+from .source import ExternalMetadataSource, LocalMetadataSource
 
 
 class Scanner(BaseModel, ABC):

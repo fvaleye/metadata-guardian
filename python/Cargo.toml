@@ -1,6 +1,6 @@
 [package]
 name = "metadata_guardian-python"
-version = "0.2.4"
+version = "0.2.5"
 authors = ["Florian Valeye <fvaleye@github.com>"]
 homepage = "https://fvaleye.github.io/metadata-guardian/python"
 license = "Apache-2.0"
@@ -16,7 +16,7 @@ crate-type = ["cdylib"]
 env_logger = "0"
 
 [dependencies.pyo3]
-version = "0.16.4"
+version = "0.16.5"
 features = ["extension-module", "abi3", "abi3-py37"]
 
 [dependencies.metadata_guardian]

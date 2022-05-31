@@ -1,6 +1,6 @@
 import importlib.resources
 from enum import Enum
-from typing import Any, List
+from typing import Any, Generator, List
 
 from loguru import logger
 from pydantic import BaseModel, PrivateAttr
@@ -34,11 +34,15 @@ class MetadataGuardianResults(BaseModel):
 class DataRules(BaseModel):
     """Data Rules instances."""
 
-    _data_rules: Any = PrivateAttr()
+    _data_rules: RawDataRules = PrivateAttr()
 
     def __init__(self, data_rules: RawDataRules, **data: Any) -> None:
         super().__init__(**data)
         self._data_rules = data_rules
+
+    @classmethod
+    def __get_validators__(cls) -> Generator[Any, None, None]:
+        yield []  # ignore the validation of RawDataRules attribute
 
     @classmethod
     def from_new_category(
