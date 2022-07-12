@@ -81,7 +81,7 @@ jobs:
   release-documentation:
     needs: [ validate-git-tag, release-pypi-manylinux, release-pypi-mac-windows ]
     runs-on: ubuntu-latest
-    container: quay.io/pypa/manylinux2010_x86_64:2020-12-31-4928808
+    container: quay.io/pypa/manylinux2014_x86_64:2020-12-31-56195b3
     permissions:
       contents: write
     steps:
