@@ -1,3 +1,4 @@
+#![allow(clippy::borrow_deref_ref)]
 extern crate pyo3;
 
 use metadata_guardian::DataRule;

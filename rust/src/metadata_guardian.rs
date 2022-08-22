@@ -32,7 +32,7 @@ pub enum MetadataGuardianError {
 }
 
 /// A Data Rule instance specify a specific rule with a regex pattern.
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct DataRule {
     /// Name of the rule
     pub rule_name: String,
@@ -54,7 +54,7 @@ impl DataRule {
 }
 
 /// A Data Rules specifies all the regex to apply based on one category.
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
 pub struct DataRules {
     /// Category of the regex
     pub category: String,
@@ -185,7 +185,7 @@ impl DataRules {
 }
 
 /// Metadata Guardian results.
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct MetadataGuardianResults<'a> {
     /// Content matched the rule.
     pub category: &'a str,
