@@ -1,10 +1,10 @@
 [package]
 name = "metadata_guardian-python"
-version = "0.2.6"
+version = "0.2.7"
 authors = ["Florian Valeye <fvaleye@github.com>"]
 homepage = "https://fvaleye.github.io/metadata-guardian/python"
 license = "Apache-2.0"
-description = "Data Guardian Python binding"
+description = "Metadata Guardian Python binding"
 edition = "2021"
 keywords = ["pii", "inclusion", "biais", "metadata_dataguardian", "metadata", "guardian"]
 
