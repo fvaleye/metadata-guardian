@@ -99,8 +99,12 @@ jobs:
       - name: Setup
         run: make setup
 
-      - name: Install metadataguardian
-        run: make install MATURIN_EXTRA_ARGS="--manylinux off"
+      - name: Install metadata guardian
+        run: |
+          pip install virtualenv
+          virtualenv venv
+          source venv/bin/activate
+          make develop
 
       - name: Build and Publish Sphinx documentation
         run: |
