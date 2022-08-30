@@ -1,8 +1,10 @@
-#![allow(clippy::borrow_deref_ref)]
 extern crate pyo3;
 
-use metadata_guardian::DataRule;
-use metadata_guardian::DataRules;
+use ::metadata_guardian::crate_version;
+use ::metadata_guardian::DataRule;
+use ::metadata_guardian::DataRules;
+use ::metadata_guardian::MetadataGuardianError;
+use ::metadata_guardian::MetadataGuardianResults;
 use pyo3::create_exception;
 use pyo3::exceptions::PyException;
 use pyo3::prelude::*;
@@ -12,7 +14,7 @@ create_exception!(metadata_guardian, PyMetadataGuardianError, PyException);
 /// Python Metadata Guardian Errors.
 impl PyMetadataGuardianError {
     /// Errors from the MetadataGuardian crate
-    fn from_raw(err: metadata_guardian::MetadataGuardianError) -> pyo3::PyErr {
+    fn from_raw(err: MetadataGuardianError) -> PyErr {
         PyMetadataGuardianError::new_err(err.to_string())
     }
 }
@@ -21,7 +23,7 @@ impl PyMetadataGuardianError {
 #[pyclass]
 struct RawDataRules {
     /// Data rules used by the Metadata Guardian.
-    _data_rules: metadata_guardian::DataRules,
+    _data_rules: DataRules,
 }
 
 /// Raw Data Rule for Python binding.
@@ -54,10 +56,8 @@ struct RawMetadataGuardianResults {
 }
 
 /// Create RawMetadataGuardianResults form MetadataGuardianResults
-impl<'a> From<&metadata_guardian::MetadataGuardianResults<'a>> for RawMetadataGuardianResults {
-    fn from(
-        metadata_guardian_results: &metadata_guardian::MetadataGuardianResults,
-    ) -> RawMetadataGuardianResults {
+impl<'a> From<&MetadataGuardianResults<'a>> for RawMetadataGuardianResults {
+    fn from(metadata_guardian_results: &MetadataGuardianResults) -> RawMetadataGuardianResults {
         RawMetadataGuardianResults {
             _category: metadata_guardian_results.category.to_string(),
             _content: metadata_guardian_results.content.to_string(),
@@ -92,7 +92,7 @@ impl RawDataRules {
     /// Create a new Raw Data Rules instance.
     #[new]
     fn new(category: &str, data_rules: Vec<RawDataRule>) -> PyResult<RawDataRules> {
-        let data_rules = metadata_guardian::DataRules {
+        let data_rules = DataRules {
             category: category.to_string(),
             data_rules: data_rules
                 .iter()
@@ -157,7 +157,7 @@ impl RawDataRules {
 
 #[pyfunction]
 fn rust_core_version() -> &'static str {
-    metadata_guardian::crate_version()
+    crate_version()
 }
 
 #[pymodule]
