@@ -1,6 +1,7 @@
 from unittest.mock import Mock, patch
 
-from deltalake import Field, Schema
+from deltalake import DataType, Field, Schema
+from deltalake.schema import PrimitiveType
 
 from metadata_guardian.source import ColumnMetadata, DeltaTableSource
 
@@ -11,19 +12,18 @@ def test_deltatable_source_get_column_names(mock_connection):
     schema = Schema(
         fields=[
             Field(
-                name="timestamp",
-                type="string",
-                nullable=False,
-                metadata={"comment": "comment1"},
+                "timestamp",
+                PrimitiveType("timestamp"),
+                False,
+                {"comment": "comment1"},
             ),
             Field(
-                name="address_id",
-                type="int",
-                nullable=False,
-                metadata={"comment": "comment2"},
+                "address_id",
+                PrimitiveType("integer"),
+                False,
+                {"comment": "comment2"},
             ),
         ],
-        json_value={},
     )
     mock_connection.schema.return_value = schema
     expected = [
@@ -51,19 +51,18 @@ def test_deltatable_source_get_column_names_from_database_and_table(mock_connect
     schema = Schema(
         fields=[
             Field(
-                name="timestamp",
-                type="string",
-                nullable=False,
-                metadata={"comment": "comment1"},
+                "timestamp",
+                PrimitiveType("timestamp"),
+                False,
+                {"comment": "comment1"},
             ),
             Field(
-                name="address_id",
-                type="int",
-                nullable=False,
-                metadata={"comment": "comment2"},
+                "address_id",
+                PrimitiveType("integer"),
+                False,
+                {"comment": "comment2"},
             ),
         ],
-        json_value={},
     )
     mock_connection.return_value = mock_connection
     mock_connection.schema.return_value = schema
