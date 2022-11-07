@@ -9,7 +9,7 @@ description = "MetadataGuardian is used to protect data by searching the source 
 edition = "2021"
 
 [dependencies]
-regex = { version = "1.5.4", features = ["std"] }
+regex = { version = "1.7.0", features = ["std"] }
 serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9.14"
 thiserror = "1"
