@@ -15,7 +15,7 @@ def get_local_source(source: str, path: str) -> LocalMetadataSource:
         raise ValueError(f"This source is not available in the list: {sources}")
 
     try:
-        selected_source = next(
+        selected_source = next(  # type: ignore
             cls for cls in LocalMetadataSource.__subclasses__() if cls.type() == source
         )(local_path=path)
     except Exception as exception:

@@ -38,6 +38,7 @@ class MetadataSource(BaseModel, ABC):
     """Metadata Source contract."""
 
     @classmethod
+    @abstractmethod
     def type(cls) -> str:
         """
         The type of the source.
