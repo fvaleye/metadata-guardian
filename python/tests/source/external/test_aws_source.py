@@ -27,7 +27,9 @@ def test_athena_source_get_column_names(mock_connection):
         ColumnMetadata(column_name="address_id", column_comment="comment2"),
     ]
 
-    column_names = AthenaSource(s3_staging_dir=s3_staging_dir,).get_column_names(
+    column_names = AthenaSource(
+        s3_staging_dir=s3_staging_dir,
+    ).get_column_names(
         database_name=database_name, table_name=table_name, include_comment=True
     )
 
