@@ -48,7 +48,8 @@ devel = [
     "pytest-clarity",
     "sphinx",
     "pydata-sphinx-theme",
-    "toml"
+    "toml",
+    "autodoc_pydantic"
 ]
 
 [project.urls]
