@@ -1,5 +1,5 @@
 [build-system]
-requires = ["maturin==0.13.2"]
+requires = ["maturin==1.2.3"]
 build-backend = "maturin"
 
 [project]
@@ -9,8 +9,8 @@ author_email="fvaleye@github.com"
 description = "MetadataGuardian is used to protect data by searching the source metadata."
 readme = "README.md"
 license = {file = "LICENSE.txt"}
-requires-python = ">=3.7"
-keywords = ["pii", "inclusion", "biais", "metadata_dataguardian", "metadata", "guardian"]
+requires-python = ">=3.8"
+keywords = ["pii", "metadata", "guardian", "data"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: Apache Software License",

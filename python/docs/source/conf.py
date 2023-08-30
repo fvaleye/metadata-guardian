@@ -32,7 +32,7 @@ def get_release_version() -> str:
 # -- Project information -----------------------------------------------------
 
 project = "metadata-guardian"
-copyright = "2021 Metadata Guardian contributors"
+copyright = "2023 Metadata Guardian contributors"
 author = "Florian Valeye"
 version = get_release_version()
 
@@ -41,7 +41,7 @@ version = get_release_version()
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.autodoc", "edit_on_github"]
+extensions = ["sphinxcontrib.autodoc_pydantic", "sphinx.ext.autodoc", "edit_on_github"]
 autodoc_typehints = "description"
 nitpicky = True
 nitpick_ignore = [
@@ -54,6 +54,7 @@ nitpick_ignore = [
     ("py:class", "mypy_boto3_glue.client.GlueClient"),
     ("py:class", "snowflake.connector.connection.SnowflakeConnection"),
     ("py:class", "deltalake.data_catalog.DataCatalog"),
+    ("py:class", "BaseModel"),
     (
         "py:class",
         "confluent_kafka.schema_registry.schema_registry_client.SchemaRegistryClient",
@@ -91,3 +92,5 @@ html_static_path = ["_static"]
 edit_on_github_project = "fvaleye/MetadataGuardian"
 edit_on_github_branch = "main"
 page_source_prefix = "python/docs/source"
+autodoc_pydantic_model_show_json = False
+autodoc_pydantic_settings_show_json = False
