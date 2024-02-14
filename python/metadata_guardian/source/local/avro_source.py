@@ -37,9 +37,11 @@ if AVRO_INSTALLED:
             reader = self.read()
             schema = json.loads(reader.meta["avro.schema"])
             return [
-                ColumnMetadata(column_name=str(field[attribute_name]))
-                if attribute_name in field
-                else None
+                (
+                    ColumnMetadata(column_name=str(field[attribute_name]))
+                    if attribute_name in field
+                    else None
+                )
                 for field in schema["fields"]
             ]
 

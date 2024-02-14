@@ -28,10 +28,10 @@ def test_deltatable_source_get_column_names(mock_connection):
     mock_connection.schema.return_value = schema
     expected = [
         ColumnMetadata(
-            column_name="timestamp", column_comment="{'comment': 'comment1'}"
+            column_name="timestamp", column_comment='{\'comment\': \'"comment1"\'}'
         ),
         ColumnMetadata(
-            column_name="address_id", column_comment="{'comment': 'comment2'}"
+            column_name="address_id", column_comment='{\'comment\': \'"comment2"\'}'
         ),
     ]
 
@@ -68,10 +68,10 @@ def test_deltatable_source_get_column_names_from_database_and_table(mock_connect
     mock_connection.schema.return_value = schema
     expected = [
         ColumnMetadata(
-            column_name="timestamp", column_comment="{'comment': 'comment1'}"
+            column_name="timestamp", column_comment='{\'comment\': \'"comment1"\'}'
         ),
         ColumnMetadata(
-            column_name="address_id", column_comment="{'comment': 'comment2'}"
+            column_name="address_id", column_comment='{\'comment\': \'"comment2"\'}'
         ),
     ]
 
