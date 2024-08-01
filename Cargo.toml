@@ -3,3 +3,4 @@ members = [
     "rust",
     "python"
 ]
+resolver = "2"
