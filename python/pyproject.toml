@@ -10,7 +10,7 @@ description = "MetadataGuardian is used to protect data by searching the source 
 readme = "README.md"
 dynamic = ["version"]
 license = {file = "LICENSE.txt"}
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 keywords = ["pii", "metadata", "guardian", "data"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -30,7 +30,7 @@ metadata-guardian = "metadata_guardian.cli:main"
 
 
 [project.optional-dependencies]
-all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery", "confluent-kafka", "PyMySQL", "types-PyMySQL", "pandas"]
+all = ["avro", "snowflake-connector-python", "boto3", "boto3-stubs[athena,glue]", "deltalake", "google-cloud-bigquery", "confluent-kafka[schemaregistry]", "PyMySQL", "types-PyMySQL", "pandas"]
 snowflake = [ "snowflake-connector-python" ]
 avro = [ "avro" ]
 aws = [ "boto3", "boto3-stubs[athena,glue]" ]
