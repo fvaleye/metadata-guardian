@@ -158,7 +158,7 @@ impl DataRules {
 
         let results = reader
             .lines()
-            .filter_map(|line: Result<String, _>| line.ok())
+            .map_while(Result::ok)
             .par_bridge()
             .fold(Vec::new, |mut accumulator, content| {
                 let patterns_matched = regex_set.matches(&content).into_iter();

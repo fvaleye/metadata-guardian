@@ -19,7 +19,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install Rust
         run: |
@@ -50,7 +50,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.9
 
       - name: Install Rust
         run: |
@@ -59,7 +59,7 @@ jobs:
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Enable manylinux Python targets
-        run: echo "/opt/python/cp38-cp38m/bin" >> $GITHUB_PATH
+        run: echo "/opt/python/cp39-cp39m/bin" >> $GITHUB_PATH
 
       - name: Install metadata guardian
         run: |
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.8', '3.9', '3.10']
+        python-version: ['3.9', '3.10', '3.11', '3.12']
 
     steps:
       - uses: actions/checkout@v3

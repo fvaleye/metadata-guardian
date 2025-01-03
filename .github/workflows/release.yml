@@ -30,14 +30,14 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - macOS-10.15
-          - macOS-11
+          - macOS-12
+          - macOS-13
           - windows-2019
         include:
           - target: x86_64-apple-darwin
-            os: macOS-10.15
+            os: macOS-12
           - target: aarch64-apple-darwin
-            os: macOS-11
+            os: macOS-13
           - target: x86_64-pc-windows-msvc
             os: windows-2019
     runs-on: ${{ matrix.os }}
@@ -94,7 +94,7 @@ jobs:
           echo "$HOME/.cargo/bin" >> $GITHUB_PATH
 
       - name: Enable manylinux Python targets
-        run: echo "/opt/python/cp37-cp37m/bin" >> $GITHUB_PATH
+        run: echo "/opt/python/cp39-cp39m/bin" >> $GITHUB_PATH
 
       - name: Setup
         run: make setup

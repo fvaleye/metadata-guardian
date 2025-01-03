@@ -16,8 +16,8 @@ crate-type = ["cdylib"]
 env_logger = "0"
 
 [dependencies.pyo3]
-version = "0.22.2"
-features = ["extension-module", "abi3", "abi3-py37"]
+version = "0.23.3"
+features = ["extension-module", "abi3", "abi3-py39"]
 
 [dependencies.metadata_guardian]
 path = "../rust"
