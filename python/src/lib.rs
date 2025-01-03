@@ -56,7 +56,7 @@ struct RawMetadataGuardianResults {
 }
 
 /// Create RawMetadataGuardianResults form MetadataGuardianResults
-impl<'a> From<&MetadataGuardianResults<'a>> for RawMetadataGuardianResults {
+impl From<&MetadataGuardianResults<'_>> for RawMetadataGuardianResults {
     fn from(metadata_guardian_results: &MetadataGuardianResults) -> RawMetadataGuardianResults {
         RawMetadataGuardianResults {
             _category: metadata_guardian_results.category.to_string(),
@@ -110,7 +110,7 @@ impl RawDataRules {
 
     /// Create a new Raw Data Rules instance from path.
     #[classmethod]
-    fn from_path(_cls: &PyType, path: &str) -> PyResult<Self> {
+    fn from_path(_cls: &Bound<'_, PyType>, path: &str) -> PyResult<Self> {
         let data_rules = DataRules::from_path(path).map_err(PyMetadataGuardianError::from_raw)?;
         Ok(RawDataRules {
             _data_rules: data_rules,
@@ -118,7 +118,8 @@ impl RawDataRules {
     }
 
     /// Validate a list of words using the data rules already defined.
-    pub fn validate_words(&self, words: Vec<&str>) -> PyResult<Vec<RawMetadataGuardianResults>> {
+    pub fn validate_words(&self, words: Vec<String>) -> PyResult<Vec<RawMetadataGuardianResults>> {
+        let words: Vec<&str> = words.iter().map(AsRef::as_ref).collect();
         let data_rules = self
             ._data_rules
             .validate_words(words)
@@ -161,15 +162,11 @@ fn rust_core_version() -> &'static str {
 }
 
 #[pymodule]
-fn metadata_guardian(py: Python, module: &PyModule) -> PyResult<()> {
-    env_logger::Builder::from_env(env_logger::Env::default().default_filter_or("warn")).init();
-    module.add_function(pyo3::wrap_pyfunction!(rust_core_version, module)?)?;
-    module.add_class::<RawDataRule>()?;
-    module.add_class::<RawDataRules>()?;
-    module.add_class::<RawMetadataGuardianResults>()?;
-    module.add(
-        "MetadataGuardianError",
-        py.get_type::<PyMetadataGuardianError>(),
-    )?;
+fn metadata_guardian(m: &Bound<'_, PyModule>) -> PyResult<()> {
+    m.add_function(wrap_pyfunction!(rust_core_version, m)?)?;
+    m.add_class::<RawDataRule>()?;
+    m.add_class::<RawDataRules>()?;
+    m.add_class::<RawMetadataGuardianResults>()?;
+    m.add("MetadataGuardianError", m.get_type())?;
     Ok(())
 }

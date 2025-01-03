@@ -1,5 +1,5 @@
 [build-system]
-requires = ["maturin==1.2.3"]
+requires = ["maturin==1.8.1"]
 build-backend = "maturin"
 
 [project]
@@ -8,6 +8,7 @@ author = "Florian Valeye"
 author_email="fvaleye@github.com"
 description = "MetadataGuardian is used to protect data by searching the source metadata."
 readme = "README.md"
+dynamic = ["version"]
 license = {file = "LICENSE.txt"}
 requires-python = ">=3.8"
 keywords = ["pii", "metadata", "guardian", "data"]
