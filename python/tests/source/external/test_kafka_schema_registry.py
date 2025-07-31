@@ -43,6 +43,7 @@ def test_kafka_schema_registry_source_get_column_names(mock_connection):
         schema=Schema(schema_str, "AVRO", []),
         subject=subject_name,
         version=1,
+        guid="test-guid-123",
     )
     mock_connection.get_latest_version.return_value = schema
     source._connection = mock_connection

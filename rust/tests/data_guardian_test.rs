@@ -11,7 +11,7 @@ fn test_validate_word_with_pii_should_not_contain_results() {
         DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "no pii";
     let category = "PII";
-    let result = data_guardian.validate_word(content).unwrap();
+    let result = data_guardian.validate_word(content);
     assert_eq!(result.category, category);
     assert_eq!(result.content, content);
     assert_eq!(result.data_rules.len(), 0);
@@ -27,7 +27,7 @@ fn test_validate_word_with_pii_should_contains_results() {
         DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "test@gmail.com";
     let category = "PII";
-    let result = data_guardian.validate_word(content).unwrap();
+    let result = data_guardian.validate_word(content);
     let data_rules = vec![DataRule {
         pattern: "([a-z0-9!#$%&'*+/=?^_`{|.}~-]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)".to_string(),
         documentation: "The email is a personal identifiable information.\n".to_string(),
@@ -48,7 +48,7 @@ fn test_validate_word_with_inclusion_should_contains_results() {
         DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = "master";
     let category = "INCLUSION";
-    let result = data_guardian.validate_word(content).unwrap();
+    let result = data_guardian.validate_word(content);
     let data_rules = vec![DataRule {
         pattern: "\\b(slave|master|mastership)\\b".to_string(),
         documentation: "\"Master–slave\" is an offensive and exclusionary metaphor that cannot be detached from American\nhistory. Prefer describing a hierarchical relationship between nodes more precisely. Prefer using\nleader/follower, primary/replica or primary/standby.\n".to_string(),
@@ -69,7 +69,7 @@ fn test_validate_words_with_inclusion_should_contains_results() {
         DataRules::from_path(&path.into_os_string().into_string().unwrap()).unwrap();
     let content = vec!["no error", "no error 2", "master"];
     let category = "INCLUSION";
-    let results = data_guardian.validate_words(content).unwrap();
+    let results = data_guardian.validate_words(content);
     let data_rules = vec![DataRule {
         pattern: "\\b(slave|master|mastership)\\b".to_string(),
         documentation: "\"Master–slave\" is an offensive and exclusionary metaphor that cannot be detached from American\nhistory. Prefer describing a hierarchical relationship between nodes more precisely. Prefer using\nleader/follower, primary/replica or primary/standby.\n".to_string(),

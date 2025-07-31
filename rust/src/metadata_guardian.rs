@@ -54,77 +54,82 @@ impl DataRule {
 }
 
 /// A Data Rules specifies all the regex to apply based on one category.
-#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct DataRules {
     /// Category of the regex
     pub category: String,
     /// All the data rules
     pub data_rules: Vec<DataRule>,
+    /// Compiled regex set (not serialized, reconstructed after deserialization)
+    #[serde(skip)]
+    regex_set: RegexSet,
 }
+
+impl PartialEq for DataRules {
+    fn eq(&self, other: &Self) -> bool {
+        self.category == other.category && self.data_rules == other.data_rules
+    }
+}
+
+impl Eq for DataRules {}
 
 impl DataRules {
     /// Create a new Data Rules.
-    pub fn new(category: &str, data_rules: Vec<DataRule>) -> Self {
-        DataRules {
+    pub fn new(category: &str, data_rules: Vec<DataRule>) -> Result<Self, MetadataGuardianError> {
+        let patterns: Vec<&str> = data_rules.iter().map(|dr| dr.pattern.as_str()).collect();
+        let regex_set = RegexSet::new(&patterns)?;
+
+        Ok(DataRules {
             category: category.to_string(),
             data_rules,
-        }
+            regex_set,
+        })
     }
 
     /// Create a new Data Rules from a path.
     pub fn from_path(path: &str) -> Result<Self, MetadataGuardianError> {
         let file = std::fs::File::open(path)?;
-        let data_rules: DataRules = serde_yaml::from_reader(file)?;
-        Ok(data_rules)
+
+        // Deserialize into a temporary struct that doesn't have the regex_set field
+        #[derive(Deserialize)]
+        struct TempDataRules {
+            category: String,
+            data_rules: Vec<DataRule>,
+        }
+
+        let temp: TempDataRules = serde_yaml::from_reader(file)?;
+        Self::new(&temp.category, temp.data_rules)
     }
 
     /// Validate a word based on the data rules.
-    pub fn validate_word<'a>(
-        &'a self,
-        word: &'a str,
-    ) -> Result<MetadataGuardianResults<'a>, MetadataGuardianError> {
-        let patterns: Vec<&str> = self
-            .data_rules
-            .iter()
-            .map(|dr| dr.pattern.as_ref())
-            .collect();
-        let regex_set = RegexSet::new(&patterns)?;
-        let result = regex_set.matches(word).into_iter().collect::<Vec<usize>>();
-        Ok(MetadataGuardianResults {
+    pub fn validate_word<'a>(&'a self, word: &'a str) -> MetadataGuardianResults<'a> {
+        let matched_indices: Vec<usize> = self.regex_set.matches(word).into_iter().collect();
+        MetadataGuardianResults {
             category: &self.category,
             content: word.to_string(),
             data_rules: self
                 .data_rules
                 .iter()
                 .enumerate()
-                .filter(|(index, _)| result.contains(index))
+                .filter(|(index, _)| matched_indices.contains(index))
                 .map(|(_, dr)| dr)
                 .collect(),
-        })
+        }
     }
 
     /// Validate a list of words based on the data rules.
-    pub fn validate_words<'a>(
-        &'a self,
-        words: Vec<&'a str>,
-    ) -> Result<Vec<MetadataGuardianResults<'a>>, MetadataGuardianError> {
-        let patterns: Vec<&str> = self
-            .data_rules
-            .iter()
-            .map(|dr| dr.pattern.as_ref())
-            .collect();
-        let regex_set = RegexSet::new(&patterns).unwrap();
-
-        let results = words
+    pub fn validate_words<'a>(&'a self, words: Vec<&'a str>) -> Vec<MetadataGuardianResults<'a>> {
+        words
             .into_iter()
             .filter(|line| !line.is_empty())
             .par_bridge()
             .fold(Vec::new, |mut accumulator, content| {
-                let data_rules = regex_set
+                let data_rules: Vec<&DataRule> = self
+                    .regex_set
                     .matches(content)
                     .into_iter()
                     .map(|index| &self.data_rules[index])
-                    .collect::<Vec<&DataRule>>();
+                    .collect();
                 if !data_rules.is_empty() {
                     accumulator.push(MetadataGuardianResults {
                         category: &self.category,
@@ -137,9 +142,7 @@ impl DataRules {
             .reduce(Vec::new, |mut vector_1, mut vector_2| {
                 vector_1.append(&mut vector_2);
                 vector_1
-            });
-
-        Ok(results)
+            })
     }
 
     /// Validate a file content based on the data rules.
@@ -147,13 +150,7 @@ impl DataRules {
         &'a self,
         uri: &'a str,
     ) -> Result<Vec<MetadataGuardianResults<'a>>, MetadataGuardianError> {
-        let patterns: Vec<&str> = self
-            .data_rules
-            .iter()
-            .map(|dr| dr.pattern.as_ref())
-            .collect();
         let file = File::open(uri)?;
-        let regex_set = RegexSet::new(&patterns)?;
         let reader = BufReader::new(file);
 
         let results = reader
@@ -161,11 +158,12 @@ impl DataRules {
             .map_while(Result::ok)
             .par_bridge()
             .fold(Vec::new, |mut accumulator, content| {
-                let patterns_matched = regex_set.matches(&content).into_iter();
-                let data_rules = patterns_matched
+                let data_rules: Vec<&DataRule> = self
+                    .regex_set
+                    .matches(&content)
                     .into_iter()
                     .map(|index| &self.data_rules[index])
-                    .collect::<Vec<&DataRule>>();
+                    .collect();
                 if !data_rules.is_empty() {
                     accumulator.push(MetadataGuardianResults {
                         category: &self.category,

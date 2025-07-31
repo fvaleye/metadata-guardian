@@ -92,17 +92,17 @@ impl RawDataRules {
     /// Create a new Raw Data Rules instance.
     #[new]
     fn new(category: &str, data_rules: Vec<RawDataRule>) -> PyResult<RawDataRules> {
-        let data_rules = DataRules {
-            category: category.to_string(),
-            data_rules: data_rules
-                .iter()
-                .map(|data_rule| DataRule {
-                    rule_name: data_rule.rule_name.clone(),
-                    pattern: data_rule.pattern.clone(),
-                    documentation: data_rule.documentation.clone(),
-                })
-                .collect(),
-        };
+        let rust_data_rules: Vec<DataRule> = data_rules
+            .iter()
+            .map(|data_rule| DataRule {
+                rule_name: data_rule.rule_name.clone(),
+                pattern: data_rule.pattern.clone(),
+                documentation: data_rule.documentation.clone(),
+            })
+            .collect();
+
+        let data_rules =
+            DataRules::new(category, rust_data_rules).map_err(PyMetadataGuardianError::from_raw)?;
         Ok(RawDataRules {
             _data_rules: data_rules,
         })
@@ -120,10 +120,7 @@ impl RawDataRules {
     /// Validate a list of words using the data rules already defined.
     pub fn validate_words(&self, words: Vec<String>) -> PyResult<Vec<RawMetadataGuardianResults>> {
         let words: Vec<&str> = words.iter().map(AsRef::as_ref).collect();
-        let data_rules = self
-            ._data_rules
-            .validate_words(words)
-            .map_err(PyMetadataGuardianError::from_raw)?;
+        let data_rules = self._data_rules.validate_words(words);
         Ok(data_rules
             .iter()
             .map(|metadata_guardian_results| {
@@ -134,10 +131,7 @@ impl RawDataRules {
 
     /// Validate the word using the data rules already defined.
     pub fn validate_word(&self, word: &str) -> PyResult<RawMetadataGuardianResults> {
-        let metadata_guardian_result = self
-            ._data_rules
-            .validate_word(word)
-            .map_err(PyMetadataGuardianError::from_raw)?;
+        let metadata_guardian_result = self._data_rules.validate_word(word);
         Ok(RawMetadataGuardianResults::from(&metadata_guardian_result))
     }
 

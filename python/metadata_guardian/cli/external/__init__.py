@@ -11,7 +11,7 @@ from ...source.external.external_metadata_source import ExternalMetadataSource
 app = typer.Typer()
 
 
-def get_external_source(source: str, configuration) -> ExternalMetadataSource:  # type: ignore
+def get_external_source(source: str, configuration: str) -> ExternalMetadataSource:
     sources = list(displayed=False)
     if source not in sources:
         raise ValueError(f"This source is not available in the list: {sources}")
@@ -37,12 +37,11 @@ def list(displayed: bool = True) -> List[str]:
 
 
 @app.command(help="Scan async the external metadata sources with the ColumnScanner")
-# type: ignore
 def scan_async(
     external_source: str,
     database_name: str,
     data_rules_path: str,
-    configuration,
+    configuration: str,
     table_name: Optional[str] = None,
     include_comments: bool = False,
 ) -> None:
@@ -66,12 +65,11 @@ def scan_async(
 
 
 @app.command(help="Scan the external metadata sources with the ColumnScanner")
-# type: ignore
 def scan(
     external_source: str,
     database_name: str,
     data_rules_path: str,
-    configuration,
+    configuration: str,
     table_name: Optional[str] = None,
     include_comments: bool = False,
 ) -> None:
