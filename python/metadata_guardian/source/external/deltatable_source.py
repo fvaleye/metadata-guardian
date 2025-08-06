@@ -10,7 +10,7 @@ from .external_metadata_source import (
 )
 
 try:
-    from deltalake import DataCatalog, DeltaTable
+    from deltalake import DeltaTable
 
     DELTA_LAKE_INSTALLED = True
 except ImportError:
@@ -21,8 +21,6 @@ if DELTA_LAKE_INSTALLED:
 
     class DeltaTableSource(ExternalMetadataSource):
         uri: str
-        data_catalog: DataCatalog = DataCatalog.AWS
-        external_data_catalog_disable: bool = True
         extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
@@ -51,17 +49,7 @@ if DELTA_LAKE_INSTALLED:
             :return: the list of the column names
             """
             try:
-                if (
-                    not self.external_data_catalog_disable
-                    and database_name
-                    and table_name
-                ):
-                    self._connection = DeltaTable.from_data_catalog(
-                        data_catalog=self.data_catalog,
-                        database_name=database_name,
-                        table_name=table_name,
-                    )
-                elif not self._connection:
+                if not self._connection:
                     self.create_connection()
                 schema = self._connection.schema()
                 for field in schema.fields:

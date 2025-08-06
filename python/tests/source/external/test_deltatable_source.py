@@ -28,57 +28,15 @@ def test_deltatable_source_get_column_names(mock_connection):
     mock_connection.schema.return_value = schema
     expected = [
         ColumnMetadata(
-            column_name="timestamp", column_comment="{'comment': '\"comment1\"'}"
+            column_name="timestamp", column_comment="{'comment': 'comment1'}"
         ),
         ColumnMetadata(
-            column_name="address_id", column_comment="{'comment': '\"comment2\"'}"
+            column_name="address_id", column_comment="{'comment': 'comment2'}"
         ),
     ]
 
     delta_table = DeltaTableSource(uri=uri)
     delta_table._connection = mock_connection
     column_names = delta_table.get_column_names(include_comment=True)
-
-    assert list(column_names) == expected
-
-
-@patch("deltalake.DeltaTable.from_data_catalog")
-def test_deltatable_source_get_column_names_from_database_and_table(mock_connection):
-    uri = "s3://test_table"
-    database_name = "database_name"
-    table_name = "table_name"
-    external_data_catalog_disable = False
-    schema = Schema(
-        fields=[
-            Field(
-                "timestamp",
-                PrimitiveType("timestamp"),
-                False,
-                {"comment": "comment1"},
-            ),
-            Field(
-                "address_id",
-                PrimitiveType("integer"),
-                False,
-                {"comment": "comment2"},
-            ),
-        ],
-    )
-    mock_connection.return_value = mock_connection
-    mock_connection.schema.return_value = schema
-    expected = [
-        ColumnMetadata(
-            column_name="timestamp", column_comment="{'comment': '\"comment1\"'}"
-        ),
-        ColumnMetadata(
-            column_name="address_id", column_comment="{'comment': '\"comment2\"'}"
-        ),
-    ]
-
-    column_names = DeltaTableSource(
-        uri=uri, external_data_catalog_disable=external_data_catalog_disable
-    ).get_column_names(
-        database_name=database_name, table_name=table_name, include_comment=True
-    )
 
     assert list(column_names) == expected
