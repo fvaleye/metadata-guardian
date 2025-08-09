@@ -120,10 +120,9 @@ impl DataRules {
     /// Validate a list of words based on the data rules.
     pub fn validate_words<'a>(&'a self, words: Vec<&'a str>) -> Vec<MetadataGuardianResults<'a>> {
         words
-            .into_iter()
+            .into_par_iter()
             .filter(|line| !line.is_empty())
-            .par_bridge()
-            .fold(Vec::new, |mut accumulator, content| {
+            .flat_map(|content| {
                 let data_rules: Vec<&DataRule> = self
                     .regex_set
                     .matches(content)
@@ -131,18 +130,16 @@ impl DataRules {
                     .map(|index| &self.data_rules[index])
                     .collect();
                 if !data_rules.is_empty() {
-                    accumulator.push(MetadataGuardianResults {
+                    Some(MetadataGuardianResults {
                         category: &self.category,
                         content: content.to_string(),
                         data_rules,
-                    });
+                    })
+                } else {
+                    None
                 }
-                accumulator
             })
-            .reduce(Vec::new, |mut vector_1, mut vector_2| {
-                vector_1.append(&mut vector_2);
-                vector_1
-            })
+            .collect()
     }
 
     /// Validate a file content based on the data rules.
@@ -157,26 +154,25 @@ impl DataRules {
             .lines()
             .map_while(Result::ok)
             .par_bridge()
-            .fold(Vec::new, |mut accumulator, content| {
+            .flat_map(|content| {
                 let data_rules: Vec<&DataRule> = self
                     .regex_set
                     .matches(&content)
                     .into_iter()
                     .map(|index| &self.data_rules[index])
                     .collect();
+
                 if !data_rules.is_empty() {
-                    accumulator.push(MetadataGuardianResults {
+                    Some(MetadataGuardianResults {
                         category: &self.category,
                         content,
                         data_rules,
-                    });
+                    })
+                } else {
+                    None
                 }
-                accumulator
             })
-            .reduce(Vec::new, |mut vector_1, mut vector_2| {
-                vector_1.append(&mut vector_2);
-                vector_1
-            });
+            .collect();
 
         Ok(results)
     }
