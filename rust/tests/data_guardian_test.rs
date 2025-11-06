@@ -97,7 +97,7 @@ fn test_validate_file_with_inclusion_should_contains_results() {
     let category = "INCLUSION";
     let path = file.into_os_string().into_string().unwrap();
     let results = data_guardian.validate_file(&path).unwrap();
-    let data_rules = vec![DataRule {
+    let data_rules = [DataRule {
         pattern: "\\b(slave|master|mastership)\\b".to_string(),
         documentation: "\"Master–slave\" is an offensive and exclusionary metaphor that cannot be detached from American\nhistory. Prefer describing a hierarchical relationship between nodes more precisely. Prefer using\nleader/follower, primary/replica or primary/standby.\n".to_string(),
         rule_name: "master".to_string(),
