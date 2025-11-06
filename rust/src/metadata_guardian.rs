@@ -103,17 +103,16 @@ impl DataRules {
 
     /// Validate a word based on the data rules.
     pub fn validate_word<'a>(&'a self, word: &'a str) -> MetadataGuardianResults<'a> {
-        let matched_indices: Vec<usize> = self.regex_set.matches(word).into_iter().collect();
+        let data_rules: Vec<&DataRule> = self
+            .regex_set
+            .matches(word)
+            .into_iter()
+            .map(|index| &self.data_rules[index])
+            .collect();
         MetadataGuardianResults {
             category: &self.category,
             content: word.to_string(),
-            data_rules: self
-                .data_rules
-                .iter()
-                .enumerate()
-                .filter(|(index, _)| matched_indices.contains(index))
-                .map(|(_, dr)| dr)
-                .collect(),
+            data_rules,
         }
     }
 
