@@ -2,16 +2,13 @@ import argparse
 import os
 
 from metadata_guardian import (
-    AvailableCategory,
     ColumnScanner,
     DataRules,
     ExternalMetadataSource,
 )
 from metadata_guardian.source import (
-    AthenaSource,
     BigQuerySource,
     DeltaTableSource,
-    GlueSource,
     KafkaSchemaRegistrySource,
     MySQLSource,
     SnowflakeSource,

@@ -1,5 +1,6 @@
 from abc import abstractmethod
-from typing import Any, Dict, Iterator, List, Optional
+from collections.abc import Iterator
+from typing import Any
 
 from loguru import logger
 from pydantic import PrivateAttr

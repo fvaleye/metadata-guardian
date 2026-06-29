@@ -1,13 +1,13 @@
 import json
-from typing import Any, Dict, Iterator, List, Optional
+from collections.abc import Iterator
 
 from loguru import logger
 
 from .local_metadata_source import ColumnMetadata, LocalMetadataSource
 
 try:
-    from avro.datafile import DataFileReader, DataFileWriter
-    from avro.io import DatumReader, DatumWriter
+    from avro.datafile import DataFileReader
+    from avro.io import DatumReader
 
     AVRO_INSTALLED = True
 
@@ -27,7 +27,7 @@ if AVRO_INSTALLED:
 
         def get_field_attribute(
             self, attribute_name: str
-        ) -> List[Optional[ColumnMetadata]]:
+        ) -> list[ColumnMetadata | None]:
             """
             Get the specific attribute from the AVRO Schema.
 

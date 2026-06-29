@@ -1,4 +1,5 @@
-from typing import Any, Dict, Iterator, List
+from collections.abc import Iterator
+from typing import Any
 
 import pyarrow
 from pyarrow.dataset import Dataset
@@ -13,7 +14,7 @@ class LocalMetadataSource(MetadataSource):
 
     local_path: str
     fs: FileSystem = LocalFileSystem()
-    extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+    extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
     class Config:
         arbitrary_types_allowed = True

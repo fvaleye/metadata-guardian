@@ -1,5 +1,6 @@
+from collections.abc import Iterator
 from enum import Enum
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Any
 
 from loguru import logger
 from pydantic import Field
@@ -12,7 +13,6 @@ from .external_metadata_source import (
 
 try:
     import snowflake.connector
-    from snowflake.connector import SnowflakeConnection
     from snowflake.connector.converter_null import SnowflakeNoConverterToPython
 
     SNOWFLAKE_INSTALLED = True
@@ -37,11 +37,11 @@ if SNOWFLAKE_INSTALLED:
         sf_password: str
         warehouse: str
         schema_name: str
-        okta_account_name: Optional[str] = None
-        oauth_token: Optional[str] = None
-        oauth_host: Optional[str] = None
+        okta_account_name: str | None = None
+        oauth_token: str | None = None
+        oauth_host: str | None = None
         authenticator: SnowflakeAuthenticator = SnowflakeAuthenticator.USER_PWD
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """

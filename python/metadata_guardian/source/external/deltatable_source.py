@@ -1,4 +1,5 @@
-from typing import Any, Dict, Iterator, List, Optional
+from collections.abc import Iterator
+from typing import Any
 
 from loguru import logger
 from pydantic import Field
@@ -21,7 +22,7 @@ if DELTA_LAKE_INSTALLED:
 
     class DeltaTableSource(ExternalMetadataSource):
         uri: str
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -36,8 +37,8 @@ if DELTA_LAKE_INSTALLED:
 
         def get_column_names(
             self,
-            database_name: Optional[str] = None,
-            table_name: Optional[str] = None,
+            database_name: str | None = None,
+            table_name: str | None = None,
             include_comment: bool = False,
         ) -> Iterator[ColumnMetadata]:
             """

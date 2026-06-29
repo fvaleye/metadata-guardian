@@ -4,3 +4,9 @@ members = [
     "python"
 ]
 resolver = "2"
+
+[workspace.lints.clippy]
+redundant_clone = "warn"
+implicit_clone = "warn"
+use_self = "warn"
+uninlined_format_args = "warn"

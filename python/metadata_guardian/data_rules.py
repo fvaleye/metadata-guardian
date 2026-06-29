@@ -1,6 +1,7 @@
 import importlib.resources
+from collections.abc import Generator
 from enum import Enum
-from typing import Any, Generator, List
+from typing import Any
 
 from loguru import logger
 from pydantic import BaseModel, PrivateAttr
@@ -28,7 +29,7 @@ class MetadataGuardianResults(BaseModel):
 
     category: str
     content: str
-    data_rules: List[DataRule]
+    data_rules: list[DataRule]
 
 
 class DataRules(BaseModel):
@@ -46,7 +47,7 @@ class DataRules(BaseModel):
 
     @classmethod
     def from_new_category(
-        cls, category: str, data_rules: List[DataRule]
+        cls, category: str, data_rules: list[DataRule]
     ) -> "DataRules":
         """
         Create data rules from a given category and data rules.
@@ -118,7 +119,7 @@ class DataRules(BaseModel):
             ],
         )
 
-    def validate_words(self, words: List[str]) -> List[MetadataGuardianResults]:
+    def validate_words(self, words: list[str]) -> list[MetadataGuardianResults]:
         """
         Validate a list of words with the data rules defined.
 
@@ -143,7 +144,7 @@ class DataRules(BaseModel):
             for result in results
         ]
 
-    def validate_file(self, path: str) -> List[MetadataGuardianResults]:
+    def validate_file(self, path: str) -> list[MetadataGuardianResults]:
         """
         Validate a file content with the data rules defined.
 

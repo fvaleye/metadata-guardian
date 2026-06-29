@@ -1,5 +1,3 @@
-from typing import List
-
 import typer
 from loguru import logger
 
@@ -10,7 +8,7 @@ app = typer.Typer()
 
 
 def get_local_source(source: str, path: str) -> LocalMetadataSource:
-    sources = list(displayed=False)
+    sources = list_sources(displayed=False)
     if source not in sources:
         raise ValueError(f"This source is not available in the list: {sources}")
 
@@ -24,8 +22,8 @@ def get_local_source(source: str, path: str) -> LocalMetadataSource:
     return selected_source
 
 
-@app.command(help="List the local metadata sources")
-def list(displayed: bool = True) -> List[str]:
+@app.command("list", help="List the local metadata sources")
+def list_sources(displayed: bool = True) -> list[str]:
     sources = [cls.type() for cls in LocalMetadataSource.__subclasses__()]
     if displayed:
         logger.info(f"Available External sources: {sources}")

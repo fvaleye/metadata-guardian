@@ -2,7 +2,6 @@ import pyarrow as pa
 
 from metadata_guardian import (
     DataRule,
-    DataRules,
     MetadataGuardianReport,
     MetadataGuardianResults,
     ReportResults,

@@ -1,4 +1,5 @@
-from typing import Any, Dict, Iterator, List, Optional, Union
+from collections.abc import Iterator
+from typing import Any
 
 from loguru import logger
 from pydantic import Field
@@ -23,9 +24,9 @@ if GCP_INSTALLED:
         """Instance of a BigQuery source."""
 
         service_account_json_path: str
-        project: Optional[str] = None
-        location: Optional[str] = None
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        project: str | None = None
+        location: str | None = None
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """

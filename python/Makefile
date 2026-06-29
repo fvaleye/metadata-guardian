@@ -38,22 +38,22 @@ format: ## Format the code
 	$(info --- Rust format ---)
 	cargo fmt
 	$(info --- Python format ---)
-	black .
-	isort .
+	ruff check --fix .
+	ruff format .
 
 .PHONY: check-rust
 check-rust: ## Run check on Rust
 	$(info --- Check Rust clippy ---)
-	cargo clippy
+	cargo clippy --all-targets -- -D warnings
 	$(info --- Check Rust format ---)
 	cargo fmt -- --check
 
 .PHONY: check-python
 check-python: ## Run check on Python
-	$(info Check Python isort)
-	isort --diff --check-only .
-	$(info Check Python black)
-	black --check .
+	$(info Check Python ruff lint)
+	ruff check .
+	$(info Check Python ruff format)
+	ruff format --check .
 	$(info Check Python mypy)
 	mypy
 

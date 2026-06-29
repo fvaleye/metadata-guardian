@@ -46,6 +46,7 @@ autodoc_typehints = "description"
 nitpicky = True
 nitpick_ignore = [
     ("py:class", "RawDataRules"),
+    ("py:class", "collections.abc.Iterator"),
     ("py:class", "pyarrow._fs.FileSystem"),
     ("py:class", "pyarrow._dataset.Dataset"),
     ("py:class", "pyarrow.lib.Schema"),

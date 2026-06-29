@@ -15,7 +15,7 @@ create_exception!(metadata_guardian, PyMetadataGuardianError, PyException);
 impl PyMetadataGuardianError {
     /// Errors from the MetadataGuardian crate
     fn from_raw(err: MetadataGuardianError) -> PyErr {
-        PyMetadataGuardianError::new_err(err.to_string())
+        Self::new_err(err.to_string())
     }
 }
 
@@ -27,7 +27,7 @@ struct RawDataRules {
 }
 
 /// Raw Data Rule for Python binding.
-#[pyclass]
+#[pyclass(from_py_object)]
 #[derive(Clone)]
 struct RawDataRule {
     /// Name of the rule
@@ -57,10 +57,10 @@ struct RawMetadataGuardianResults {
 
 /// Create RawMetadataGuardianResults form MetadataGuardianResults
 impl From<&MetadataGuardianResults<'_>> for RawMetadataGuardianResults {
-    fn from(metadata_guardian_results: &MetadataGuardianResults) -> RawMetadataGuardianResults {
-        RawMetadataGuardianResults {
+    fn from(metadata_guardian_results: &MetadataGuardianResults) -> Self {
+        Self {
             _category: metadata_guardian_results.category.to_string(),
-            _content: metadata_guardian_results.content.to_string(),
+            _content: metadata_guardian_results.content.clone(),
             _data_rules: metadata_guardian_results
                 .data_rules
                 .iter()
@@ -78,8 +78,8 @@ impl From<&MetadataGuardianResults<'_>> for RawMetadataGuardianResults {
 impl RawDataRule {
     /// Create a new Raw Data Rule instance.
     #[new]
-    fn new(rule_name: &str, pattern: &str, documentation: &str) -> PyResult<RawDataRule> {
-        Ok(RawDataRule {
+    fn new(rule_name: &str, pattern: &str, documentation: &str) -> PyResult<Self> {
+        Ok(Self {
             rule_name: rule_name.to_string(),
             pattern: pattern.to_string(),
             documentation: documentation.to_string(),
@@ -91,7 +91,7 @@ impl RawDataRule {
 impl RawDataRules {
     /// Create a new Raw Data Rules instance.
     #[new]
-    fn new(category: &str, data_rules: Vec<RawDataRule>) -> PyResult<RawDataRules> {
+    fn new(category: &str, data_rules: Vec<RawDataRule>) -> PyResult<Self> {
         let rust_data_rules: Vec<DataRule> = data_rules
             .iter()
             .map(|data_rule| DataRule {
@@ -103,7 +103,7 @@ impl RawDataRules {
 
         let data_rules =
             DataRules::new(category, rust_data_rules).map_err(PyMetadataGuardianError::from_raw)?;
-        Ok(RawDataRules {
+        Ok(Self {
             _data_rules: data_rules,
         })
     }
@@ -112,7 +112,7 @@ impl RawDataRules {
     #[classmethod]
     fn from_path(_cls: &Bound<'_, PyType>, path: &str) -> PyResult<Self> {
         let data_rules = DataRules::from_path(path).map_err(PyMetadataGuardianError::from_raw)?;
-        Ok(RawDataRules {
+        Ok(Self {
             _data_rules: data_rules,
         })
     }
@@ -161,6 +161,9 @@ fn metadata_guardian(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_class::<RawDataRule>()?;
     m.add_class::<RawDataRules>()?;
     m.add_class::<RawMetadataGuardianResults>()?;
-    m.add("MetadataGuardianError", m.get_type())?;
+    m.add(
+        "MetadataGuardianError",
+        m.py().get_type::<PyMetadataGuardianError>(),
+    )?;
     Ok(())
 }
