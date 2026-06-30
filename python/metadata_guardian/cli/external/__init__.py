@@ -1,6 +1,4 @@
 import asyncio
-import json
-from typing import Any, List, Optional
 
 import typer
 from loguru import logger
@@ -12,7 +10,7 @@ app = typer.Typer()
 
 
 def get_external_source(source: str, configuration: str) -> ExternalMetadataSource:
-    sources = list(displayed=False)
+    sources = list_sources(displayed=False)
     if source not in sources:
         raise ValueError(f"This source is not available in the list: {sources}")
 
@@ -28,8 +26,8 @@ def get_external_source(source: str, configuration: str) -> ExternalMetadataSour
     return selected_source.parse_raw(configuration)
 
 
-@app.command(help="List the external metadata sources")
-def list(displayed: bool = True) -> List[str]:
+@app.command("list", help="List the external metadata sources")
+def list_sources(displayed: bool = True) -> list[str]:
     sources = [cls.type() for cls in ExternalMetadataSource.__subclasses__()]
     if displayed:
         logger.info(f"Available External sources: {sources}")
@@ -42,7 +40,7 @@ def scan_async(
     database_name: str,
     data_rules_path: str,
     configuration: str,
-    table_name: Optional[str] = None,
+    table_name: str | None = None,
     include_comments: bool = False,
 ) -> None:
     source = get_external_source(source=external_source, configuration=configuration)
@@ -70,7 +68,7 @@ def scan(
     database_name: str,
     data_rules_path: str,
     configuration: str,
-    table_name: Optional[str] = None,
+    table_name: str | None = None,
     include_comments: bool = False,
 ) -> None:
     source = get_external_source(source=external_source, configuration=configuration)

@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterator, List, Optional
+from collections.abc import Iterator
 
 from pyarrow.orc import ORCFile
 

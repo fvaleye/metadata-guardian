@@ -79,7 +79,7 @@ impl DataRules {
         let patterns: Vec<&str> = data_rules.iter().map(|dr| dr.pattern.as_str()).collect();
         let regex_set = RegexSet::new(&patterns)?;
 
-        Ok(DataRules {
+        Ok(Self {
             category: category.to_string(),
             data_rules,
             regex_set,

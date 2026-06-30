@@ -1,7 +1,6 @@
 import asyncio
 import os
 from abc import ABC, abstractmethod
-from typing import Optional
 
 from loguru import logger
 from pyarrow import cpu_count
@@ -32,7 +31,7 @@ class Scanner(BaseModel, ABC):
         self,
         source: ExternalMetadataSource,
         database_name: str,
-        table_name: Optional[str] = None,
+        table_name: str | None = None,
         include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """
@@ -52,7 +51,7 @@ class Scanner(BaseModel, ABC):
         source: ExternalMetadataSource,
         database_name: str,
         tasks_limit: int,
-        table_name: Optional[str] = None,
+        table_name: str | None = None,
         include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """
@@ -110,7 +109,7 @@ class ColumnScanner(Scanner):
         self,
         source: ExternalMetadataSource,
         database_name: str,
-        table_name: Optional[str] = None,
+        table_name: str | None = None,
         include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """
@@ -190,7 +189,7 @@ class ColumnScanner(Scanner):
         source: ExternalMetadataSource,
         database_name: str,
         tasks_limit: int = cpu_count(),
-        table_name: Optional[str] = None,
+        table_name: str | None = None,
         include_comment: bool = False,
     ) -> MetadataGuardianReport:
         """

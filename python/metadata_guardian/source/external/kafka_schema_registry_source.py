@@ -1,6 +1,7 @@
 import json
+from collections.abc import Iterator
 from enum import Enum
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Any
 
 from loguru import logger
 from pydantic import Field
@@ -30,13 +31,13 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
         """Instance of a Kafka Schema Registry source."""
 
         url: str
-        ssl_certificate_location: Optional[str] = None
-        ssl_key_location: Optional[str] = None
+        ssl_certificate_location: str | None = None
+        ssl_key_location: str | None = None
         authenticator: KafkaSchemaRegistryAuthentication = (
             KafkaSchemaRegistryAuthentication.USER_PWD
         )
         comment_field_name: str = "doc"
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -105,7 +106,7 @@ if KAFKA_SCHEMA_REGISTRY_INSTALLED:
                 yield from self._connection.get_subjects()
             except Exception as exception:
                 logger.exception(
-                    f"Error all the subjects from the subject in the Kafka Schema Registry"
+                    "Error all the subjects from the subject in the Kafka Schema Registry"
                 )
                 raise ExternalMetadataSourceException(exception)
 

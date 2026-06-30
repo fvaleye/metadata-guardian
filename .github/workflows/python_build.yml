@@ -14,18 +14,19 @@ jobs:
   format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: '3.11'
 
       - name: Install Rust
-        run: |
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
-          $HOME/.cargo/bin/rustup default stable
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install metadata guardian
         run: |
@@ -45,21 +46,17 @@ jobs:
   unit_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: '3.11'
 
       - name: Install Rust
-        run: |
-          curl https://sh.rustup.rs -sSf | sh -s -- -y
-          $HOME/.cargo/bin/rustup default stable
-          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        uses: dtolnay/rust-toolchain@stable
 
-      - name: Enable manylinux Python targets
-        run: echo "/opt/python/cp39-cp39m/bin" >> $GITHUB_PATH
+      - uses: Swatinem/rust-cache@v2
 
       - name: Install metadata guardian
         run: |
@@ -83,15 +80,20 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.10', '3.11', '3.12', '3.13']
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
 
       - name: Build and install metadata guardian
         run: |

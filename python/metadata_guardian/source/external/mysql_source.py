@@ -1,5 +1,6 @@
+from collections.abc import Iterator
 from enum import Enum
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Any
 
 from loguru import logger
 from pydantic import Field
@@ -31,9 +32,9 @@ if MYSQL_INSTALLED:
         user: str
         password: str
         host: str
-        database: Optional[str] = None
+        database: str | None = None
         authenticator: MySQLAuthenticator = MySQLAuthenticator.USER_PWD
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """

@@ -9,11 +9,10 @@ from metadata_guardian import (
     ExternalMetadataSource,
 )
 from metadata_guardian.source import (
-    AthenaSource,
     BigQuerySource,
     DeltaTableSource,
-    GlueSource,
     KafkaSchemaRegistrySource,
+    MySQLSource,
     SnowflakeSource,
 )
 

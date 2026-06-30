@@ -1,5 +1,3 @@
-from typing import List, NamedTuple, Optional, Tuple
-
 import pyarrow
 from pyarrow import csv
 from pydantic import BaseModel, Field
@@ -10,7 +8,6 @@ from rich.progress import (
     Progress,
     SpinnerColumn,
     TaskID,
-    TextColumn,
     TimeRemainingColumn,
 )
 from rich.table import Table
@@ -23,7 +20,7 @@ class ProgressionBar(Progress):
     Progression Bar provides a progression bar to display the results of the scanner.
     """
 
-    task_id: Optional[TaskID] = None
+    task_id: TaskID | None = None
 
     def __init__(self, disable: bool) -> None:
         super().__init__(
@@ -84,13 +81,13 @@ class ReportResults(BaseModel):
     """Metadata Guardian Results."""
 
     source: str
-    results: List[MetadataGuardianResults] = Field(default_factory=list)
+    results: list[MetadataGuardianResults] = Field(default_factory=list)
 
 
 class MetadataGuardianReport(BaseModel):
     """Metadata Guardian Report."""
 
-    report_results: List[ReportResults] = Field(default_factory=list)
+    report_results: list[ReportResults] = Field(default_factory=list)
 
     def append(self, other_report: "MetadataGuardianReport") -> None:
         """
@@ -136,7 +133,7 @@ class MetadataGuardianReport(BaseModel):
             _console.print(_table)
         else:
             _console.print(
-                f":thumbs_up: No data rules violation were detected by Metadata Guardian."
+                ":thumbs_up: No data rules violation were detected by Metadata Guardian."
             )
 
     def to_csv(self, file_path: str) -> None:

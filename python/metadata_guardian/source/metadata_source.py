@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Iterator, List, Optional
+from collections.abc import Iterator
 
 from pydantic import BaseModel
 
@@ -21,7 +21,7 @@ class ColumnMetadata(Metadata):
     """Column Metadata instance."""
 
     column_name: str
-    column_comment: Optional[str] = None
+    column_comment: str | None = None
 
     def as_list(self) -> Iterator[str]:
         """

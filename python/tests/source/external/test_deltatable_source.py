@@ -1,6 +1,6 @@
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
-from deltalake import DataType, Field, Schema
+from deltalake import Field, Schema
 from deltalake.schema import PrimitiveType
 
 from metadata_guardian.source import ColumnMetadata, DeltaTableSource

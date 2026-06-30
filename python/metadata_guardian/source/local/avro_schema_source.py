@@ -1,4 +1,4 @@
-from typing import Any, Dict, Iterator, List, Optional, Text, Union
+from collections.abc import Iterator
 
 from loguru import logger
 
@@ -18,9 +18,9 @@ if AVRO_INSTALLED:
     class AvroSchemaSource(LocalMetadataSource):
         """Instance for a local Avro Schema file."""
 
-        def read(self) -> Union[Text, bytes]:
+        def read(self) -> str | bytes:
             """Read the AVRO Schema file."""
-            with open(self.local_path, "r") as file:
+            with open(self.local_path) as file:
                 return file.read()
 
         def get_column_names(self) -> Iterator[ColumnMetadata]:

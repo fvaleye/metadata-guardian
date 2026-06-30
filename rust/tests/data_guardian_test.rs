@@ -28,7 +28,7 @@ fn test_validate_word_with_pii_should_contains_results() {
     let content = "test@gmail.com";
     let category = "PII";
     let result = data_guardian.validate_word(content);
-    let data_rules = vec![DataRule {
+    let data_rules = [DataRule {
         pattern: "([a-z0-9!#$%&'*+/=?^_`{|.}~-]+@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)".to_string(),
         documentation: "The email is a personal identifiable information.\n".to_string(),
         rule_name: "email content".to_string(),
@@ -49,7 +49,7 @@ fn test_validate_word_with_inclusion_should_contains_results() {
     let content = "master";
     let category = "INCLUSION";
     let result = data_guardian.validate_word(content);
-    let data_rules = vec![DataRule {
+    let data_rules = [DataRule {
         pattern: "\\b(slave|master|mastership)\\b".to_string(),
         documentation: "\"Master–slave\" is an offensive and exclusionary metaphor that cannot be detached from American\nhistory. Prefer describing a hierarchical relationship between nodes more precisely. Prefer using\nleader/follower, primary/replica or primary/standby.\n".to_string(),
         rule_name: "master".to_string(),
@@ -70,7 +70,7 @@ fn test_validate_words_with_inclusion_should_contains_results() {
     let content = vec!["no error", "no error 2", "master"];
     let category = "INCLUSION";
     let results = data_guardian.validate_words(content);
-    let data_rules = vec![DataRule {
+    let data_rules = [DataRule {
         pattern: "\\b(slave|master|mastership)\\b".to_string(),
         documentation: "\"Master–slave\" is an offensive and exclusionary metaphor that cannot be detached from American\nhistory. Prefer describing a hierarchical relationship between nodes more precisely. Prefer using\nleader/follower, primary/replica or primary/standby.\n".to_string(),
         rule_name: "master".to_string(),

@@ -1,4 +1,5 @@
-from typing import Any, Dict, Iterator, List, Optional
+from collections.abc import Iterator
+from typing import Any
 
 from loguru import logger
 from pydantic import Field
@@ -12,8 +13,6 @@ from .external_metadata_source import (
 try:
     import boto3
     import botocore
-    from mypy_boto3_athena.client import AthenaClient
-    from mypy_boto3_glue.client import GlueClient
 
     AWS_INSTALLED = True
 except ImportError:
@@ -28,10 +27,10 @@ if AWS_INSTALLED:
 
         s3_staging_dir: str
         catalog_name: str = "AWSDataCatalog"
-        region_name: Optional[str] = None
-        aws_access_key_id: Optional[str] = None
-        aws_secret_access_key: Optional[str] = None
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        region_name: str | None = None
+        aws_access_key_id: str | None = None
+        aws_secret_access_key: str | None = None
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
@@ -125,10 +124,10 @@ if AWS_INSTALLED:
     class GlueSource(ExternalMetadataSource):
         """Glue Source instance."""
 
-        region_name: Optional[str] = None
-        aws_access_key_id: Optional[str] = None
-        aws_secret_access_key: Optional[str] = None
-        extra_connection_args: Dict[str, Any] = Field(default_factory=dict)
+        region_name: str | None = None
+        aws_access_key_id: str | None = None
+        aws_secret_access_key: str | None = None
+        extra_connection_args: dict[str, Any] = Field(default_factory=dict)
 
         def create_connection(self) -> None:
             """
