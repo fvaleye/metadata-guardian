@@ -13,7 +13,7 @@ jobs:
     name: Validate the git tag
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
       - name: compare git tag with cargo metadata
         run: |
           TAG=${GITHUB_REF##*/}
@@ -42,7 +42,7 @@ jobs:
             os: windows-2022
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Publish to pypi
         uses: messense/maturin-action@main
@@ -58,7 +58,7 @@ jobs:
     name: PyPI release manylinux
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
       - name: Publish manylinux to pypi x86_64
         uses: messense/maturin-action@main
@@ -85,7 +85,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v7
 
       - name: Install Rust
         run: |
