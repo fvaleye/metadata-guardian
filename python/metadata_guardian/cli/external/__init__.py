@@ -50,16 +50,15 @@ def scan_async(
         data_rules=data_rules, progression_bar_disabled=False
     )
     with source:
-        with source:
-            report = asyncio.run(
-                column_scanner.scan_external_async(
-                    source,
-                    database_name=database_name,
-                    include_comment=include_comments,
-                    table_name=table_name,
-                )
+        report = asyncio.run(
+            column_scanner.scan_external_async(
+                source,
+                database_name=database_name,
+                include_comment=include_comments,
+                table_name=table_name,
             )
-            report.to_console()
+        )
+        report.to_console()
 
 
 @app.command(help="Scan the external metadata sources with the ColumnScanner")

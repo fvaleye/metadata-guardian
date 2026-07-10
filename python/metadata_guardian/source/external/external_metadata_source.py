@@ -28,7 +28,7 @@ class ExternalMetadataSource(MetadataSource):
             raise exception
         return self
 
-    def __exit__(self, exc_type, exc_val, exc_tb) -> "ExternalMetadataSource":  # type: ignore
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:  # type: ignore
         try:
             self.close_connection()
         except Exception as exception:
@@ -36,7 +36,6 @@ class ExternalMetadataSource(MetadataSource):
                 "Error raised while closing the Metadata Source connection"
             )
             raise exception
-        return self
 
     @abstractmethod
     def get_column_names(
