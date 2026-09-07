@@ -55,6 +55,7 @@ impl DataRule {
 
 /// A Data Rules specifies all the regex to apply based on one category.
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(try_from = "DataRulesDefinition")]
 pub struct DataRules {
     /// Category of the regex
     pub category: String,
@@ -63,6 +64,20 @@ pub struct DataRules {
     /// Compiled regex set (not serialized, reconstructed after deserialization)
     #[serde(skip)]
     regex_set: RegexSet,
+}
+
+#[derive(Deserialize)]
+struct DataRulesDefinition {
+    category: String,
+    data_rules: Vec<DataRule>,
+}
+
+impl TryFrom<DataRulesDefinition> for DataRules {
+    type Error = MetadataGuardianError;
+
+    fn try_from(definition: DataRulesDefinition) -> Result<Self, Self::Error> {
+        Self::new(&definition.category, definition.data_rules)
+    }
 }
 
 impl PartialEq for DataRules {
@@ -89,16 +104,8 @@ impl DataRules {
     /// Create a new Data Rules from a path.
     pub fn from_path(path: &str) -> Result<Self, MetadataGuardianError> {
         let file = std::fs::File::open(path)?;
-
-        // Deserialize into a temporary struct that doesn't have the regex_set field
-        #[derive(Deserialize)]
-        struct TempDataRules {
-            category: String,
-            data_rules: Vec<DataRule>,
-        }
-
-        let temp: TempDataRules = serde_yaml::from_reader(file)?;
-        Self::new(&temp.category, temp.data_rules)
+        let definition: DataRulesDefinition = serde_yaml::from_reader(file)?;
+        definition.try_into()
     }
 
     /// Validate a word based on the data rules.
@@ -151,9 +158,12 @@ impl DataRules {
 
         let results = reader
             .lines()
-            .map_while(Result::ok)
             .par_bridge()
-            .flat_map(|content| {
+            .filter_map(|line| {
+                let content = match line {
+                    Ok(content) => content,
+                    Err(error) => return Some(Err(error)),
+                };
                 let data_rules: Vec<&DataRule> = self
                     .regex_set
                     .matches(&content)
@@ -162,16 +172,16 @@ impl DataRules {
                     .collect();
 
                 if !data_rules.is_empty() {
-                    Some(MetadataGuardianResults {
+                    Some(Ok(MetadataGuardianResults {
                         category: &self.category,
                         content,
                         data_rules,
-                    })
+                    }))
                 } else {
                     None
                 }
             })
-            .collect();
+            .collect::<Result<Vec<_>, _>>()?;
 
         Ok(results)
     }
