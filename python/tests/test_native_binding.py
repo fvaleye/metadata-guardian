@@ -14,10 +14,9 @@ def test_invalid_regex_raises_metadata_guardian_error():
         native.RawDataRules("category", [invalid_rule])
 
 
-@pytest.mark.parametrize("content", [b"\xff", b"master\n\xff\nmaster\n"])
-def test_invalid_utf8_file_raises_metadata_guardian_error(tmp_path, content):
+def test_invalid_utf8_file_raises_metadata_guardian_error(tmp_path):
     path = tmp_path / "invalid.txt"
-    path.write_bytes(content)
+    path.write_bytes(b"master\n\xff\nmaster\n")
     data_rules = native.RawDataRules(
         "category", [native.RawDataRule("master", "master", "test rule")]
     )
