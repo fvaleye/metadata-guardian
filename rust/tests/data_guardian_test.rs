@@ -1,4 +1,4 @@
-use metadata_guardian::metadata_guardian::{DataRule, DataRules};
+use metadata_guardian::metadata_guardian::{DataRule, DataRules, MetadataGuardianError};
 use std::path::PathBuf;
 
 #[test]
@@ -110,4 +110,51 @@ fn test_validate_file_with_inclusion_should_contains_results() {
         "unpaid and unfree workers. Any particular slave may fulfill one, several, or"
     );
     assert_eq!(result.data_rules[0], &data_rules[0]);
+}
+
+#[test]
+fn test_deserialize_data_rules_should_match_patterns() {
+    let data_rules: DataRules =
+        serde_yaml::from_str(include_str!("resources/inclusion_rules.yaml")).unwrap();
+
+    let result = data_rules.validate_word("master");
+
+    assert_eq!(result.data_rules.len(), 1);
+    assert_eq!(result.data_rules[0].rule_name, "master");
+}
+
+#[test]
+fn test_deserialize_data_rules_with_invalid_regex_should_fail() {
+    let yaml = "category: test\ndata_rules:\n  - rule_name: invalid\n    pattern: '('\n    documentation: invalid regex\n";
+
+    let error = serde_yaml::from_str::<DataRules>(yaml).unwrap_err();
+
+    assert!(error.to_string().contains("regex parse error"));
+}
+
+#[test]
+fn test_validate_file_with_invalid_utf8_should_return_error() {
+    let data_rules = DataRules::new(
+        "test",
+        vec![DataRule::new(
+            "master".into(),
+            "master".into(),
+            String::new(),
+        )],
+    )
+    .unwrap();
+    let path = std::env::temp_dir().join(format!(
+        "metadata-guardian-invalid-utf8-{}.txt",
+        std::process::id()
+    ));
+    std::fs::write(&path, b"master\n\xff\nmaster\n").unwrap();
+
+    let result = data_rules.validate_file(path.to_str().unwrap());
+    std::fs::remove_file(&path).unwrap();
+
+    assert!(matches!(
+        result,
+        Err(MetadataGuardianError::FileNotFound { source })
+            if source.kind() == std::io::ErrorKind::InvalidData
+    ));
 }
