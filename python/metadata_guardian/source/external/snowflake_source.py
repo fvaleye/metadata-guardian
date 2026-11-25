@@ -13,7 +13,6 @@ from .external_metadata_source import (
 
 try:
     import snowflake.connector
-    from snowflake.connector.converter_null import SnowflakeNoConverterToPython
 
     SNOWFLAKE_INSTALLED = True
 except ImportError:
@@ -55,7 +54,6 @@ if SNOWFLAKE_INSTALLED:
                     user=self.sf_user,
                     password=self.sf_password,
                     warehouse=self.warehouse,
-                    converter_class=SnowflakeNoConverterToPython,
                     **self.extra_connection_args,
                 )
             elif self.authenticator == SnowflakeAuthenticator.OKTA:
@@ -65,7 +63,6 @@ if SNOWFLAKE_INSTALLED:
                     password=self.sf_password,
                     warehouse=self.warehouse,
                     authenticator=f"https://{self.okta_account_name}.okta.com/",
-                    converter_class=SnowflakeNoConverterToPython,
                     **self.extra_connection_args,
                 )
             elif self.authenticator == SnowflakeAuthenticator.TOKEN:
@@ -76,7 +73,6 @@ if SNOWFLAKE_INSTALLED:
                     warehouse=self.warehouse,
                     authenticator="oauth",
                     token=self.oauth_token,
-                    converter_class=SnowflakeNoConverterToPython,
                     **self.extra_connection_args,
                 )
 
